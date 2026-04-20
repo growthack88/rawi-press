@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Rawi Press — تسجيل الدخول</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+body { background: var(--paper-white); }
+.auth {
+  display: grid; grid-template-columns: 420px 1fr;
+  min-height: 100vh;
+}
+.auth-left {
+  background: var(--paper-cream);
+  border-inline-end: 1px solid var(--border);
+  padding: 32px 36px;
+  display: flex; flex-direction: column;
+  position: relative;
+}
+.auth-quote {
+  margin-top: auto;
+  padding: 24px 0;
+}
+.auth-quote blockquote {
+  font-family: var(--f-serif); font-style: italic;
+  font-size: 20px; line-height: 1.55; color: var(--ink-black);
+  margin: 0 0 16px; padding-inline-start: 18px;
+  border-inline-start: 2px solid var(--rawi-red);
+}
+.auth-quote cite {
+  font-style: normal; font-family: var(--f-sans);
+  font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--text-muted); font-weight: 500;
+}
+.auth-wire {
+  margin-top: 20px; padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--text-3); line-height: 1.8;
+}
+.auth-wire .tag-wire { color: var(--rawi-red); font-weight: 600; }
+
+.auth-right {
+  padding: 48px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--paper-white);
+}
+.auth-form { width: 100%; max-width: 420px; }
+.auth-form h2 { margin: 14px 0 8px; font-size: 28px; }
+.auth-form .subtitle { color: var(--text-muted); margin-bottom: 32px; }
+.field { margin-bottom: 16px; }
+.field-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.field-row .forgot { font-size: 12px; color: var(--rawi-red); }
+.input-wrap { position: relative; }
+.input-wrap svg.lead {
+  position: absolute; inset-inline-start: 12px; top: 50%; transform: translateY(-50%);
+  width: 16px; height: 16px; color: var(--text-muted); stroke-width: 1.5;
+}
+.input-wrap .input { padding-inline-start: 40px; }
+.input-wrap .toggle-pw {
+  position: absolute; inset-inline-end: 8px; top: 50%; transform: translateY(-50%);
+  background: transparent; border: 0; color: var(--text-muted); padding: 6px;
+  display: inline-flex;
+}
+.input-wrap .toggle-pw:hover { color: var(--rawi-red); }
+.divider {
+  display: flex; align-items: center; gap: 12px;
+  margin: 24px 0; color: var(--text-muted); font-size: 12px;
+}
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.sso-btn {
+  width: 100%; height: 44px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r-md); font-weight: 500; color: var(--text);
+  font-family: inherit;
+}
+.sso-btn:hover { background: var(--bg-soft); border-color: var(--ink-ash); }
+.auth-foot {
+  margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border-soft);
+  text-align: center; font-size: 13px; color: var(--text-muted);
+}
+.auth-foot a { color: var(--rawi-red); font-weight: 500; }
+
+.auth-topbar {
+  position: absolute; top: 0; inset-inline-end: 0;
+  padding: 20px 24px; display: flex; gap: 16px; align-items: center;
+  font-family: var(--f-mono); font-size: 11px; color: var(--text-muted);
+}
+.auth-topbar a { color: var(--text-muted); }
+.auth-topbar a:hover { color: var(--rawi-red); }
+
+@media (max-width: 900px) {
+  .auth { grid-template-columns: 1fr; }
+  .auth-left { display: none; }
+  .auth-right { padding: 24px; }
+}
+</style>
+</head>
+<body>
+<div class="auth">
+  <aside class="auth-left">
+    <a href="index.html" class="logo logo-lg">
+      <span class="logo-mark">R</span>
+      <span>Rawi Press</span>
+    </a>
+
+    <div class="auth-quote">
+      <div class="eyebrow" style="margin-bottom:14px">EDITORIAL VOICE · شهادة محرّر</div>
+      <blockquote>
+        راوي برس غيّرت طريقة عملنا كلياً. الأخبار الرسمية توصلنا قبل الوكالات الدولية، بجودة بث وجاهزة للشاشة.
+      </blockquote>
+      <cite>— محرر أخبار · قناة سعودية كبرى</cite>
+
+      <div class="auth-wire">
+        <div><span class="tag-wire">RAWI WIRE</span> · APR 20 · 14:23 RUH</div>
+        <div style="color:var(--text-2); margin-top:6px">وزير الصحة يفتتح مؤتمر السرطان الوطني</div>
+        <div>قمة الاستثمار السعودية: الجلسة الافتتاحية مباشرة</div>
+        <div>حزمة استثمارات بقيمة 80 مليار دولار في قطاع التقنية</div>
+      </div>
+    </div>
+  </aside>
+
+  <section class="auth-right">
+    <div class="auth-topbar">
+      <a href="index.html">← العودة للرئيسية</a>
+      <span style="opacity:.4">·</span>
+      <span>AR / EN / UR</span>
+    </div>
+
+    <form class="auth-form" onsubmit="event.preventDefault(); location.href='dashboard.html'">
+      <div class="eyebrow">PROTECTED ACCESS · الوصول المحمي</div>
+      <h2>تسجيل الدخول إلى المنصة</h2>
+      <div class="subtitle">المنصة متاحة للمؤسسات المعتمدة فقط</div>
+
+      <div class="field">
+        <label class="label" for="email">البريد المؤسسي</label>
+        <div class="input-wrap">
+          <svg class="lead" data-lucide="mail"></svg>
+          <input id="email" type="email" class="input" placeholder="name@ministry.gov.sa" required/>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-row">
+          <label class="label" for="pw" style="margin:0">كلمة المرور</label>
+          <a href="#" class="forgot">نسيت كلمة المرور؟</a>
+        </div>
+        <div class="input-wrap">
+          <svg class="lead" data-lucide="lock"></svg>
+          <input id="pw" type="password" class="input" placeholder="••••••••••" required/>
+          <button type="button" class="toggle-pw" onclick="const p=document.getElementById('pw'); p.type=p.type==='password'?'text':'password'; this.querySelector('svg').setAttribute('data-lucide', p.type==='password'?'eye':'eye-off'); lucide.createIcons();">
+            <svg data-lucide="eye" style="width:16px;height:16px"></svg>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg" style="width:100%; justify-content:center; margin-top:8px">
+        الدخول إلى المنصة ←
+      </button>
+
+      <div class="divider">أو</div>
+
+      <button type="button" class="sso-btn">
+        <svg data-lucide="shield-check" style="width:16px;height:16px"></svg>
+        تسجيل الدخول بـ SAML · Enterprise SSO
+      </button>
+
+      <div class="auth-foot">
+        لست مسجلاً؟ <a href="request-access.html">طلب وصول للمنصة ←</a>
+      </div>
+    </form>
+  </section>
+</div>
+
+<script src="assets/rawi.js"></script>
+<script>lucide.createIcons();</script>
+</body>
+</html>

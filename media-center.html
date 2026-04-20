@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Rawi Press — المركز الإعلامي</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+.mc-hero {
+  background: var(--ink-black); color: white;
+  border-radius: var(--r-xl); padding: 40px 44px;
+  margin-bottom: 24px; position: relative; overflow: hidden;
+}
+.mc-hero::before {
+  content: ''; position: absolute; top: 0; inset-inline-start: 44px;
+  width: 56px; height: 3px; background: var(--rawi-red);
+}
+.mc-hero .eyebrow { color: var(--rawi-red); margin-bottom: 10px; }
+.mc-hero h1 {
+  font-family: var(--f-sans); font-size: 32px;
+  margin: 8px 0 10px; font-weight: 600; letter-spacing: -0.01em;
+  color: white;
+}
+.mc-hero .sub { color: rgba(255,255,255,0.7); font-size: 15px; line-height: 1.65; max-width: 640px; margin-bottom: 24px; }
+.mc-hero .row-ctas { display: flex; gap: 10px; }
+.mc-hero .ministry-crest {
+  position: absolute; top: 40px; inset-inline-end: 44px;
+  width: 80px; height: 80px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-serif); font-size: 32px; font-style: italic; color: rgba(255,255,255,0.6);
+}
+
+.mc-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 24px; }
+.mc-stat { background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 22px 24px; position: relative; }
+.mc-stat::before { content: ''; position: absolute; top: 0; inset-inline-start: 24px; width: 24px; height: 3px; background: var(--rawi-red); }
+.mc-stat .lbl { font-family: var(--f-sans); font-size: 12px; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; margin: 14px 0 8px; }
+.mc-stat .val { font-family: var(--f-serif); font-size: 36px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; color: var(--ink-black); }
+.mc-stat .val .sep { color: var(--text-muted); font-weight: 400; font-size: 22px; }
+.mc-stat .delta { font-family: var(--f-mono); font-size: 11px; color: var(--status-verified); margin-top: 8px; }
+
+.mc-split { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; }
+@media (max-width: 1100px) { .mc-split, .mc-stats { grid-template-columns: 1fr; } }
+
+/* Journalists table */
+.j-toolbar { display: flex; gap: 10px; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--border-soft); }
+.j-toolbar .input { height: 34px; }
+.j-row {
+  display: grid; grid-template-columns: 40px 1fr 130px 110px 80px;
+  align-items: center; gap: 14px; padding: 14px 20px;
+  border-bottom: 1px solid var(--border-soft); font-size: 13px;
+}
+.j-row:last-child { border-bottom: 0; }
+.j-row:hover { background: var(--bg-soft); }
+.j-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--paper-linen); display: inline-flex;
+  align-items: center; justify-content: center;
+  font-weight: 600; color: var(--text-2); font-size: 14px;
+}
+.j-info .name { font-weight: 600; color: var(--ink-black); font-size: 14px; margin-bottom: 2px; }
+.j-info .org { font-family: var(--f-mono); font-size: 11px; color: var(--text-muted); }
+.j-last { font-family: var(--f-mono); font-size: 11px; color: var(--text-muted); }
+.j-actions { display: flex; gap: 4px; justify-content: flex-end; }
+.j-actions .btn-icon { width: 30px; height: 30px; }
+
+/* Events timeline */
+.tl { position: relative; padding: 4px 0; }
+.tl-item {
+  position: relative; padding: 14px 20px 14px 44px;
+  border-bottom: 1px solid var(--border-soft);
+  cursor: pointer;
+  transition: background 120ms;
+}
+.tl-item:hover { background: var(--bg-soft); }
+.tl-item:last-child { border-bottom: 0; }
+[dir="rtl"] .tl-item { padding: 14px 44px 14px 20px; }
+.tl-item::before {
+  content: ''; position: absolute;
+  top: 22px; inset-inline-start: 24px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--rawi-red); z-index: 1;
+}
+.tl-item.past::before { background: var(--ink-ash); }
+.tl-item::after {
+  content: ''; position: absolute;
+  top: 30px; bottom: -1px; inset-inline-start: 28px;
+  width: 1px; background: var(--border);
+}
+.tl-item:last-child::after { display: none; }
+.tl-item .tl-date {
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--rawi-red); letter-spacing: 0.03em; font-weight: 500;
+  margin-bottom: 4px; text-transform: uppercase;
+}
+.tl-item.past .tl-date { color: var(--text-muted); }
+.tl-item .tl-title { font-size: 14px; font-weight: 500; line-height: 1.45; margin-bottom: 4px; }
+.tl-item .tl-meta { font-family: var(--f-mono); font-size: 11px; color: var(--text-muted); }
+.tl-section-head {
+  font-family: var(--f-sans); font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-muted);
+  padding: 12px 20px 8px; font-weight: 600;
+  background: var(--paper-cream); border-bottom: 1px solid var(--border-soft);
+}
+
+/* Event modal */
+.em-backdrop {
+  position: fixed; inset: 0; background: rgba(10,10,10,0.6);
+  z-index: 300; display: none; align-items: center; justify-content: center;
+  backdrop-filter: blur(2px);
+}
+.em-backdrop.show { display: flex; animation: fadeIn 180ms ease; }
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+.em-modal {
+  background: var(--bg); border-radius: var(--r-xl);
+  max-width: 680px; width: 92vw; max-height: 86vh; overflow: auto;
+  box-shadow: var(--sh-lg);
+}
+.em-head { padding: 22px 26px 18px; border-bottom: 1px solid var(--border-soft); display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.em-head h3 { margin: 0 0 4px; font-size: 20px; line-height: 1.35; }
+.em-head .stamp { font-family: var(--f-mono); font-size: 11px; color: var(--rawi-red); letter-spacing: 0.04em; margin-bottom: 6px; }
+.em-body { padding: 22px 26px; }
+.em-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 18px; }
+.em-cell { padding: 10px 12px; background: var(--bg-soft); border-radius: var(--r-md); border: 1px solid var(--border-soft); }
+.em-cell .k { font-family: var(--f-mono); font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 4px; }
+.em-cell .v { font-size: 14px; font-weight: 500; }
+.em-section-label { font-family: var(--f-sans); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin: 14px 0 10px; }
+.em-inv-list { display: flex; flex-direction: column; gap: 6px; max-height: 180px; overflow: auto; }
+.em-inv {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px; background: var(--bg-soft);
+  border: 1px solid var(--border-soft); border-radius: var(--r-sm);
+  font-size: 13px;
+}
+.em-inv .name { flex: 1; font-weight: 500; }
+.em-inv .st { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.04em; }
+.em-inv .st.confirmed { color: var(--status-verified); }
+.em-inv .st.pending { color: var(--status-breaking); }
+.em-foot { padding: 18px 26px; border-top: 1px solid var(--border-soft); display: flex; justify-content: flex-end; gap: 10px; }
+</style>
+</head>
+<body>
+<div id="app-root"></div>
+<script src="assets/rawi.js"></script>
+<script src="assets/appshell.js"></script>
+<script>
+const journalists = [
+  ['س','سارة العتيبي','صحيفة الرياض · محررة صحة','نشط','اليوم 11:42','verified'],
+  ['A','Ahmad Al-Zahrani','Arab News · Senior Reporter','نشط','اليوم 09:18','verified'],
+  ['ف','فيصل الدوسري','MBC News · مراسل','نشط','أمس 18:33','verified'],
+  ['ن','نورة الحربي','قناة العربية · مذيعة','مجاني 3 شهور','أمس 14:05','trial'],
+  ['R','Rania Khoury','CNN Arabic · Producer','نشط','منذ 3 أيام','verified'],
+  ['خ','خالد السعدي','صحيفة عكاظ','في الانتظار','—','pending'],
+  ['م','مها الشمري','Sky News Arabia','نشط','منذ 4 أيام','verified'],
+  ['و','وليد المحمود','Al Jazeera English','مجاني 3 شهور','منذ أسبوع','trial'],
+  ['ب','بندر العبدلي','صحيفة الاقتصادية','منتهي','2 أبريل','expired'],
+];
+
+const statusTag = (s) => {
+  const map = {
+    verified: ['tag-verified','نشط'],
+    trial: ['tag-breaking','مجاني 3ش'],
+    pending: ['','في الانتظار'],
+    expired: ['','منتهي'],
+  };
+  const [cls, label] = map[s] || ['',s];
+  return `<span class="tag ${cls}">${label}</span>`;
+};
+
+const mainHTML = `
+  <!-- Hero -->
+  <div class="mc-hero">
+    <div class="eyebrow">VIRTUAL MEDIA CENTER · المركز الإعلامي الافتراضي</div>
+    <h1>مركز وزارة الصحة الإعلامي</h1>
+    <p class="sub">غرفة تحكم خاصة بك — تدعو صحفيين من شبكتك، تستضيف فعالياتك، وتشاركهم محتواك الحصري قبل نشره العام. كل إحصائية، كل تفاعل، في مكان واحد.</p>
+    <div class="row-ctas">
+      <button class="btn btn-primary"><svg data-lucide="user-plus" style="width:14px;height:14px"></svg>دعوة صحفي جديد</button>
+      <button class="btn btn-ghost" style="border-color:rgba(255,255,255,0.3); color:white"><svg data-lucide="calendar-plus" style="width:14px;height:14px"></svg>جدولة فعالية</button>
+    </div>
+    <div class="ministry-crest">و.ص</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="mc-stats">
+    <div class="mc-stat">
+      <div class="eyebrow-dark">ACTIVE JOURNALISTS</div>
+      <div class="lbl">صحفيون في شبكتك</div>
+      <div class="val">34<span class="sep">/50</span></div>
+      <div class="delta">↑ 7 صحفيين هذا الشهر</div>
+    </div>
+    <div class="mc-stat">
+      <div class="eyebrow-dark">UPCOMING EVENTS</div>
+      <div class="lbl">فعاليات قادمة</div>
+      <div class="val">5</div>
+      <div class="delta">خلال 14 يوماً قادماً</div>
+    </div>
+    <div class="mc-stat">
+      <div class="eyebrow-dark">ENGAGEMENT RATE</div>
+      <div class="lbl">معدل المشاركة</div>
+      <div class="val">78<span class="sep">%</span></div>
+      <div class="delta">↑ 12 نقطة مقارنة بالربع الماضي</div>
+    </div>
+  </div>
+
+  <!-- Main split -->
+  <div class="mc-split">
+    <!-- Left: Journalists -->
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <h3 style="margin:0 0 2px; font-size:16px">شبكة الصحفيين · NETWORK</h3>
+          <div class="mono muted" style="font-size:11px">34 نشط · 3 في الانتظار · 1 منتهي</div>
+        </div>
+        <button class="btn btn-primary btn-sm"><svg data-lucide="user-plus" style="width:13px;height:13px"></svg>دعوة</button>
+      </div>
+      <div class="j-toolbar">
+        <div style="position:relative; flex:1">
+          <svg data-lucide="search" style="width:14px; height:14px; position:absolute; top:50%; inset-inline-start:10px; transform:translateY(-50%); color:var(--text-muted)"></svg>
+          <input class="input" placeholder="ابحث بالاسم أو المؤسسة..." style="padding-inline-start:30px"/>
+        </div>
+        <select class="input" style="height:34px; min-width:120px">
+          <option>كل الحالات</option>
+          <option>نشط</option>
+          <option>في الانتظار</option>
+          <option>منتهي</option>
+        </select>
+      </div>
+      <div>
+        ${journalists.map(j => `
+          <div class="j-row">
+            <div class="j-avatar">${j[0]}</div>
+            <div class="j-info">
+              <div class="name">${j[1]}</div>
+              <div class="org">${j[2]}</div>
+            </div>
+            <div>${statusTag(j[5])}</div>
+            <div class="j-last">${j[4]}</div>
+            <div class="j-actions">
+              <button class="btn-icon" title="مراسلة"><svg data-lucide="mail" style="width:13px;height:13px"></svg></button>
+              <button class="btn-icon" title="صلاحيات"><svg data-lucide="shield" style="width:13px;height:13px"></svg></button>
+              <button class="btn-icon" title="المزيد"><svg data-lucide="more-horizontal" style="width:13px;height:13px"></svg></button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="panel-footer">
+        <a href="#" class="btn btn-text">عرض الشبكة الكاملة (34 صحفي) ←</a>
+      </div>
+    </div>
+
+    <!-- Right: Events timeline -->
+    <div class="panel">
+      <div class="panel-header">
+        <h3 style="margin:0; font-size:16px">الفعاليات · EVENTS</h3>
+        <button class="btn btn-sm btn-ghost"><svg data-lucide="calendar-plus" style="width:13px;height:13px"></svg>جديد</button>
+      </div>
+      <div class="tl">
+        <div class="tl-section-head">قادم · UPCOMING</div>
+
+        <div class="tl-item" onclick="openEvent('camp')">
+          <div class="tl-date">SAT · 26 APR 2026 · 10:00 RUH</div>
+          <div class="tl-title">إطلاق حملة التشخيص المبكر للسرطان 2026</div>
+          <div class="tl-meta">فندق الفيصلية · 28 صحفي مدعو · <span style="color:var(--status-breaking)">14 مؤكد · 8 في الانتظار</span></div>
+        </div>
+
+        <div class="tl-item" onclick="openEvent('cabinet')">
+          <div class="tl-date">TUE · 29 APR 2026 · 13:30 RUH</div>
+          <div class="tl-title">إحاطة مجلس الوزراء — قطاع الصحة</div>
+          <div class="tl-meta">قاعة الصحافة الملكية · 12 صحفي · <span style="color:var(--status-verified)">جميعهم مؤكدون</span></div>
+        </div>
+
+        <div class="tl-item" onclick="openEvent('hospital')">
+          <div class="tl-date">SUN · 04 MAY 2026 · 09:00 JED</div>
+          <div class="tl-title">افتتاح مستشفى الملك فهد للأورام — جدة</div>
+          <div class="tl-meta">جدة · 22 صحفي · <span class="tag tag-live" style="font-size:9px; padding:2px 5px">EMBARGO 08:30</span></div>
+        </div>
+
+        <div class="tl-item" onclick="openEvent('who')">
+          <div class="tl-date">WED · 07 MAY 2026 · 11:00 GVA</div>
+          <div class="tl-title">توقيع اتفاقية مع منظمة الصحة العالمية</div>
+          <div class="tl-meta">جنيف · تغطية حصرية · 4 صحفيين</div>
+        </div>
+
+        <div class="tl-item" onclick="openEvent('annual')">
+          <div class="tl-date">MON · 12 MAY 2026 · 14:00 RUH</div>
+          <div class="tl-title">التقرير السنوي لوزارة الصحة 2025</div>
+          <div class="tl-meta">مقر الوزارة · 30+ صحفي · <span style="color:var(--text-muted)">مسودة</span></div>
+        </div>
+
+        <div class="tl-section-head">سابق · PAST COVERAGE</div>
+
+        <div class="tl-item past">
+          <div class="tl-date">SAT · 19 APR 2026</div>
+          <div class="tl-title">افتتاح مؤتمر السرطان الوطني</div>
+          <div class="tl-meta">28 تغطية · 4.2M وصول · 87% إيجابي</div>
+        </div>
+
+        <div class="tl-item past">
+          <div class="tl-date">THU · 10 APR 2026</div>
+          <div class="tl-title">إطلاق تطبيق صحتي 3.0</div>
+          <div class="tl-meta">19 تغطية · 2.1M وصول · 92% إيجابي</div>
+        </div>
+
+        <div class="tl-item past">
+          <div class="tl-date">MON · 31 MAR 2026</div>
+          <div class="tl-title">نتائج حملة التطعيم الربيعية</div>
+          <div class="tl-meta">14 تغطية · 980K وصول · 81% إيجابي</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Event modal -->
+  <div class="em-backdrop" id="eventModal" onclick="if(event.target.id==='eventModal')closeEvent()">
+    <div class="em-modal">
+      <div class="em-head">
+        <div>
+          <div class="stamp">VIRTUAL MEDIA CENTER · EVENT</div>
+          <h3 id="ev-title">إطلاق حملة التشخيص المبكر للسرطان 2026</h3>
+          <div class="mono muted">RUH · SAT 26 APR 2026 · 10:00 GMT+3</div>
+        </div>
+        <button class="btn-icon" onclick="closeEvent()"><svg data-lucide="x" style="width:16px;height:16px"></svg></button>
+      </div>
+      <div class="em-body">
+        <div class="em-grid">
+          <div class="em-cell"><div class="k">LOCATION</div><div class="v">فندق الفيصلية — الرياض</div></div>
+          <div class="em-cell"><div class="k">EMBARGO</div><div class="v">09:30 RUH — قبل 30 دقيقة من البدء</div></div>
+          <div class="em-cell"><div class="k">INVITED</div><div class="v">28 صحفي من 14 مؤسسة</div></div>
+          <div class="em-cell"><div class="k">STATUS</div><div class="v"><span class="tag tag-breaking">مسودة — لم يتم الإرسال</span></div></div>
+        </div>
+
+        <div class="em-section-label">محتوى محضّر · PRE-LOADED CONTENT</div>
+        <div style="display:flex; flex-direction:column; gap:6px">
+          <div class="em-inv"><svg data-lucide="video" style="width:14px;height:14px;color:var(--rawi-red)"></svg><span class="name">فيديو تعريفي — 2:47 · 4K</span><span class="st">READY</span></div>
+          <div class="em-inv"><svg data-lucide="file-text" style="width:14px;height:14px;color:var(--rawi-red)"></svg><span class="name">بيان صحفي — 847 كلمة · AR/EN/UR</span><span class="st">READY</span></div>
+          <div class="em-inv"><svg data-lucide="image" style="width:14px;height:14px;color:var(--rawi-red)"></svg><span class="name">24 صورة HD · معلومات عن الحقوق</span><span class="st">READY</span></div>
+          <div class="em-inv"><svg data-lucide="bar-chart-3" style="width:14px;height:14px;color:var(--rawi-red)"></svg><span class="name">إنفوغرافيك — إحصائيات الحملة</span><span class="st pending">جاري التوليد</span></div>
+        </div>
+
+        <div class="em-section-label">قائمة المدعوين · INVITEES</div>
+        <div class="em-inv-list">
+          <div class="em-inv"><div class="j-avatar" style="width:26px;height:26px;font-size:11px">س</div><span class="name">سارة العتيبي — صحيفة الرياض</span><span class="st confirmed">CONFIRMED</span></div>
+          <div class="em-inv"><div class="j-avatar" style="width:26px;height:26px;font-size:11px">A</div><span class="name">Ahmad Al-Zahrani — Arab News</span><span class="st confirmed">CONFIRMED</span></div>
+          <div class="em-inv"><div class="j-avatar" style="width:26px;height:26px;font-size:11px">ف</div><span class="name">فيصل الدوسري — MBC News</span><span class="st confirmed">CONFIRMED</span></div>
+          <div class="em-inv"><div class="j-avatar" style="width:26px;height:26px;font-size:11px">ن</div><span class="name">نورة الحربي — قناة العربية</span><span class="st pending">PENDING</span></div>
+          <div class="em-inv"><div class="j-avatar" style="width:26px;height:26px;font-size:11px">R</div><span class="name">Rania Khoury — CNN Arabic</span><span class="st pending">PENDING</span></div>
+        </div>
+      </div>
+      <div class="em-foot">
+        <button class="btn btn-ghost" onclick="closeEvent()">إلغاء</button>
+        <button class="btn btn-ghost"><svg data-lucide="save" style="width:13px;height:13px"></svg>حفظ المسودة</button>
+        <button class="btn btn-primary"><svg data-lucide="send" style="width:13px;height:13px"></svg>إرسال الدعوات (28)</button>
+      </div>
+    </div>
+  </div>
+`;
+
+renderAppShell({ active: 'media-center', tier: 'gov', mainHTML });
+
+window.openEvent = () => {
+  document.getElementById('eventModal').classList.add('show');
+  lucide.createIcons();
+};
+window.closeEvent = () => document.getElementById('eventModal').classList.remove('show');
+</script>
+</body>
+</html>

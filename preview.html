@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Rawi Press — معاينة الخبر</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+.crumb { font-family: var(--f-mono); font-size: 11px; color: var(--text-muted); margin-bottom: 14px; }
+.crumb a:hover { color: var(--rawi-red); }
+.crumb .sep { opacity: 0.4; margin: 0 6px; }
+
+.preview-grid { display: grid; grid-template-columns: 1fr 360px; gap: 24px; }
+@media (max-width: 1100px) { .preview-grid { grid-template-columns: 1fr; } }
+
+.player {
+  aspect-ratio: 16/9; background: #0a0a0a;
+  border-radius: var(--r-lg); overflow: hidden;
+  position: relative;
+}
+.player::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(180deg, rgba(10,10,10,0.1) 0%, rgba(10,10,10,0.55) 100%);
+  pointer-events: none;
+}
+.player > * { position: relative; z-index: 1; }
+.player .top-bar {
+  position: absolute; top: 14px; inset-inline-start: 14px; inset-inline-end: 14px;
+  display: flex; gap: 8px; align-items: center;
+}
+.player .center-play {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+}
+.player .center-play button {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: rgba(255,255,255,0.95); border: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.player .center-play svg { width: 28px; height: 28px; color: var(--ink-black); margin-inline-start: 4px; }
+.player .controls {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 14px 18px 12px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  color: white;
+}
+.player .scrubber {
+  height: 3px; background: rgba(255,255,255,0.25); border-radius: 2px;
+  position: relative; margin-bottom: 10px;
+}
+.player .scrubber .fill { position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 32%; background: var(--rawi-red); border-radius: 2px; }
+.player .scrubber .thumb { position: absolute; top: 50%; inset-inline-start: 32%; width: 12px; height: 12px; border-radius: 50%; background: var(--rawi-red); transform: translate(-50%, -50%); }
+.player .c-row { display: flex; align-items: center; gap: 14px; font-family: var(--f-mono); font-size: 11px; }
+.player .c-row button { background: transparent; border: 0; color: white; display: inline-flex; }
+.player .c-row .time { margin-inline-start: auto; letter-spacing: 0.05em; }
+
+.article-head { margin: 28px 0 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+.byline {
+  font-family: var(--f-mono); font-size: 11px; color: var(--text-muted);
+  letter-spacing: 0.05em; margin-bottom: 10px;
+}
+.byline strong { color: var(--ink-black); }
+.article-title { font-size: 30px; line-height: 1.3; font-weight: 600; margin: 10px 0 14px; max-width: 780px; }
+.drop-rule { width: 48px; height: 2px; background: var(--rawi-red); margin: 18px 0; }
+.lede {
+  font-family: var(--f-serif); font-style: italic; font-size: 20px;
+  line-height: 1.55; color: var(--ink-graphite);
+  max-width: 720px; margin: 0 0 20px; padding-inline-start: 16px;
+  border-inline-start: 2px solid var(--border);
+}
+.article-body { max-width: 720px; font-size: 16px; line-height: 1.85; color: var(--ink-graphite); }
+.article-body p { margin: 0 0 16px; }
+.article-body .credit { font-family: var(--f-mono); font-size: 11px; color: var(--text-muted); margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border-soft); letter-spacing: 0.04em; }
+
+.downloads { margin-top: 36px; }
+.downloads h3 { font-size: 18px; margin: 0 0 16px; display: flex; align-items: center; gap: 10px; }
+.dl-tier {
+  display: flex; gap: 16px; align-items: center;
+  padding: 18px 20px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: var(--r-lg);
+  margin-bottom: 10px; position: relative;
+}
+.dl-tier .dl-icon {
+  width: 44px; height: 44px; border-radius: var(--r-md);
+  background: var(--bg-soft); color: var(--text-2);
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.dl-tier.premium .dl-icon { background: rgba(184,134,11,0.12); color: var(--status-exclusive); }
+.dl-tier.locked { opacity: 0.7; }
+.dl-tier .dl-info { flex: 1; }
+.dl-tier .dl-title { font-weight: 600; font-size: 15px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.dl-tier .dl-specs { font-family: var(--f-mono); font-size: 11px; color: var(--text-muted); letter-spacing: 0.03em; }
+.dl-tier .status-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; padding: 3px 8px; border-radius: var(--r-sm);
+  font-family: var(--f-sans); font-weight: 500;
+}
+.dl-tier .status-pill.avail { background: rgba(44,127,76,0.12); color: var(--status-verified); }
+.dl-tier .status-pill.prem { background: rgba(184,134,11,0.12); color: var(--status-exclusive); }
+
+/* Sidebar */
+.ai-sidebar { position: sticky; top: 100px; align-self: flex-start; }
+.ai-sidebar .panel-header .h3 { display: flex; gap: 10px; align-items: center; }
+.ai-list { padding: 8px; }
+.ai-tool {
+  display: flex; gap: 12px; padding: 12px;
+  border-radius: var(--r-md); transition: background 120ms;
+  cursor: pointer; align-items: flex-start;
+}
+.ai-tool:hover { background: var(--bg-soft); }
+.ai-tool.locked { opacity: 0.55; cursor: not-allowed; }
+.ai-tool .ai-ico {
+  width: 36px; height: 36px; border-radius: var(--r-sm);
+  background: var(--rawi-red-tint); color: var(--rawi-red);
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.ai-tool.locked .ai-ico { background: var(--bg-soft); color: var(--text-muted); }
+.ai-tool .ai-name { font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+.ai-tool .ai-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--status-verified); }
+.ai-tool .ai-desc { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin: 3px 0 6px; }
+.usage-bar { height: 3px; background: var(--paper-linen); border-radius: 2px; overflow: hidden; width: 120px; margin-top: 4px; }
+.usage-bar .fill { height: 100%; background: var(--status-exclusive); border-radius: 2px; }
+.ai-usage-text { font-family: var(--f-mono); font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+
+.transcript {
+  background: var(--paper-cream); border-radius: var(--r-lg);
+  padding: 18px; margin-top: 24px;
+  border-inline-start: 3px solid var(--rawi-red);
+  max-width: 720px;
+}
+.transcript h5 { margin: 0 0 8px; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); font-family: var(--f-sans); font-weight: 500; }
+.transcript p { font-size: 14px; line-height: 1.7; margin: 0; }
+</style>
+</head>
+<body>
+<div id="app-root"></div>
+<script src="assets/content.js"></script>
+<script src="assets/rawi.js"></script>
+<script src="assets/appshell.js"></script>
+<script>
+// Pick story from ?id= or default to first featured
+const urlParams = new URLSearchParams(window.location.search);
+const storyId = parseInt(urlParams.get('id'), 10);
+const story = getContentById(storyId) || getFeatured()[0] || RAWI_CONTENT[0];
+const catLabel = CATEGORY_LABELS[story.category];
+
+// Build related rail (same category, exclude current)
+const related = RAWI_CONTENT.filter(v => v.id !== story.id).slice(0, 3);
+
+// Body paragraphs — generated from description with a "more info" continuation
+const bodyParas = [
+  story.ar.description,
+  'تُعدّ هذه التغطية جزءاً من سلسلة إنتاجية متكاملة من غرفة أخبار راوي، والتي تصل عادةً إلى أكثر من 40 منفذاً إعلامياً خلال ساعات قليلة من النشر. تشمل الحزمة الرئيسية الفيديو الأساسي بجودة 1080p، بالإضافة إلى اللقطات الخام للمشتركين من القنوات والمؤسسات الإعلامية الكبرى.',
+  'يمكن للمحررين استخدام استوديو الذكاء الاصطناعي لإنشاء فويس أوفر بصوت موحّد بأي لغة، أو توليد إنفوغرافيك بهوية القناة، أو إعادة تحرير النص ليتناسب مع أسلوب التحرير الداخلي — كل ذلك ضمن دقائق معدودة قبل بث المحتوى.',
+];
+
+const mainHTML = `
+  <div class="crumb">
+    <a href="library.html">المكتبة</a>
+    <span class="sep">/</span>
+    <a href="library.html?cat=${story.category}">${catLabel.ar}</a>
+    <span class="sep">/</span>
+    <span>${story.ar.title}</span>
+  </div>
+
+  <div class="preview-grid">
+    <div>
+      <div class="player" style="background-image:url('${story.thumbnail}'); background-size:cover; background-position:center">
+        <div class="top-bar">
+          ${story.tier === 'premium' ? '<span class="tag tag-premium">PREMIUM · 4K</span>' : '<span class="tag" style="background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.25)">STANDARD</span>'}
+          ${story.hasRushes ? '<span class="tag" style="background:rgba(184,134,11,0.85); color:white">+ RUSHES</span>' : ''}
+          <div style="flex:1"></div>
+          <button class="btn-icon" style="background:rgba(255,255,255,0.12); color:white"><svg data-lucide="share-2" style="width:14px;height:14px"></svg></button>
+          <button class="btn-icon" style="background:rgba(255,255,255,0.12); color:white"><svg data-lucide="bookmark" style="width:14px;height:14px"></svg></button>
+        </div>
+        <div class="center-play"><button><svg data-lucide="play" style="fill:currentColor"></svg></button></div>
+        <div class="controls">
+          <div class="scrubber"><div class="fill"></div><div class="thumb"></div></div>
+          <div class="c-row">
+            <button><svg data-lucide="play" style="width:14px;height:14px;fill:white"></svg></button>
+            <button><svg data-lucide="skip-back" style="width:14px;height:14px"></svg></button>
+            <button><svg data-lucide="volume-2" style="width:14px;height:14px"></svg></button>
+            <span class="time">00:00 / ${story.duration}</span>
+            <button style="display:inline-flex;gap:4px;align-items:center">1.0x</button>
+            <button><svg data-lucide="captions" style="width:14px;height:14px"></svg></button>
+            <button><svg data-lucide="settings" style="width:14px;height:14px"></svg></button>
+            <button><svg data-lucide="maximize" style="width:14px;height:14px"></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-head">
+        <div class="byline">RIYADH · ${formatDateEN(story.publishedAt).toUpperCase()} · ${new Date(story.publishedAt).toUTCString().slice(17,22)} GMT+0 &nbsp; · &nbsp; BY <strong>RAWI NEWSROOM</strong> · VERIFIED PARTNER FEED</div>
+        <h1 class="article-title">${story.ar.title}</h1>
+        <div class="drop-rule"></div>
+        <div class="row gap-2" style="margin-top:14px">
+          <span class="tag tag-ar tag-politics">${catLabel.ar}</span>
+          ${story.tier === 'premium' ? '<span class="tag tag-premium">PREMIUM</span>' : ''}
+          ${story.hasRushes ? '<span class="tag" style="background:rgba(184,134,11,0.12); color:var(--status-exclusive); border:1px solid rgba(184,134,11,0.3)">+ EXTRA RUSHES</span>' : ''}
+          <span class="tag tag-verified">VERIFIED SOURCE</span>
+        </div>
+      </div>
+
+      <blockquote class="lede">
+        ${story.ar.description}
+      </blockquote>
+
+      <div class="article-body">
+        ${bodyParas.map(p => `<p>${p}</p>`).join('')}
+        <div class="credit">FOOTAGE & PHOTOS: ${catLabel.en.toUpperCase()} PARTNERS · أرشيف راوي برس. ALL RIGHTS RESERVED.</div>
+      </div>
+
+      <div class="transcript">
+        <h5>ORIGINAL LANGUAGE · EN</h5>
+        <p>${story.en.description}</p>
+      </div>
+
+      <div class="downloads">
+        <h3><svg data-lucide="download" style="width:18px;height:18px"></svg>طبقات التحميل المتاحة</h3>
+
+        <div class="dl-tier">
+          <div class="dl-icon"><svg data-lucide="play-circle" style="width:20px;height:20px"></svg></div>
+          <div class="dl-info">
+            <div class="dl-title">الفيديو الأساسي المنشور <span class="status-pill avail"><span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block"></span>متاح</span></div>
+            <div class="dl-specs">MP4 · 1080p H.264 · ~${Math.round(50 + story.id * 3.4)} MB · متاح لكل الاشتراكات</div>
+          </div>
+          <button class="btn btn-primary"><svg data-lucide="download" style="width:14px;height:14px"></svg>تحميل</button>
+        </div>
+
+        ${story.hasRushes ? `<div class="dl-tier premium">
+          <div class="dl-icon"><svg data-lucide="film" style="width:20px;height:20px"></svg></div>
+          <div class="dl-info">
+            <div class="dl-title">اللقطات الإضافية — Premium Rushes <span class="status-pill prem">EXCLUSIVE</span></div>
+            <div class="dl-specs">${8 + (story.id % 12)} RAW CLIPS · 4K ProRes · ~${3 + (story.id % 6)}.${story.id % 10} GB · خاص بمشتركي القنوات</div>
+          </div>
+          <button class="btn btn-dark"><svg data-lucide="download" style="width:14px;height:14px"></svg>تحميل المجموعة</button>
+        </div>` : ''}
+
+        <div class="dl-tier">
+          <div class="dl-icon"><svg data-lucide="file-text" style="width:20px;height:20px"></svg></div>
+          <div class="dl-info">
+            <div class="dl-title">النص التحريري الكامل</div>
+            <div class="dl-specs">~${220 + (story.id * 13 % 500)} كلمة · عربي + إنجليزي · مُشكّل بالكامل</div>
+          </div>
+          <div class="row gap-2">
+            <button class="btn btn-ghost btn-sm"><svg data-lucide="copy" style="width:12px;height:12px"></svg>نسخ</button>
+            <button class="btn btn-ghost btn-sm"><svg data-lucide="file-down" style="width:12px;height:12px"></svg>DOCX</button>
+          </div>
+        </div>
+
+        <div class="dl-tier">
+          <div class="dl-icon"><svg data-lucide="image" style="width:20px;height:20px"></svg></div>
+          <div class="dl-info">
+            <div class="dl-title">الصور المرفقة</div>
+            <div class="dl-specs">${8 + (story.id % 20)} صورة HD · JPG + PNG</div>
+          </div>
+          <button class="btn btn-ghost"><svg data-lucide="download" style="width:14px;height:14px"></svg>تحميل ZIP</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Sidebar -->
+    <aside class="ai-sidebar">
+      <div class="panel">
+        <div class="panel-header" style="flex-direction:column; align-items:flex-start; gap:6px">
+          <div style="display:flex; align-items:center; gap:8px; width:100%">
+            <svg data-lucide="sparkles" style="width:18px;height:18px; color:var(--rawi-red)"></svg>
+            <h3 style="margin:0; font-size:16px; flex:1">استوديو الذكاء الاصطناعي</h3>
+            <span class="tag tag-premium">PREMIUM</span>
+          </div>
+          <div class="mono muted">6 TOOLS · GOVERNMENT TIER · UNLIMITED ON MOST</div>
+        </div>
+        <div class="ai-list">
+          ${[
+            {icon:'mic', name:'توليد الفويس أوفر', desc:'فويس أوفر احترافي بصوت موحد بأي لغة.', usage:'2/5 هذا الشهر', fill:40, locked:false},
+            {icon:'type', name:'تشكيل النص', desc:'تشكيل تلقائي دقيق للمصطلحات الإخبارية.', usage:'UNLIMITED', fill:0, locked:false},
+            {icon:'edit-3', name:'إعادة تحرير النص', desc:'تلخيص أو توسيع أو تبسيط بالسياسة الموحدة.', usage:'13/20 هذا الشهر', fill:65, locked:false},
+            {icon:'bar-chart-3', name:'مولّد الإنفوغرافيك', desc:'إنفوغرافيك بهويتك جاهز للنشر.', usage:'3/10 هذا الشهر', fill:30, locked:false},
+            {icon:'languages', name:'الترجمة الذكية', desc:'AR · EN · UR بسياق إخباري.', usage:'UNLIMITED', fill:0, locked:false},
+            {icon:'palette', name:'تطبيق الهوية', desc:'طبّق لوجو وألوان براندك على أي محتوى.', usage:'UNLIMITED', fill:0, locked:false},
+          ].map(t => `
+            <div class="ai-tool ${t.locked?'locked':''}">
+              <div class="ai-ico"><svg data-lucide="${t.icon}" style="width:16px;height:16px"></svg></div>
+              <div style="flex:1; min-width:0">
+                <div class="ai-name">${t.name} ${t.locked?'':'<span class="ai-dot"></span>'}</div>
+                <div class="ai-desc">${t.desc}</div>
+                ${t.fill > 0 ? `<div class="usage-bar"><div class="fill" style="width:${t.fill}%"></div></div>` : ''}
+                <div class="ai-usage-text">${t.usage}</div>
+              </div>
+              <button class="btn-icon" style="align-self:center"><svg data-lucide="${t.locked?'lock':'arrow-up-left'}" style="width:14px;height:14px; transform:scaleX(-1)"></svg></button>
+            </div>
+          `).join('')}
+        </div>
+        <div class="panel-footer" style="text-align:center">
+          <a href="ai-studio.html" class="btn btn-text">استوديو AI الكامل ←</a>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:16px">
+        <div class="panel-header">
+          <h3 style="margin:0; font-size:15px">إحصاءات الخبر</h3>
+        </div>
+        <div style="padding:16px 20px">
+          <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:13px"><span class="muted">المشاهدات</span><span class="mono">${((story.id * 137 % 900) + 100)}.${story.id % 10}K</span></div>
+          <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:13px"><span class="muted">التحميلات</span><span class="mono">${(story.id * 53 % 80) + 10}</span></div>
+          <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:13px"><span class="muted">المشاركات</span><span class="mono">${(story.id * 19 % 50) + 5}</span></div>
+          <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:13px"><span class="muted">قنوات استخدمت</span><span class="mono">${1 + (story.id % 9)}</span></div>
+          <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:13px"><span class="muted">السنتمنت</span><span class="mono" style="color:var(--status-verified)">+${70 + (story.id % 25)}%</span></div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:16px">
+        <div class="panel-header"><h3 style="margin:0; font-size:15px">قصص مرتبطة</h3></div>
+        <div style="padding:8px">
+          ${related.map(r => `
+            <a href="preview.html?id=${r.id}" style="display:flex; gap:10px; padding:10px; border-radius:var(--r-sm); text-decoration:none; color:inherit; transition:background 120ms" onmouseover="this.style.background='var(--bg-soft)'" onmouseout="this.style.background='transparent'">
+              <div style="width:80px; height:48px; border-radius:var(--r-sm); background-image:url('${r.thumbnail}'); background-size:cover; background-position:center; flex-shrink:0"></div>
+              <div style="flex:1; min-width:0">
+                <div style="font-size:12px; font-weight:500; line-height:1.4; color:var(--text); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden">${r.ar.title}</div>
+                <div class="mono muted" style="font-size:10px; margin-top:3px">${CATEGORY_LABELS[r.category].en.toUpperCase()} · ${r.duration}</div>
+              </div>
+            </a>
+          `).join('')}
+        </div>
+      </div>
+    </aside>
+  </div>
+`;
+
+renderAppShell({ active: 'library', tier: 'gov', mainHTML });
+</script>
+</body>
+</html>

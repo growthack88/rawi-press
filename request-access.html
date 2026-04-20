@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Rawi Press — طلب وصول</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+body { background: var(--paper-white); }
+.auth { display: grid; grid-template-columns: 420px 1fr; min-height: 100vh; }
+.auth-left {
+  background: var(--paper-cream);
+  border-inline-end: 1px solid var(--border);
+  padding: 32px 36px;
+  display: flex; flex-direction: column; gap: 32px;
+}
+.auth-left h3 { font-size: 22px; margin: 0 0 10px; line-height: 1.4; }
+.auth-left p { color: var(--text-2); font-size: 14px; line-height: 1.7; margin: 0; }
+.process-list { margin-top: auto; border-top: 1px solid var(--border); padding-top: 20px; }
+.process-list li {
+  display: flex; gap: 12px; padding: 10px 0;
+  color: var(--text-2); font-size: 13px;
+  list-style: none;
+}
+.process-list li .num {
+  font-family: var(--f-serif); font-size: 18px; color: var(--rawi-red);
+  font-style: italic; font-weight: 600; flex-shrink: 0; width: 20px;
+}
+.process-list ul { list-style: none; padding: 0; margin: 0; }
+
+.auth-right {
+  padding: 48px 48px 48px;
+  display: flex; justify-content: center;
+  background: var(--paper-white);
+  overflow-y: auto;
+}
+.form-wrap { width: 100%; max-width: 540px; }
+.progress-bar {
+  display: flex; gap: 4px; margin-bottom: 8px;
+}
+.progress-bar span {
+  height: 3px; background: var(--border); border-radius: 2px; flex: 1;
+  transition: background 200ms;
+}
+.progress-bar span.active { background: var(--rawi-red); }
+.step-label {
+  font-family: var(--f-mono); font-size: 11px; color: var(--text-muted);
+  letter-spacing: 0.06em; margin-bottom: 20px;
+}
+
+.step { display: none; }
+.step.active { display: block; }
+.step h2 { margin: 0 0 8px; font-size: 26px; }
+.step .step-sub { color: var(--text-muted); margin-bottom: 28px; }
+
+.tier-option {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 18px; border: 1px solid var(--border);
+  border-radius: var(--r-lg); cursor: pointer;
+  margin-bottom: 10px; transition: all 150ms ease;
+  background: var(--bg);
+}
+.tier-option:hover { border-color: var(--ink-ash); }
+.tier-option.selected {
+  border-color: var(--rawi-red); background: var(--rawi-red-tint);
+  box-shadow: var(--sh-red);
+}
+.tier-option input { display: none; }
+.tier-option .radio-dot {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid var(--border); flex-shrink: 0; margin-top: 2px;
+  position: relative; transition: all 150ms;
+}
+.tier-option.selected .radio-dot { border-color: var(--rawi-red); }
+.tier-option.selected .radio-dot::after {
+  content: ''; position: absolute; inset: 3px;
+  background: var(--rawi-red); border-radius: 50%;
+}
+.tier-option .t-icon {
+  width: 36px; height: 36px; border-radius: var(--r-md);
+  background: var(--bg-soft); flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--text-2);
+}
+.tier-option.selected .t-icon { background: white; color: var(--rawi-red); }
+.tier-option .t-title { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+.tier-option .t-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+.field { margin-bottom: 18px; }
+.field-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+select.input { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'><path d='M1 1l4 4 4-4' stroke='%236B6B6B' stroke-width='1.5'/></svg>"); background-repeat: no-repeat; background-position: left 14px center; padding-inline-end: 34px; padding-inline-start: 12px; appearance: none; }
+html[dir="rtl"] select.input { background-position: left 14px center; }
+
+.step-actions {
+  display: flex; gap: 12px; margin-top: 28px;
+  padding-top: 20px; border-top: 1px solid var(--border-soft);
+}
+.step-actions .btn-back { color: var(--text-muted); }
+
+.success { text-align: center; padding: 48px 24px; }
+.success .check {
+  width: 72px; height: 72px; margin: 0 auto 20px;
+  border-radius: 50%; background: var(--paper-cream);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--status-verified);
+  border: 2px solid var(--status-verified);
+}
+.success h2 { margin: 12px 0 8px; font-size: 28px; }
+.success .sub { color: var(--text-muted); max-width: 420px; margin: 0 auto 24px; line-height: 1.7; }
+.success .wire {
+  background: var(--ink-black); color: white;
+  padding: 14px 18px; border-radius: var(--r-lg);
+  font-family: var(--f-mono); font-size: 11px;
+  text-align: start; margin-top: 24px;
+  display: flex; gap: 12px; align-items: center;
+}
+.success .wire strong { color: var(--rawi-red); letter-spacing: 0.08em; font-weight: 600; }
+
+@media (max-width: 900px) {
+  .auth { grid-template-columns: 1fr; }
+  .auth-left { display: none; }
+  .auth-right { padding: 24px; }
+}
+</style>
+</head>
+<body>
+<div class="auth">
+  <aside class="auth-left">
+    <a href="index.html" class="logo logo-lg">
+      <span class="logo-mark">R</span>
+      <span>Rawi Press</span>
+    </a>
+    <div>
+      <div class="eyebrow" style="margin-bottom:10px">ACCESS BY APPLICATION</div>
+      <h3>منصة بنظام الدعوة والاعتماد.</h3>
+      <p>راوي برس متاحة فقط للمؤسسات الموثّقة. نقوم بمراجعة كل طلب يدوياً للحفاظ على جودة الشبكة الإخبارية.</p>
+    </div>
+
+    <ul class="process-list">
+      <li><span class="num">01</span><div><b style="display:block; margin-bottom:2px; color:var(--ink-black); font-weight:600">قدّم الطلب</b><span class="muted">5 دقائق، 3 خطوات</span></div></li>
+      <li><span class="num">02</span><div><b style="display:block; margin-bottom:2px; color:var(--ink-black); font-weight:600">مراجعة فريق الاعتماد</b><span class="muted">خلال 24 ساعة عمل</span></div></li>
+      <li><span class="num">03</span><div><b style="display:block; margin-bottom:2px; color:var(--ink-black); font-weight:600">تفعيل الحساب وتهيئة الفريق</b><span class="muted">جلسة إعداد مع مدير حساب مخصص</span></div></li>
+    </ul>
+  </aside>
+
+  <section class="auth-right">
+    <div class="form-wrap">
+      <div id="formPanel">
+        <div class="progress-bar">
+          <span class="active"></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="step-label" id="stepLabel">STEP 1 OF 3 · نوع المؤسسة</div>
+
+        <!-- Step 1 -->
+        <div class="step active" data-step="1">
+          <h2>ما نوع مؤسستك؟</h2>
+          <div class="step-sub">نحدّد الخطة والصلاحيات المناسبة لك.</div>
+
+          <label class="tier-option" data-tier="gov">
+            <span class="radio-dot"></span>
+            <span class="t-icon"><svg data-lucide="landmark" style="width:18px;height:18px"></svg></span>
+            <div style="flex:1">
+              <div class="t-title">جهة حكومية / وزارة</div>
+              <div class="t-desc">الجهات الرسمية وإدارات الإعلام الحكومي — خطة Enterprise Source.</div>
+            </div>
+          </label>
+
+          <label class="tier-option" data-tier="channel">
+            <span class="radio-dot"></span>
+            <span class="t-icon"><svg data-lucide="tv" style="width:18px;height:18px"></svg></span>
+            <div style="flex:1">
+              <div class="t-title">قناة تلفزيونية / شبكة إعلامية</div>
+              <div class="t-desc">شبكات البث وقنوات الأخبار — Channel Enterprise مع Premium Rushes.</div>
+            </div>
+          </label>
+
+          <label class="tier-option" data-tier="journalist">
+            <span class="radio-dot"></span>
+            <span class="t-icon"><svg data-lucide="pen-tool" style="width:18px;height:18px"></svg></span>
+            <div style="flex:1">
+              <div class="t-title">صحفي مستقل</div>
+              <div class="t-desc">محررون مستقلون وصحفيو الدوريات — خطة Professional.</div>
+            </div>
+          </label>
+
+          <label class="tier-option" data-tier="influencer">
+            <span class="radio-dot"></span>
+            <span class="t-icon"><svg data-lucide="megaphone" style="width:18px;height:18px"></svg></span>
+            <div style="flex:1">
+              <div class="t-title">مؤثر / صانع محتوى</div>
+              <div class="t-desc">منشئو المحتوى الاجتماعي — خطة Social.</div>
+            </div>
+          </label>
+
+          <div class="step-actions">
+            <a href="index.html" class="btn btn-ghost">إلغاء</a>
+            <div style="flex:1"></div>
+            <button class="btn btn-primary" onclick="nextStep(2)">متابعة ←</button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step" data-step="2">
+          <h2>تفاصيل المؤسسة</h2>
+          <div class="step-sub">معلومات للتحقق من الهوية المؤسسية.</div>
+
+          <div class="field">
+            <label class="label">اسم المؤسسة</label>
+            <input class="input" placeholder="وزارة الصحة · المملكة العربية السعودية"/>
+          </div>
+          <div class="field">
+            <label class="label">الموقع الإلكتروني</label>
+            <input class="input" type="url" placeholder="https://moh.gov.sa" dir="ltr"/>
+          </div>
+          <div class="field-pair">
+            <div class="field">
+              <label class="label">الدولة</label>
+              <select class="input">
+                <option>المملكة العربية السعودية</option>
+                <option>الإمارات العربية المتحدة</option>
+                <option>جمهورية مصر العربية</option>
+                <option>المملكة الأردنية الهاشمية</option>
+                <option>الكويت</option>
+                <option>أخرى...</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="label">حجم الفريق الإعلامي</label>
+              <select class="input">
+                <option>1 – 5</option>
+                <option>6 – 20</option>
+                <option>21 – 50</option>
+                <option>51 – 200</option>
+                <option>+200</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">رقم السجل التجاري / الاعتماد الحكومي</label>
+            <input class="input" placeholder="1010xxxxxxx" dir="ltr"/>
+          </div>
+
+          <div class="step-actions">
+            <button class="btn btn-ghost btn-back" onclick="nextStep(1)">← السابق</button>
+            <div style="flex:1"></div>
+            <button class="btn btn-primary" onclick="nextStep(3)">متابعة ←</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step" data-step="3">
+          <h2>المسؤول الإعلامي</h2>
+          <div class="step-sub">نحتاج شخصاً نتواصل معه من المؤسسة.</div>
+
+          <div class="field-pair">
+            <div class="field">
+              <label class="label">الاسم الكامل</label>
+              <input class="input" placeholder="محمد عبدالله"/>
+            </div>
+            <div class="field">
+              <label class="label">المسمى الوظيفي</label>
+              <input class="input" placeholder="مدير الإعلام"/>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">البريد المؤسسي</label>
+            <input class="input" type="email" placeholder="name@organization.gov.sa" dir="ltr"/>
+            <div class="mono muted" style="margin-top:6px">البريد الشخصي (Gmail / Yahoo / Hotmail) غير مقبول.</div>
+          </div>
+          <div class="field">
+            <label class="label">رقم الهاتف</label>
+            <input class="input" type="tel" placeholder="+966 5X XXX XXXX" dir="ltr"/>
+          </div>
+          <div class="field">
+            <label class="label">كيف سمعت عنا؟</label>
+            <select class="input">
+              <option>توصية من مؤسسة أخرى</option>
+              <option>مؤتمر / فعالية</option>
+              <option>وسائل التواصل الاجتماعي</option>
+              <option>بحث جوجل</option>
+              <option>تواصل من فريق راوي برس</option>
+              <option>أخرى...</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label">ما المحتوى الإخباري الذي يهمّك؟</label>
+            <textarea class="input" placeholder="مثلاً: أخبار الصحة، الاقتصاد، السياسة الخارجية... يساعدنا هذا في تخصيص المنصة لك."></textarea>
+          </div>
+
+          <div class="step-actions">
+            <button class="btn btn-ghost btn-back" onclick="nextStep(2)">← السابق</button>
+            <div style="flex:1"></div>
+            <button class="btn btn-primary" onclick="submitForm()">إرسال الطلب ←</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success -->
+      <div id="successPanel" class="success" style="display:none">
+        <div class="check"><svg data-lucide="check" style="width:32px;height:32px; stroke-width:2"></svg></div>
+        <div class="eyebrow" style="margin-bottom:8px">REQUEST SUBMITTED</div>
+        <h2>تم استلام طلبك.</h2>
+        <p class="sub">سيتواصل معك فريقنا خلال 24 ساعة على البريد المؤسسي الذي قدّمته. ستصلك رسالة تأكيد أولية خلال دقائق.</p>
+        <a href="index.html" class="btn btn-ghost">العودة للرئيسية</a>
+        <div class="wire">
+          <strong>RAWI WIRE</strong>
+          <span style="opacity:.6">·</span>
+          <span>REQ-2026-04821 · APR 20 · 14:23 RUH</span>
+          <span style="opacity:.6">·</span>
+          <span>طلب قيد المراجعة من فريق الاعتماد</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="assets/rawi.js"></script>
+<script>
+  lucide.createIcons();
+  // Tier selection
+  document.querySelectorAll('.tier-option').forEach(el => {
+    el.addEventListener('click', () => {
+      document.querySelectorAll('.tier-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+    });
+  });
+  // Default select gov
+  document.querySelector('.tier-option[data-tier="gov"]').classList.add('selected');
+
+  const labels = {
+    1: 'STEP 1 OF 3 · نوع المؤسسة',
+    2: 'STEP 2 OF 3 · تفاصيل المؤسسة',
+    3: 'STEP 3 OF 3 · المسؤول الإعلامي',
+  };
+  function nextStep(n) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.querySelector(`.step[data-step="${n}"]`).classList.add('active');
+    document.querySelectorAll('.progress-bar span').forEach((b, i) => {
+      b.classList.toggle('active', i < n);
+    });
+    document.getElementById('stepLabel').textContent = labels[n];
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function submitForm() {
+    document.getElementById('formPanel').style.display = 'none';
+    document.getElementById('successPanel').style.display = 'block';
+    lucide.createIcons();
+  }
+</script>
+</body>
+</html>

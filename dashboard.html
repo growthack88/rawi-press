@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Rawi Press — لوحة التحكم</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+.greet-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
+.greet-row h1 { font-size: 26px; margin: 0 0 4px; }
+.date-line { font-family: var(--f-mono); font-size: 12px; color: var(--text-muted); }
+.period-tabs {
+  display: inline-flex; border: 1px solid var(--border); border-radius: var(--r-md);
+  overflow: hidden; background: var(--bg);
+}
+.period-tabs button {
+  background: transparent; border: 0; padding: 8px 14px;
+  font-size: 13px; color: var(--text-2); font-family: inherit;
+  border-inline-end: 1px solid var(--border);
+}
+.period-tabs button:last-child { border: 0; }
+.period-tabs button.active { background: var(--ink-black); color: white; }
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+.two-col { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+@media (max-width: 1100px) { .two-col { grid-template-columns: 1fr; } .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+
+/* Feed rows */
+.feed-row {
+  display: flex; gap: 14px; padding: 14px 20px;
+  border-bottom: 1px solid var(--border-soft); align-items: flex-start;
+  transition: background 120ms;
+}
+.feed-row:hover { background: var(--bg-soft); }
+.feed-row:last-child { border-bottom: 0; }
+.feed-thumb {
+  width: 80px; height: 56px; border-radius: var(--r-sm);
+  background: linear-gradient(135deg, #2a2a2a 0%, #0a0a0a 100%);
+  position: relative; flex-shrink: 0; overflow: hidden;
+}
+.feed-thumb.gov { background: linear-gradient(135deg, #3b1b1d 0%, #0a0a0a 100%); }
+.feed-thumb.eco { background: linear-gradient(135deg, #2e2a1c 0%, #15130a 100%); }
+.feed-thumb.sport { background: linear-gradient(135deg, #1b2b24 0%, #0a100c 100%); }
+.feed-thumb.tech { background: linear-gradient(135deg, #1e2038 0%, #0a0c1a 100%); }
+.feed-thumb.live::after {
+  content: 'LIVE'; position: absolute; top: 6px; inset-inline-start: 6px;
+  background: var(--rawi-red); color: white; font-family: var(--f-sans);
+  font-size: 9px; font-weight: 600; padding: 2px 5px; border-radius: 2px; letter-spacing: 0.08em;
+}
+.feed-thumb .type-icon {
+  position: absolute; bottom: 6px; inset-inline-end: 6px;
+  background: rgba(0,0,0,0.6); color: white;
+  width: 22px; height: 22px; border-radius: 3px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.feed-thumb .duration {
+  position: absolute; bottom: 6px; inset-inline-start: 6px;
+  font-family: var(--f-mono); font-size: 10px;
+  color: white; background: rgba(0,0,0,0.6); padding: 2px 5px; border-radius: 2px;
+}
+
+.feed-body { flex: 1; min-width: 0; }
+.feed-head { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.45; margin-bottom: 4px; }
+.feed-head:hover { color: var(--rawi-red); cursor: pointer; }
+.feed-meta {
+  font-family: var(--f-mono); font-size: 11px; color: var(--text-muted);
+  display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 6px;
+}
+.feed-meta .dot { opacity: 0.4; }
+.feed-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.feed-actions {
+  display: flex; gap: 4px; flex-shrink: 0;
+  opacity: 0; transition: opacity 150ms; margin-inline-start: 8px;
+}
+.feed-row:hover .feed-actions { opacity: 1; }
+
+/* Activity */
+.activity-item {
+  display: flex; gap: 12px; padding: 12px 20px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.activity-item:last-child { border-bottom: 0; }
+.activity-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--ink-ash); margin-top: 8px; flex-shrink: 0;
+}
+.activity-dot.major { background: var(--rawi-red); }
+.activity-dot.med { background: var(--status-exclusive); }
+.activity-text { font-size: 13px; line-height: 1.55; color: var(--text-2); }
+.activity-text b { color: var(--ink-black); font-weight: 600; }
+.activity-time { font-family: var(--f-mono); font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+
+/* Trending */
+.trend-row {
+  display: grid; grid-template-columns: 24px 1fr 60px auto; gap: 10px;
+  align-items: center; padding: 10px 20px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.trend-row:last-child { border-bottom: 0; }
+.trend-num {
+  font-family: var(--f-serif); font-weight: 600; font-size: 18px;
+  color: var(--rawi-red); font-style: italic;
+}
+.trend-topic { font-size: 13px; font-weight: 500; }
+.trend-spark { width: 60px; height: 20px; }
+.trend-count { font-family: var(--f-mono); font-size: 11px; color: var(--text-muted); }
+
+/* Events strip (gov only) */
+.events-strip {
+  display: flex; gap: 16px; overflow-x: auto;
+  padding-bottom: 10px; margin-bottom: 28px;
+}
+.event-card {
+  min-width: 280px; padding: 18px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r-lg); flex-shrink: 0;
+  position: relative;
+}
+.event-card::before {
+  content: ''; position: absolute; top: 0; inset-inline-start: 18px;
+  width: 24px; height: 2px; background: var(--rawi-red);
+}
+.event-date { font-family: var(--f-mono); font-size: 11px; color: var(--rawi-red); font-weight: 500; margin-bottom: 4px; }
+.event-title { font-weight: 600; font-size: 15px; margin-bottom: 8px; line-height: 1.4; }
+.event-meta { display: flex; gap: 12px; font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+.event-meta svg { width: 12px; height: 12px; vertical-align: -2px; margin-inline-end: 4px; }
+
+.section-panel-title {
+  display: flex; align-items: center; gap: 10px;
+}
+.section-panel-title h3 { margin: 0; font-size: 16px; }
+.section-panel-title .sub { font-family: var(--f-mono); font-size: 10px; color: var(--text-muted); letter-spacing: 0.05em; }
+</style>
+</head>
+<body>
+<div id="app-root"></div>
+<script src="assets/rawi.js"></script>
+<script src="assets/appshell.js"></script>
+<script>
+const mainHTML = `
+  <!-- Greet -->
+  <div class="greet-row">
+    <div>
+      <h1>مساء الخير، <span style="color:var(--rawi-red)">وزارة الصحة</span>.</h1>
+      <div class="date-line">الأحد، 20 أبريل 2026 · 2 ذو القعدة 1447 · SUN APR 20 2026 · 14:23 RUH</div>
+    </div>
+    <div class="row gap-3">
+      <div class="period-tabs">
+        <button>7 أيام</button>
+        <button class="active">30 يوم</button>
+        <button>الربع</button>
+      </div>
+      <button class="btn btn-ghost"><svg data-lucide="download" style="width:14px;height:14px"></svg>تحميل التقرير</button>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">أخبار منشورة</div>
+      <div class="kpi-value">47</div>
+      <div class="kpi-delta up">↑ 18% من الشهر الماضي</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">إجمالي الوصول</div>
+      <div class="kpi-value">12.4M</div>
+      <div class="kpi-delta up">↑ 34%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">قنوات استخدمت أخبارك</div>
+      <div class="kpi-value">89</div>
+      <div class="kpi-delta up">↑ 12 قناة جديدة</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">سنتمنت إيجابي</div>
+      <div class="kpi-value">87<span style="font-size:18px; color:var(--text-muted)">%</span></div>
+      <div class="kpi-delta up">↑ 5 نقاط</div>
+    </div>
+  </div>
+
+  <!-- Events strip (gov) -->
+  <div class="row" style="justify-content:space-between; margin-bottom:12px">
+    <div class="section-panel-title">
+      <h3>الفعاليات القادمة</h3>
+      <span class="sub">UPCOMING · NEXT 14 DAYS</span>
+    </div>
+    <a href="media-center.html" class="btn btn-text small">عرض الكل ←</a>
+  </div>
+  <div class="events-strip">
+    <div class="event-card">
+      <div class="event-date">APR 22 · 10:00 RUH</div>
+      <div class="event-title">إطلاق الحملة الوطنية لمكافحة السكري</div>
+      <div class="event-meta">
+        <span><svg data-lucide="map-pin"></svg>فندق الريتز · الرياض</span>
+        <span><svg data-lucide="users"></svg>28 مدعوّاً</span>
+      </div>
+      <button class="btn btn-ghost btn-sm">إدارة الفعالية</button>
+    </div>
+    <div class="event-card">
+      <div class="event-date">APR 25 · 14:00 RUH</div>
+      <div class="event-title">مؤتمر صحفي — نتائج الربع الأول</div>
+      <div class="event-meta">
+        <span><svg data-lucide="map-pin"></svg>مبنى الوزارة · قاعة المؤتمرات</span>
+        <span><svg data-lucide="users"></svg>42 مدعوّاً</span>
+      </div>
+      <button class="btn btn-ghost btn-sm">إدارة الفعالية</button>
+    </div>
+    <div class="event-card">
+      <div class="event-date">APR 28 · 09:30 RUH</div>
+      <div class="event-title">افتتاح مركز جدة للطب الدقيق</div>
+      <div class="event-meta">
+        <span><svg data-lucide="map-pin"></svg>جدة</span>
+        <span><svg data-lucide="users"></svg>18 مدعوّاً</span>
+      </div>
+      <button class="btn btn-ghost btn-sm">إدارة الفعالية</button>
+    </div>
+    <div class="event-card">
+      <div class="event-date">MAY 02 · 11:00 RUH</div>
+      <div class="event-title">توقيع اتفاقية مع منظمة الصحة العالمية</div>
+      <div class="event-meta">
+        <span><svg data-lucide="map-pin"></svg>جنيف · عن بُعد</span>
+        <span><svg data-lucide="users"></svg>14 مدعوّاً</span>
+      </div>
+      <button class="btn btn-ghost btn-sm">إدارة الفعالية</button>
+    </div>
+  </div>
+
+  <!-- Two col -->
+  <div class="two-col">
+    <!-- Feed -->
+    <section class="panel">
+      <div class="panel-header">
+        <div class="section-panel-title">
+          <span class="live-dot"></span>
+          <h3>الأخبار الأحدث على المنصة</h3>
+          <span class="sub">LIVE NEWSROOM FEED · AUTO-REFRESH 30S</span>
+        </div>
+        <button class="btn-icon"><svg data-lucide="refresh-ccw" style="width:14px;height:14px"></svg></button>
+      </div>
+      <div>
+        ${[
+          { thumb: 'gov', cls: 'live', title: 'مباشر — قمة الاستثمار السعودية: الجلسة الافتتاحية', meta: ['14:23 RUH', '8.2K watching', '12 outlets', 'SAUDI ARABIA'], tags: ['<span class="tag tag-live">مباشر</span>','<span class="tag tag-ar tag-politics">سياسة</span>'], icon: 'radio', dur: null },
+          { thumb: 'gov', cls: '', title: 'وزير الصحة يفتتح مؤتمر السرطان الوطني في الرياض', meta: ['14:15 RUH · 8 min ago', '340 downloads', '4K · 02:47', 'RIYADH'], tags: ['<span class="tag tag-breaking">BREAKING</span>','<span class="tag tag-ar tag-politics">صحة</span>'], icon: 'play', dur: '02:47' },
+          { thumb: 'eco', cls: '', title: 'حزمة استثمارات بقيمة 80 مليار دولار في قطاع التقنية', meta: ['14:08 RUH · 14 min', '247 downloads', '24 IMAGES', 'RUH'], tags: ['<span class="tag tag-premium">PREMIUM</span>','<span class="tag tag-ar tag-economy">اقتصاد</span>'], icon: 'image', dur: null },
+          { thumb: 'sport', cls: '', title: 'الأخضر السعودي يستعد لمواجهة حاسمة في التصفيات', meta: ['13:58 RUH · 25 min', '186 downloads', '1080p · 04:12', 'JEDDAH'], tags: ['<span class="tag tag-ar tag-sports">رياضة</span>'], icon: 'play', dur: '04:12' },
+          { thumb: 'tech', cls: '', title: 'إطلاق مشروع نيوم للسياحة البيئية بشراكة دولية', meta: ['13:40 RUH · 43 min', '412 downloads', '4K · 05:34', 'NEOM'], tags: ['<span class="tag tag-premium">PREMIUM</span>','<span class="tag tag-ar tag-tech">تكنولوجيا</span>'], icon: 'play', dur: '05:34' },
+          { thumb: 'gov', cls: '', title: 'الهلال الأحمر السعودي يعلن حملة إغاثية جديدة', meta: ['13:12 RUH · 1h ago', '98 downloads', 'TEXT · AR+EN', 'RUH'], tags: ['<span class="tag tag-ar tag-politics">إنساني</span>'], icon: 'file-text', dur: null },
+          { thumb: 'eco', cls: '', title: 'مؤشر تاسي يغلق مرتفعاً بدعم من القطاع المصرفي', meta: ['12:45 RUH · 1h 38m', '67 downloads', 'TEXT · CHART', 'RUH'], tags: ['<span class="tag tag-ar tag-economy">اقتصاد</span>'], icon: 'file-text', dur: null },
+          { thumb: 'tech', cls: '', title: 'معرض الرياض للتقنية يستقطب أكثر من 240 شركة', meta: ['12:10 RUH · 2h 13m', '203 downloads', '1080p · 03:22', 'RIYADH'], tags: ['<span class="tag tag-ar tag-tech">تكنولوجيا</span>'], icon: 'play', dur: '03:22' },
+        ].map(r => `
+          <div class="feed-row">
+            <div class="feed-thumb ${r.thumb} ${r.cls}">
+              <span class="type-icon"><svg data-lucide="${r.icon}" style="width:12px;height:12px"></svg></span>
+              ${r.dur ? `<span class="duration">${r.dur}</span>` : ''}
+            </div>
+            <div class="feed-body">
+              <div class="feed-head">${r.title}</div>
+              <div class="feed-meta">${r.meta.map((m,i) => i===0?`<span>${m}</span>`:`<span class="dot">·</span><span>${m}</span>`).join('')}</div>
+              <div class="feed-tags">${r.tags.join('')}</div>
+            </div>
+            <div class="feed-actions">
+              <button class="btn-icon" title="حفظ"><svg data-lucide="bookmark" style="width:14px;height:14px"></svg></button>
+              <a href="preview.html" class="btn-icon" title="معاينة"><svg data-lucide="arrow-up-left" style="width:14px;height:14px; transform: scaleX(-1)"></svg></a>
+              <button class="btn-icon" title="تحميل"><svg data-lucide="download" style="width:14px;height:14px"></svg></button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="panel-footer" style="text-align:center">
+        <a href="library.html" class="btn btn-text">عرض كامل المكتبة ←</a>
+      </div>
+    </section>
+
+    <!-- Right col -->
+    <div class="stack gap-5">
+      <section class="panel">
+        <div class="panel-header">
+          <div class="section-panel-title">
+            <h3>نشاط أخبارك</h3>
+            <span class="sub">WHO IS USING</span>
+          </div>
+        </div>
+        <div>
+          <div class="activity-item">
+            <div class="activity-dot major"></div>
+            <div>
+              <div class="activity-text"><b>قناة MBC</b> حمّلت خبر "افتتاح مؤتمر السرطان الوطني"</div>
+              <div class="activity-time">8 MIN AGO · 4K PACKAGE</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot med"></div>
+            <div>
+              <div class="activity-text"><b>صحيفة الرياض</b> نشرت مقتطف من "حزمة استثمارات التقنية"</div>
+              <div class="activity-time">22 MIN AGO · WEB</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot major"></div>
+            <div>
+              <div class="activity-text"><b>Al Arabiya</b> طلبت Premium Rushes لخبر مشروع نيوم</div>
+              <div class="activity-time">41 MIN AGO · 8.2 GB</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <div>
+              <div class="activity-text"><b>SBC</b> استخدمت النسخة العمودية 9:16</div>
+              <div class="activity-time">1H 12M AGO · SOCIAL</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot med"></div>
+            <div>
+              <div class="activity-text"><b>CNN Arabic</b> ترجمت الخبر للإنجليزية</div>
+              <div class="activity-time">1H 48M AGO · AR → EN</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <div>
+              <div class="activity-text"><b>صحيفة عكاظ</b> اقتبست من البيان الرسمي</div>
+              <div class="activity-time">2H 05M AGO · PRINT</div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer" style="text-align:center">
+          <a href="reports.html" class="btn btn-text">تقرير الأثر الكامل ←</a>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div class="section-panel-title">
+            <h3>الترندات اليوم</h3>
+            <span class="sub">TRENDING · LAST 24H</span>
+          </div>
+        </div>
+        <div>
+          ${[
+            ['مؤتمر السرطان الوطني', 2847, [5,8,12,18,22,28,35]],
+            ['قمة الاستثمار', 2134, [10,12,15,14,20,25,28]],
+            ['مشروع نيوم للسياحة', 1892, [3,5,8,12,18,24,22]],
+            ['الأخضر السعودي', 1645, [15,12,14,10,8,12,18]],
+            ['معرض الرياض للتقنية', 1203, [4,6,8,10,12,14,18]],
+            ['مؤشر تاسي', 894, [8,10,9,11,12,14,13]],
+            ['رؤية 2030', 712, [12,10,14,12,11,13,14]],
+            ['الهلال الأحمر', 534, [6,8,7,9,10,11,10]],
+            ['الحج 2026', 412, [3,5,7,9,11,13,15]],
+            ['كأس السعودية', 287, [4,5,6,7,8,9,10]],
+          ].map((r,i)=>{
+            const max=Math.max(...r[2]);
+            const pts=r[2].map((v,j)=>`${(j/(r[2].length-1))*58+1},${20-(v/max)*18}`).join(' ');
+            return `<div class="trend-row">
+              <div class="trend-num">${String(i+1).padStart(2,'0')}</div>
+              <div class="trend-topic">${r[0]}</div>
+              <svg class="trend-spark" viewBox="0 0 60 20" fill="none"><polyline points="${pts}" stroke="var(--rawi-red)" stroke-width="1.5" fill="none"/></svg>
+              <div class="trend-count">${r[1].toLocaleString()}</div>
+            </div>`;
+          }).join('')}
+        </div>
+        <div class="panel-footer" style="text-align:center">
+          <a href="#" class="btn btn-text">عرض جميع الترندات ←</a>
+        </div>
+      </section>
+    </div>
+  </div>
+`;
+
+renderAppShell({ active: 'dashboard', tier: 'gov', mainHTML });
+</script>
+</body>
+</html>
