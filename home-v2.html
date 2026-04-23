@@ -13,7 +13,6 @@
     --ap-red: #C8202A;
     --ap-red-deep: #9B1520;
     --ap-red-tint: #FDECED;
-
     --ink: #0A0A0A;
     --ink-2: #1A1A1A;
     --ink-3: #333;
@@ -21,17 +20,13 @@
     --ink-5: #999;
     --ink-6: #CCC;
     --rule: #E5E5E5;
-    --rule-strong: #0A0A0A;
-
     --bg: #FFFFFF;
     --bg-off: #FAFAFA;
-
     --ff-serif: 'IBM Plex Serif', Georgia, serif;
     --ff-ar: 'IBM Plex Sans Arabic', system-ui, sans-serif;
     --ff-sans: 'IBM Plex Sans', system-ui, sans-serif;
     --ff-mono: 'IBM Plex Mono', monospace;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
@@ -44,19 +39,18 @@
   img { max-width: 100%; display: block; }
   a { color: inherit; text-decoration: none; }
   button { font-family: inherit; cursor: pointer; }
-
   .container { max-width: 1320px; margin: 0 auto; padding: 0 40px; }
 
-  /* =========== TOPBAR (black thin) =========== */
-  .topbar {
+  /* =========== TIER 1: UTILITY BAR =========== */
+  .util-bar {
     background: #000;
-    color: rgba(255,255,255,0.85);
-    padding: 7px 0;
+    color: rgba(255,255,255,0.75);
+    padding: 8px 0;
     font-family: var(--ff-mono);
     font-size: 10.5px;
     letter-spacing: 0.08em;
   }
-  .topbar-inner {
+  .util-inner {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 40px;
@@ -64,92 +58,169 @@
     align-items: center;
     justify-content: space-between;
   }
-  .topbar-left { display: flex; align-items: center; gap: 16px; }
-  .topbar-left .brand { color: var(--ap-red); font-weight: 700; letter-spacing: 0.15em; }
-  .topbar-left .sep { color: rgba(255,255,255,0.3); }
-  .topbar-right { display: flex; gap: 20px; color: rgba(255,255,255,0.6); }
-  .topbar-right a:hover { color: white; }
-
-  /* =========== NAV =========== */
-  .nav {
-    background: white;
-    border-top: 3px solid var(--ink);
-    border-bottom: 1px solid var(--rule);
-    position: sticky;
-    top: 0;
-    z-index: 50;
+  .util-left { display: flex; align-items: center; gap: 14px; }
+  .util-left .brand {
+    color: var(--ap-red);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    font-size: 10px;
   }
-  .nav-inner {
+  .util-left .live-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+  }
+  .util-left .live-dot::before {
+    content: '';
+    width: 5px; height: 5px;
+    background: var(--ap-red);
+    border-radius: 50%;
+    animation: apPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes apPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  .util-left .sep { color: rgba(255,255,255,0.25); }
+  .util-right { display: flex; gap: 20px; color: rgba(255,255,255,0.5); }
+  .util-right a { transition: color 0.12s; }
+  .util-right a:hover { color: white; }
+
+  /* =========== TIER 2: BRAND BAR =========== */
+  .brand-bar {
+    background: white;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .brand-inner {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 40px;
     display: flex;
     align-items: center;
-    gap: 36px;
-    height: 72px;
+    justify-content: space-between;
+    gap: 40px;
   }
-  .logo { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
-  .logo-mark {
-    width: 130px;
-    height: 46px;
+  .brand-identity {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+  .brand-logo {
+    width: 168px;
+    height: 62px;
     background: var(--ink);
-    display: flex; align-items: center; justify-content: center;
-    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    flex-shrink: 0;
   }
-  .logo-mark img {
+  .brand-logo img {
     max-height: 100%; max-width: 100%;
     width: auto; height: auto;
     object-fit: contain;
   }
-
-  .nav-sections {
+  .brand-divider {
+    width: 1px;
+    height: 44px;
+    background: var(--rule);
+  }
+  .brand-text {
     display: flex;
-    gap: 28px;
-    flex: 1;
-    align-items: center;
+    flex-direction: column;
+    gap: 3px;
   }
-  .nav-sections a {
+  .brand-text .ar {
     font-family: var(--ff-ar);
-    font-size: 13.5px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .brand-text .en {
+    font-family: var(--ff-sans);
+    font-size: 10px;
     font-weight: 600;
-    color: var(--ink-2);
-    padding: 26px 0;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.12s, color 0.12s;
-  }
-  .nav-sections a:hover,
-  .nav-sections a.active {
-    border-bottom-color: var(--ap-red);
-    color: var(--ap-red);
+    color: var(--ink-4);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
   }
 
-  .nav-actions { display: flex; align-items: center; gap: 10px; }
-  .nav-search {
-    width: 36px; height: 36px;
-    background: transparent;
+  .brand-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .search-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 14px;
+    height: 40px;
+    width: 260px;
+    background: var(--bg-off);
     border: 1px solid var(--rule);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--ink-3);
+    transition: border-color 0.12s, background 0.12s;
   }
-  .nav-search:hover { background: var(--bg-off); color: var(--ink); }
-  .nav-search svg { width: 14px; height: 14px; }
+  .search-inline:focus-within {
+    border-color: var(--ink);
+    background: white;
+  }
+  .search-inline svg {
+    width: 14px;
+    height: 14px;
+    color: var(--ink-4);
+    flex-shrink: 0;
+  }
+  .search-inline input {
+    border: none;
+    background: transparent;
+    outline: none;
+    flex: 1;
+    font-family: var(--ff-ar);
+    font-size: 13px;
+    color: var(--ink);
+    width: 100%;
+  }
+  .search-inline input::placeholder {
+    color: var(--ink-5);
+  }
+  .search-inline .shortcut {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    color: var(--ink-5);
+    padding: 2px 6px;
+    background: white;
+    border: 1px solid var(--rule);
+    letter-spacing: 0.04em;
+  }
 
-  .nav-lang {
+  .lang-pick {
     display: flex;
     border: 1px solid var(--rule);
     font-family: var(--ff-sans);
+    height: 40px;
   }
-  .nav-lang button {
-    background: transparent; border: none;
-    padding: 6px 10px; font-size: 11px; font-weight: 600;
-    color: var(--ink-4); letter-spacing: 0.05em;
+  .lang-pick button {
+    background: transparent;
+    border: none;
+    padding: 0 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-4);
+    letter-spacing: 0.05em;
   }
-  .nav-lang button.active { background: var(--ink); color: white; }
+  .lang-pick button.active { background: var(--ink); color: white; }
 
   .btn {
     font-family: var(--ff-ar);
     font-size: 13px; font-weight: 600;
-    padding: 0 18px; height: 36px;
+    padding: 0 18px; height: 40px;
     display: inline-flex; align-items: center; gap: 7px;
     border: 1px solid transparent;
     transition: all 0.12s;
@@ -162,161 +233,262 @@
     border-color: var(--ap-red);
   }
   .btn-red:hover { background: var(--ap-red-deep); border-color: var(--ap-red-deep); }
-  .btn-lg { height: 44px; padding: 0 22px; font-size: 14px; }
+  .btn-lg { height: 46px; padding: 0 24px; font-size: 14px; }
 
-  /* =========== BREAKING TICKER =========== */
-  .breaking {
-    background: var(--ink);
-    color: white;
-    padding: 11px 0;
-    overflow: hidden;
-    border-bottom: 1px solid var(--ink-2);
+  /* =========== TIER 3: SECTION NAV (STICKY) =========== */
+  .section-nav {
+    background: white;
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
-  .breaking-inner {
+  .section-nav-inner {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 40px;
     display: flex;
     align-items: center;
-    gap: 18px;
+    justify-content: space-between;
+    height: 52px;
   }
-  .breaking-label {
-    background: var(--ap-red);
-    padding: 6px 12px;
-    font-family: var(--ff-sans);
+  .section-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+  }
+  .section-nav-links a {
+    font-family: var(--ff-ar);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-2);
+    padding: 0 16px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.12s;
+    position: relative;
+  }
+  .section-nav-links a + a::before {
+    content: '';
+    position: absolute;
+    right: -2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 14px;
+    background: var(--rule);
+  }
+  .section-nav-links a:hover {
+    color: var(--ap-red);
+    background: var(--bg-off);
+  }
+  .section-nav-links a.active {
+    border-bottom-color: var(--ap-red);
+    color: var(--ap-red);
+    font-weight: 700;
+  }
+
+  .section-nav-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--ff-mono);
     font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+  }
+  .section-nav-meta .edition {
+    color: var(--ink);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+  .section-nav-meta .num {
+    color: var(--ap-red);
+    font-weight: 700;
+  }
+  .section-nav-meta .sep { color: var(--ink-6); }
+
+  /* =========== HERO (AP Lead + Stack) — POLISHED =========== */
+  .hero {
+    padding: 56px 0 72px;
+    border-bottom: 1px solid var(--rule);
+    background:
+      linear-gradient(to bottom, var(--bg-off) 0%, white 100px);
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .hero-eyebrow-title {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .hero-eyebrow-title h2 {
+    font-family: var(--ff-ar);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .hero-eyebrow-title .en {
+    font-family: var(--ff-serif);
+    font-size: 16px;
+    font-style: italic;
+    color: var(--ink-4);
+  }
+  .hero-eyebrow-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--ff-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+  }
+  .hero-eyebrow-meta .dot {
+    width: 6px; height: 6px;
+    background: var(--ap-red);
+    border-radius: 50%;
+    animation: apPulse 1.6s ease-in-out infinite;
+  }
+  .hero-eyebrow-meta .live { color: var(--ap-red); font-weight: 700; }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 52px;
+  }
+
+  /* LEAD (left) — polished */
+  .lead { position: relative; }
+
+  .lead-img-wrap {
+    position: relative;
+    margin-bottom: 26px;
+    overflow: hidden;
+  }
+  .lead-img {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: var(--ink-6) center/cover;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .lead-img-wrap:hover .lead-img {
+    transform: scale(1.015);
+  }
+  .lead-img .video-badge {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    background: rgba(0,0,0,0.92);
+    color: white;
+    padding: 8px 14px;
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    backdrop-filter: blur(8px);
+  }
+  .lead-img .video-badge svg { width: 12px; height: 12px; }
+  .lead-img .lead-tag {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: var(--ap-red);
+    color: white;
+    padding: 7px 12px;
+    font-family: var(--ff-sans);
+    font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    flex-shrink: 0;
   }
-  .breaking-label .dot {
-    width: 6px; height: 6px;
+  .lead-img .lead-tag .dot {
+    width: 5px; height: 5px;
     background: white;
     border-radius: 50%;
     animation: apPulse 1.6s ease-in-out infinite;
   }
-  @keyframes apPulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.7); }
-  }
-  .breaking-track {
-    flex: 1;
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-  }
-  .breaking-content {
-    display: inline-flex;
-    gap: 48px;
-    font-size: 13px;
-    font-weight: 500;
-    font-family: var(--ff-ar);
-    animation: tickerScroll 45s linear infinite;
-  }
-  .breaking-content a {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    color: rgba(255,255,255,0.95);
-  }
-  .breaking-content a:hover { color: var(--ap-red); }
-  .breaking-content .time {
+  .lead-photo-credit {
+    margin-top: 10px;
     font-family: var(--ff-mono);
-    font-size: 11px;
-    color: var(--ap-red);
-    font-weight: 700;
+    font-size: 9.5px;
+    color: var(--ink-5);
     letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: left;
   }
-  @keyframes tickerScroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(100%); }
-  }
-
-  /* =========== HERO (AP Lead + Stack) =========== */
-  .hero {
-    padding: 44px 0 56px;
-    border-bottom: 1px solid var(--rule);
-  }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.55fr 1fr;
-    gap: 48px;
-  }
-
-  /* LEAD (left, big) */
-  .lead-img {
-    position: relative;
-    aspect-ratio: 16/10;
-    overflow: hidden;
-    margin-bottom: 22px;
-    background: var(--ink-6) center/cover;
-  }
-  .lead-img .video-badge {
-    position: absolute;
-    bottom: 14px;
-    left: 14px;
-    background: rgba(0,0,0,0.88);
-    color: white;
-    padding: 7px 12px;
-    font-family: var(--ff-mono);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .lead-img .video-badge svg { width: 12px; height: 12px; }
+  .lead-photo-credit strong { color: var(--ink-3); font-weight: 600; }
 
   .lead-cat {
     color: var(--ap-red);
     font-family: var(--ff-sans);
     font-size: 11.5px;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
   }
   .lead-cat::after {
     content: '';
-    flex: 0 0 40px;
+    flex: 0 0 48px;
     height: 2px;
     background: var(--ap-red);
   }
 
   .lead-title {
     font-family: var(--ff-ar);
-    font-size: 46px;
+    font-size: 50px;
     font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.025em;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
     color: var(--ink);
-    margin-bottom: 12px;
+    margin-bottom: 16px;
   }
   .lead-subtitle {
     font-family: var(--ff-serif);
-    font-size: 20px;
+    font-size: 22px;
     font-style: italic;
     font-weight: 500;
     color: var(--ink-3);
-    margin-bottom: 18px;
+    margin-bottom: 22px;
     line-height: 1.4;
+    max-width: 720px;
   }
 
   .lead-dek {
     font-family: var(--ff-ar);
-    font-size: 17px;
-    line-height: 1.65;
+    font-size: 17.5px;
+    line-height: 1.7;
     color: var(--ink-3);
-    margin-bottom: 22px;
-    max-width: 680px;
+    margin-bottom: 26px;
+    max-width: 720px;
+    position: relative;
+    padding-right: 20px;
+    border-right: 3px solid var(--ap-red);
   }
 
   .lead-meta {
@@ -326,82 +498,124 @@
     align-items: center;
     font-family: var(--ff-mono);
     font-size: 10.5px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    padding-top: 18px;
-    border-top: 1px solid var(--rule);
+    padding: 18px 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
   }
-  .lead-meta .byline { color: var(--ink-3); font-weight: 600; }
+  .lead-meta .byline { color: var(--ink-2); font-weight: 700; }
   .lead-meta .time { color: var(--ap-red); font-weight: 700; }
   .lead-meta .sep { color: var(--ink-6); }
+  .lead-meta .updated { color: var(--ink-4); }
 
-  /* STACK (right, top stories) */
+  .lead-actions {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .lead-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--ff-ar);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-3);
+    transition: color 0.12s;
+    padding: 6px 0;
+  }
+  .lead-action:hover { color: var(--ap-red); }
+  .lead-action svg { width: 15px; height: 15px; }
+
+  /* STACK (right) — polished */
   .stack {
-    padding-right: 0;
+    padding-right: 32px;
+    border-right: 1px solid var(--rule);
   }
   .stack-header {
-    padding-bottom: 14px;
+    padding-bottom: 16px;
     border-bottom: 2px solid var(--ink);
     margin-bottom: 4px;
+    position: relative;
+  }
+  .stack-header::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    right: 0;
+    width: 80px;
+    height: 2px;
+    background: var(--ap-red);
   }
   .stack-header h3 {
     font-family: var(--ff-ar);
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 700;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
     color: var(--ink);
   }
   .stack-header .en {
     display: block;
-    margin-top: 4px;
-    font-family: var(--ff-sans);
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    margin-top: 6px;
+    font-family: var(--ff-serif);
+    font-size: 14px;
+    font-weight: 400;
+    font-style: italic;
     color: var(--ink-4);
   }
 
   .stack-item {
     display: grid;
-    grid-template-columns: 110px 1fr;
-    gap: 16px;
-    padding: 18px 0;
+    grid-template-columns: 120px 1fr;
+    gap: 18px;
+    padding: 20px 0;
     border-bottom: 1px solid var(--rule);
     align-items: flex-start;
+    transition: transform 0.15s;
   }
-  .stack-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .stack-item:hover { transform: translateX(-4px); }
+  .stack-item:last-of-type { border-bottom: none; }
 
   .stack-thumb {
     position: relative;
     aspect-ratio: 16/10;
     background: var(--ink-6) center/cover;
+    overflow: hidden;
   }
   .stack-thumb .vdot {
     position: absolute;
     bottom: 4px;
     left: 4px;
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.88);
     color: white;
-    padding: 2px 5px;
+    padding: 2px 6px;
     font-family: var(--ff-mono);
-    font-size: 9px;
+    font-size: 9.5px;
     font-weight: 500;
     letter-spacing: 0.04em;
   }
 
   .stack-content { display: flex; flex-direction: column; gap: 6px; }
+  .stack-num {
+    font-family: var(--ff-serif);
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ap-red);
+    line-height: 1;
+  }
   .stack-cat {
     color: var(--ap-red);
     font-family: var(--ff-sans);
-    font-size: 9.5px;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
   }
   .stack-title {
     font-family: var(--ff-ar);
-    font-size: 15px;
+    font-size: 15.5px;
     font-weight: 700;
     line-height: 1.3;
     letter-spacing: -0.01em;
@@ -412,10 +626,40 @@
   .stack-meta {
     font-family: var(--ff-mono);
     font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    font-weight: 700;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ap-red);
+  }
+
+  .stack-viewall {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .stack-viewall a {
+    font-family: var(--ff-sans);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ap-red);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.15s;
+  }
+  .stack-viewall a:hover { gap: 10px; }
+  .stack-viewall a svg { width: 12px; height: 12px; }
+  .stack-viewall .count {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    color: var(--ink-4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   /* =========== SECTION =========== */
@@ -554,7 +798,7 @@
   .card-meta .time { color: var(--ap-red); }
   .card-meta .sep { color: var(--ink-6); }
 
-  /* =========== ABOUT SECTION =========== */
+  /* =========== ABOUT =========== */
   .about {
     padding: 72px 0;
     background: var(--bg-off);
@@ -644,9 +888,7 @@
     cursor: pointer;
     position: relative;
   }
-  .cat-card:hover {
-    background: var(--bg-off);
-  }
+  .cat-card:hover { background: var(--bg-off); }
   .cat-card:hover::before {
     content: '';
     position: absolute;
@@ -657,13 +899,7 @@
   .cat-card.inactive { opacity: 0.55; cursor: default; }
   .cat-card.inactive:hover { background: transparent; }
   .cat-card.inactive:hover::before { display: none; }
-
-  .cat-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-  }
+  .cat-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
   .cat-icon {
     width: 40px; height: 40px;
     background: var(--ink);
@@ -754,7 +990,6 @@
     color: var(--ink-3);
     line-height: 1.6;
   }
-
   .tier-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -767,10 +1002,7 @@
     background: white;
     transition: border-color 0.15s, box-shadow 0.15s;
   }
-  .tier-card:hover {
-    border-color: var(--ink);
-    box-shadow: 0 2px 0 var(--ink);
-  }
+  .tier-card:hover { border-color: var(--ink); box-shadow: 0 2px 0 var(--ink); }
   .tier-num {
     font-family: var(--ff-mono);
     font-size: 11px;
@@ -881,10 +1113,7 @@
     padding: 72px 0;
     text-align: center;
   }
-  .cta-inner {
-    max-width: 720px;
-    margin: 0 auto;
-  }
+  .cta-inner { max-width: 720px; margin: 0 auto; }
   .cta-label {
     font-family: var(--ff-sans);
     font-size: 11px;
@@ -952,7 +1181,7 @@
     gap: 48px;
     margin-bottom: 40px;
   }
-  .footer-brand .logo-mark {
+  .footer-brand .brand-logo {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.12);
   }
@@ -989,7 +1218,6 @@
     color: rgba(255,255,255,0.6);
   }
   .footer-col a:hover { color: var(--ap-red); }
-
   .footer-bottom {
     display: flex;
     align-items: center;
@@ -1004,30 +1232,45 @@
   .footer-bottom .right { display: flex; gap: 18px; }
 
   /* =========== RESPONSIVE =========== */
+  @media (max-width: 1200px) {
+    .search-inline { width: 200px; }
+    .section-nav-meta { display: none; }
+  }
   @media (max-width: 1100px) {
-    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-    .lead-title { font-size: 38px; }
+    .brand-inner { flex-direction: column; align-items: stretch; gap: 20px; }
+    .brand-actions { justify-content: space-between; }
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .stack { border-right: none; padding-right: 0; border-top: 1px solid var(--rule); padding-top: 32px; }
+    .lead-title { font-size: 40px; }
     .news-grid { grid-template-columns: repeat(2, 1fr); }
     .about-grid { grid-template-columns: 1fr; gap: 40px; }
     .cat-grid { grid-template-columns: repeat(2, 1fr); }
     .tier-grid { grid-template-columns: repeat(2, 1fr); }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-    .nav-sections { display: none; }
+    .section-nav-links { overflow-x: auto; scrollbar-width: none; }
+    .section-nav-links::-webkit-scrollbar { display: none; }
+    .search-inline .shortcut { display: none; }
   }
   @media (max-width: 720px) {
     .container { padding: 0 20px; }
-    .topbar-inner { padding: 0 20px; flex-direction: column; gap: 4px; text-align: center; font-size: 9px; }
-    .topbar-right { display: none; }
-    .nav-inner { padding: 0 20px; gap: 12px; height: 64px; }
-    .logo-mark { width: 106px; height: 40px; padding: 5px 10px; }
-    .nav-lang, .nav-search { display: none; }
-    .breaking-inner { padding: 0 20px; }
-    .breaking-label { font-size: 9.5px; padding: 5px 10px; letter-spacing: 0.15em; }
-    .hero { padding: 28px 0 36px; }
+    .util-inner { padding: 0 20px; flex-direction: column; gap: 4px; text-align: center; font-size: 9px; }
+    .util-right { display: none; }
+    .brand-inner { padding: 0 20px; }
+    .brand-identity { gap: 12px; }
+    .brand-logo { width: 130px; height: 50px; padding: 7px 12px; }
+    .brand-divider { display: none; }
+    .brand-text .en { display: none; }
+    .search-inline { width: 100%; }
+    .lang-pick { display: none; }
+    .btn-ghost { display: none; }
+    .section-nav-inner { padding: 0 20px; }
+    .section-nav-links a { padding: 0 12px; font-size: 12px; }
+    .hero { padding: 32px 0 40px; }
+    .hero-eyebrow { flex-direction: column; align-items: flex-start; gap: 12px; }
     .lead-title { font-size: 30px; }
     .lead-subtitle { font-size: 16px; }
     .lead-dek { font-size: 15px; }
-    .stack-header h3 { font-size: 18px; }
+    .stack-header h3 { font-size: 20px; }
     .section { padding: 40px 0; }
     .section-head { flex-direction: column; align-items: flex-start; gap: 14px; }
     .section-head-left h2 { font-size: 24px; }
@@ -1048,96 +1291,149 @@
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="topbar-inner">
-    <div class="topbar-left">
+<!-- TIER 1: UTILITY BAR -->
+<div class="util-bar">
+  <div class="util-inner">
+    <div class="util-left">
       <span class="brand">RAWI PRESS</span>
+      <span class="sep">·</span>
+      <span class="live-dot">LIVE FROM RIYADH</span>
       <span class="sep">·</span>
       <span>الخميس 5 ذو القعدة 1447هـ · 23 أبريل 2026م</span>
       <span class="sep">·</span>
-      <span id="clock-top">RIYADH 00:00 GMT+3</span>
+      <span id="clock-top">00:00 GMT+3</span>
     </div>
-    <div class="topbar-right">
+    <div class="util-right">
       <a href="#">الدعم</a>
       <a href="#">الوظائف</a>
       <a href="#">الصحفيون</a>
       <a href="#">API</a>
+      <a href="#">تواصل معنا</a>
     </div>
   </div>
 </div>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="#" class="logo">
-      <div class="logo-mark">
+<!-- TIER 2: BRAND BAR -->
+<div class="brand-bar">
+  <div class="brand-inner">
+
+    <div class="brand-identity">
+      <a href="#" class="brand-logo">
         <img src="https://i.ibb.co/p6K8D8Wj/logo-dark.png" alt="Rawi Press">
+      </a>
+      <div class="brand-divider"></div>
+      <div class="brand-text">
+        <span class="ar">منصة الأخبار السعودية</span>
+        <span class="en">Strategic News Infrastructure · Est. 2026</span>
       </div>
-    </a>
-    <div class="nav-sections">
-      <a href="#" class="active">الرئيسية</a>
-      <a href="#latest">كرة القدم</a>
-      <a href="#latest">سباقات</a>
-      <a href="#latest">رؤية 2030</a>
-      <a href="#about">المنصة</a>
-      <a href="#tiers">الاشتراكات</a>
     </div>
-    <div class="nav-actions">
-      <button class="nav-search" title="بحث"><svg data-lucide="search"></svg></button>
-      <div class="nav-lang">
+
+    <div class="brand-actions">
+      <div class="search-inline">
+        <svg data-lucide="search"></svg>
+        <input type="text" placeholder="ابحث في مكتبة راوي برس...">
+        <span class="shortcut">⌘ K</span>
+      </div>
+      <div class="lang-pick">
         <button class="active">AR</button>
         <button>EN</button>
       </div>
       <a href="login.html" class="btn btn-ghost">تسجيل الدخول</a>
       <a href="request-access.html" class="btn btn-red">طلب وصول</a>
     </div>
-  </div>
-</nav>
 
-<!-- BREAKING TICKER -->
-<div class="breaking">
-  <div class="breaking-inner">
-    <span class="breaking-label">
-      <span class="dot"></span>
-      عاجل
-    </span>
-    <div class="breaking-track">
-      <div class="breaking-content">
-        <a href="#"><span class="time">2 HRS</span> الهيئة العامة للترفيه تكشف عن الجدول الرسمي لفورمولا إي الدرعية 2026</a>
-        <a href="#"><span class="time">4 HRS</span> قمة دوري روشن: النصر يستضيف الاتحاد في مواجهة الموسم</a>
-        <a href="#"><span class="time">6 HRS</span> مستجدات تطوير مدينة القدية — تقرير حصري من الموقع</a>
-        <a href="#"><span class="time">8 HRS</span> SSC تطلق حزمة تغطيات جديدة بالتعاون مع راوي برس</a>
-      </div>
-    </div>
   </div>
 </div>
+
+<!-- TIER 3: SECTION NAV (STICKY) -->
+<nav class="section-nav">
+  <div class="section-nav-inner">
+    <div class="section-nav-links">
+      <a href="#" class="active">الرئيسية</a>
+      <a href="#latest">كرة القدم</a>
+      <a href="#latest">سباقات السيارات</a>
+      <a href="#latest">رؤية 2030</a>
+      <a href="#about">عن المنصة</a>
+      <a href="#tiers">الاشتراكات</a>
+      <a href="#">الأسعار</a>
+    </div>
+    <div class="section-nav-meta">
+      <span class="edition">EDITION</span>
+      <span class="num">N° 047</span>
+      <span class="sep">·</span>
+      <span>THURSDAY</span>
+    </div>
+  </div>
+</nav>
 
 <!-- HERO : LEAD + STACK -->
 <section class="hero">
   <div class="container">
+
+    <!-- Hero Eyebrow -->
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-title">
+        <h2>أبرز أخبار اليوم</h2>
+        <span class="en">Today's Top Stories</span>
+      </div>
+      <div class="hero-eyebrow-meta">
+        <span class="dot"></span>
+        <span class="live">LIVE COVERAGE</span>
+        <span>·</span>
+        <span>UPDATED 12 MIN AGO</span>
+        <span>·</span>
+        <span>7 STORIES IN CIRCULATION</span>
+      </div>
+    </div>
+
     <div class="hero-grid">
 
       <!-- LEAD STORY -->
       <article class="lead">
-        <div class="lead-img" style="background-image: url('https://admin.rawipress.com/media/244/XsUz5L44o1ajslarsiEVxHkOQOw0zZPW06tC5mHY.png');">
-          <span class="video-badge">
-            <svg data-lucide="video"></svg>
-            VIDEO · 03:45
-          </span>
+        <div class="lead-img-wrap">
+          <div class="lead-img" style="background-image: url('https://admin.rawipress.com/media/244/XsUz5L44o1ajslarsiEVxHkOQOw0zZPW06tC5mHY.png');">
+            <span class="lead-tag">
+              <span class="dot"></span>
+              LEAD STORY
+            </span>
+            <span class="video-badge">
+              <svg data-lucide="video"></svg>
+              VIDEO · 03:45
+            </span>
+          </div>
+          <div class="lead-photo-credit">
+            PHOTO BY <strong>RAWI PRESS</strong> / SAUDI PRO LEAGUE — KINGDOM ARENA, RIYADH
+          </div>
         </div>
+
         <div class="lead-cat">كرة القدم · SAUDI PRO LEAGUE</div>
         <h1 class="lead-title">قمة النصر والاتحاد تُشعل أجواء الموسم في دوري روشن السعودي</h1>
         <p class="lead-subtitle">Al Nassr and Al Ittihad clash in what promises to be the season's defining match</p>
         <p class="lead-dek">
           مواجهة مثيرة بين أكبر أندية الكرة السعودية، يلتقي فيها النصر والاتحاد في صراع كروي مليء بالنجوم والحماس — تغطية حصرية بالفيديو والنص والصور جاهزة للبث، مع لقطات خام إضافية للقنوات التلفزيونية.
         </p>
+
         <div class="lead-meta">
           <span class="byline">BY RAWI STAFF — RIYADH</span>
           <span class="sep">·</span>
           <span class="time">2 HOURS AGO</span>
           <span class="sep">·</span>
-          <span class="byline">UPDATED 22:36 GMT+3</span>
+          <span class="updated">UPDATED 22:36 GMT+3</span>
+        </div>
+
+        <div class="lead-actions">
+          <a href="#" class="lead-action">
+            <svg data-lucide="bookmark"></svg>
+            إضافة للمحفوظات
+          </a>
+          <a href="#" class="lead-action">
+            <svg data-lucide="share-2"></svg>
+            مشاركة التغطية
+          </a>
+          <a href="#" class="lead-action">
+            <svg data-lucide="download"></svg>
+            تحميل اللقطات
+          </a>
         </div>
       </article>
 
@@ -1155,7 +1451,7 @@
           <div class="stack-content">
             <span class="stack-cat">سباقات · Formula E</span>
             <h4 class="stack-title">نيوم ماكلارين في سباق الدرعية إي بري 2026</h4>
-            <span class="stack-meta">3 HOURS AGO</span>
+            <span class="stack-meta">3 HOURS AGO · DIRIYAH</span>
           </div>
         </a>
 
@@ -1166,7 +1462,7 @@
           <div class="stack-content">
             <span class="stack-cat">رؤية 2030 · Special</span>
             <h4 class="stack-title">أبرز مستجدات تطوير مدينة القدية</h4>
-            <span class="stack-meta">5 HOURS AGO</span>
+            <span class="stack-meta">5 HOURS AGO · RIYADH</span>
           </div>
         </a>
 
@@ -1177,7 +1473,7 @@
           <div class="stack-content">
             <span class="stack-cat">كرة القدم · روشن</span>
             <h4 class="stack-title">الوحدة يواجه الهلال: الطموح أمام الخبرة</h4>
-            <span class="stack-meta">7 HOURS AGO</span>
+            <span class="stack-meta">7 HOURS AGO · JEDDAH</span>
           </div>
         </a>
 
@@ -1188,9 +1484,17 @@
           <div class="stack-content">
             <span class="stack-cat">كرة القدم · روشن</span>
             <h4 class="stack-title">الأهلي يواجه أبها في الدوري السعودي</h4>
-            <span class="stack-meta">9 HOURS AGO</span>
+            <span class="stack-meta">9 HOURS AGO · JEDDAH</span>
           </div>
         </a>
+
+        <div class="stack-viewall">
+          <a href="#">
+            عرض كل الأخبار
+            <svg data-lucide="arrow-left"></svg>
+          </a>
+          <span class="count">7 STORIES</span>
+        </div>
       </aside>
 
     </div>
@@ -1277,7 +1581,7 @@
   </div>
 </section>
 
-<!-- ABOUT / PLATFORM -->
+<!-- ABOUT -->
 <section class="about" id="about">
   <div class="container">
     <div class="about-grid">
@@ -1517,11 +1821,9 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="logo">
-          <div class="logo-mark">
-            <img src="https://i.ibb.co/p6K8D8Wj/logo-dark.png" alt="Rawi Press">
-          </div>
-        </div>
+        <a href="#" class="brand-logo">
+          <img src="https://i.ibb.co/p6K8D8Wj/logo-dark.png" alt="Rawi Press">
+        </a>
         <h4>البنية الإخبارية الاستراتيجية للمنطقة.</h4>
         <p>منصة تربط المصادر الرسمية بالقنوات والصحفيين ومنصات التواصل — مدعومة بأدوات ذكاء اصطناعي مخصصة للسياق العربي، من قلب الرياض.</p>
       </div>
@@ -1580,7 +1882,7 @@
     const s = String(riyadh.getSeconds()).padStart(2, '0');
     const top = document.getElementById('clock-top');
     const bot = document.getElementById('clock-bottom');
-    if (top) top.textContent = `RIYADH ${h}:${m} GMT+3`;
+    if (top) top.textContent = `${h}:${m} GMT+3`;
     if (bot) bot.textContent = `RIYADH ${h}:${m}:${s} GMT+3`;
   }
   updateClock();
@@ -1593,9 +1895,9 @@
     });
   });
 
-  document.querySelectorAll('.nav-lang button').forEach(btn => {
+  document.querySelectorAll('.lang-pick button').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.nav-lang button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.lang-pick button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     });
   });
