@@ -6,13 +6,14 @@
 <title>راوي برس — منصة الأخبار السعودية</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
   :root {
     --rawi-red: #C8202A;
     --rawi-red-deep: #9B1520;
     --rawi-red-tint: #FDECED;
+    --rawi-red-ink: #7B1118;
 
     --ink-black: #0A0A0A;
     --ink-graphite: #1F1F1F;
@@ -24,6 +25,7 @@
     --paper-white: #FEFEFD;
     --paper-cream: #F8F7F3;
     --paper-linen: #F1EFE9;
+    --paper-warm: #F5F2EA;
     --rule-line: #DDD9D0;
     --rule-hair: #EAE6DD;
 
@@ -45,30 +47,13 @@
   }
   img { max-width: 100%; display: block; }
   a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
 
-  .container {
-    max-width: 1320px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
+  .container { max-width: 1320px; margin: 0 auto; padding: 0 40px; }
 
-  /* ============= TOP DATELINE STRIP ============= */
-  .dateline {
-    background: var(--ink-black);
-    color: white;
-    padding: 8px 0;
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.08em;
-  }
-  .dateline-inner {
-    max-width: 1320px;
-    margin: 0 auto;
-    padding: 0 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  /* ============= DATELINE ============= */
+  .dateline { background: var(--ink-black); color: white; padding: 8px 0; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; }
+  .dateline-inner { max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; }
   .dateline-left { display: flex; align-items: center; gap: 18px; }
   .dateline-left .mark { color: var(--rawi-red); font-weight: 700; letter-spacing: 0.15em; }
   .dateline-left .sep { color: var(--ink-stone); }
@@ -76,963 +61,700 @@
   .dateline-right a { transition: color 0.15s; }
   .dateline-right a:hover { color: var(--rawi-red); }
 
-  /* ============= NAVIGATION ============= */
-  .nav {
-    background: var(--paper-white);
-    border-bottom: 1px solid var(--rule-line);
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    backdrop-filter: blur(8px);
-    background: rgba(254, 254, 253, 0.96);
-  }
-  .nav-inner {
-    max-width: 1320px;
-    margin: 0 auto;
-    padding: 0 40px;
-    height: 84px;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-  }
-
+  /* ============= NAV ============= */
+  .nav { background: var(--paper-white); border-bottom: 1px solid var(--rule-line); position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); background: rgba(254, 254, 253, 0.96); }
+  .nav-inner { max-width: 1320px; margin: 0 auto; padding: 0 40px; height: 84px; display: flex; align-items: center; gap: 40px; }
   .logo { display: flex; align-items: center; gap: 14px; }
-  .logo-mark {
-    width: 140px; height: 52px;
-    background: var(--ink-black);
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 6px;
-    padding: 8px 14px;
-    transition: background 0.15s;
-  }
+  .logo-mark { width: 140px; height: 52px; background: var(--ink-black); display: flex; align-items: center; justify-content: center; border-radius: 6px; padding: 8px 14px; transition: background 0.15s; }
   .logo-mark:hover { background: var(--ink-graphite); }
-  .logo-mark img {
-    max-height: 100%; max-width: 100%;
-    width: auto; height: auto;
-    object-fit: contain; display: block;
-  }
-
-  .logo-text {
-    display: flex; flex-direction: column;
-    line-height: 1.1;
-    padding-right: 14px;
-    border-right: 1px solid var(--rule-line);
-  }
+  .logo-mark img { max-height: 100%; max-width: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+  .logo-text { display: flex; flex-direction: column; line-height: 1.1; padding-right: 14px; border-right: 1px solid var(--rule-line); }
   .logo-text .ar { font-size: 14px; font-weight: 500; color: var(--ink-stone); letter-spacing: -0.005em; }
   .logo-text .en { font-family: var(--font-en); font-size: 9px; color: var(--ink-ash); text-transform: uppercase; letter-spacing: 0.18em; margin-top: 2px; font-weight: 500; }
-
   .main-nav { display: flex; align-items: center; gap: 32px; flex: 1; }
-  .main-nav a {
-    font-size: 13.5px; font-weight: 500; color: var(--ink-slate);
-    transition: color 0.15s;
-    position: relative; padding: 6px 0;
-  }
+  .main-nav a { font-size: 13.5px; font-weight: 500; color: var(--ink-slate); transition: color 0.15s; position: relative; padding: 6px 0; }
   .main-nav a:hover { color: var(--rawi-red); }
-  .main-nav a::after {
-    content: ''; position: absolute; bottom: 0; right: 0; left: 0;
-    height: 2px; background: var(--rawi-red);
-    transform: scaleX(0); transform-origin: center;
-    transition: transform 0.2s;
-  }
+  .main-nav a::after { content: ''; position: absolute; bottom: 0; right: 0; left: 0; height: 2px; background: var(--rawi-red); transform: scaleX(0); transform-origin: center; transition: transform 0.2s; }
   .main-nav a:hover::after { transform: scaleX(1); }
-
   .nav-actions { display: flex; align-items: center; gap: 10px; }
-  .icon-btn {
-    width: 38px; height: 38px;
-    background: transparent;
-    border: 1px solid var(--rule-line);
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--ink-slate); cursor: pointer;
-    transition: all 0.15s;
-  }
+  .icon-btn { width: 38px; height: 38px; background: transparent; border: 1px solid var(--rule-line); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--ink-slate); cursor: pointer; transition: all 0.15s; }
   .icon-btn:hover { background: var(--paper-cream); color: var(--ink-black); }
   .icon-btn svg { width: 15px; height: 15px; }
-
-  .lang-pick {
-    display: flex; gap: 2px;
-    background: transparent;
-    border: 1px solid var(--rule-line);
-    border-radius: 6px; padding: 3px;
-    font-family: var(--font-en);
-  }
-  .lang-pick button {
-    background: transparent; border: none;
-    padding: 5px 9px; font-size: 11px; font-weight: 600;
-    color: var(--ink-stone); cursor: pointer;
-    border-radius: 4px; letter-spacing: 0.05em;
-    transition: all 0.12s;
-  }
+  .lang-pick { display: flex; gap: 2px; background: transparent; border: 1px solid var(--rule-line); border-radius: 6px; padding: 3px; font-family: var(--font-en); }
+  .lang-pick button { background: transparent; border: none; padding: 5px 9px; font-size: 11px; font-weight: 600; color: var(--ink-stone); cursor: pointer; border-radius: 4px; letter-spacing: 0.05em; transition: all 0.12s; }
   .lang-pick button.active { background: var(--ink-black); color: white; }
 
-  .btn {
-    font-family: var(--font-ar);
-    font-size: 13.5px; font-weight: 500;
-    padding: 10px 20px;
-    border-radius: 6px;
-    border: 1px solid transparent;
-    cursor: pointer;
-    display: inline-flex; align-items: center; gap: 8px;
-    transition: all 0.15s;
-    height: 40px; white-space: nowrap;
-  }
+  .btn { font-family: var(--font-ar); font-size: 13.5px; font-weight: 500; padding: 10px 20px; border-radius: 6px; border: 1px solid transparent; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.15s; height: 40px; white-space: nowrap; }
   .btn svg { width: 14px; height: 14px; }
   .btn-ghost { background: transparent; color: var(--ink-black); border-color: var(--rule-line); }
   .btn-ghost:hover { background: var(--paper-cream); border-color: var(--ink-silver); }
   .btn-red { background: var(--rawi-red); color: white; border-color: var(--rawi-red); font-weight: 600; }
-  .btn-red:hover {
-    background: var(--rawi-red-deep); border-color: var(--rawi-red-deep);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(200, 32, 42, 0.25);
-  }
+  .btn-red:hover { background: var(--rawi-red-deep); border-color: var(--rawi-red-deep); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(200, 32, 42, 0.25); }
   .btn-lg { height: 48px; padding: 0 28px; font-size: 14.5px; }
-
-  .btn-white-outline {
-    background: rgba(255,255,255,0.08);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.25);
-    backdrop-filter: blur(10px);
-    font-weight: 500;
-  }
-  .btn-white-outline:hover {
-    background: rgba(255,255,255,0.15);
-    border-color: rgba(255,255,255,0.4);
-    transform: translateY(-1px);
-  }
+  .btn-dark-ghost { background: transparent; color: var(--ink-black); border: 1px solid var(--ink-black); }
+  .btn-dark-ghost:hover { background: var(--ink-black); color: white; transform: translateY(-1px); }
 
   /* ============= MASTHEAD ============= */
-  .masthead {
-    padding: 28px 0 20px;
-    border-bottom: 1px solid var(--ink-black);
-    background: var(--paper-white);
-  }
+  .masthead { padding: 28px 0 20px; border-bottom: 1px solid var(--ink-black); background: var(--paper-white); }
   .masthead-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
-  .masthead-label {
-    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em;
-    color: var(--ink-stone); text-transform: uppercase;
-    display: flex; align-items: center; gap: 14px;
-  }
+  .masthead-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; color: var(--ink-stone); text-transform: uppercase; display: flex; align-items: center; gap: 14px; }
   .masthead-label .dot { width: 6px; height: 6px; background: var(--rawi-red); border-radius: 50%; }
-  .masthead-title {
-    font-family: var(--font-serif); font-size: 15px; font-weight: 500;
-    color: var(--ink-graphite); font-style: italic;
-  }
-  .masthead-meta {
-    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em;
-    color: var(--ink-stone); text-transform: uppercase;
-  }
+  .masthead-title { font-family: var(--font-serif); font-size: 15px; font-weight: 500; color: var(--ink-graphite); font-style: italic; }
+  .masthead-meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--ink-stone); text-transform: uppercase; }
   .masthead-meta .sep { color: var(--ink-silver); margin: 0 8px; }
 
-  /* ============= CINEMATIC FULL-BLEED HERO V3 ============= */
-  .hero-v3 {
+  /* ================================================
+     HERO V4 — EDITORIAL MAGAZINE SPREAD
+     ================================================ */
+  .hero-v4 {
     position: relative;
-    background: var(--ink-black);
+    background: var(--paper-cream);
     overflow: hidden;
+    padding: 60px 0 80px;
+    border-bottom: 1px solid var(--rule-line);
   }
 
-  .hero-v3-stage {
-    position: relative;
-    height: 680px;
-    overflow: hidden;
-  }
-
-  .hero-v3-slide {
+  /* Subtle paper texture gradient */
+  .hero-v4::before {
+    content: '';
     position: absolute;
     inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(200, 32, 42, 0.025) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(0, 0, 0, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Massive decorative background number */
+  .hero-v4-mega-num {
+    position: absolute;
+    top: 50%;
+    left: 48%;
+    transform: translateY(-50%);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 440px;
+    line-height: 0.85;
+    color: var(--rawi-red);
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 1;
+    user-select: none;
+    letter-spacing: -0.05em;
+  }
+
+  .hero-v4-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 3;
+  }
+
+  /* Top header row */
+  .hero-v4-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--rule-line);
+  }
+
+  .hero-v4-issue {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-stone);
+  }
+  .hero-v4-issue::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--ink-black);
+  }
+  .hero-v4-issue .red { color: var(--rawi-red); font-weight: 700; }
+  .hero-v4-issue .sep { color: var(--ink-silver); }
+
+  .hero-v4-top-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-slate);
+  }
+  .hero-v4-top-label .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--rawi-red);
+    border-radius: 50%;
+    animation: v4Pulse 2s ease-in-out infinite;
+  }
+  @keyframes v4Pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.75); }
+  }
+
+  /* Slides container */
+  .hero-v4-slides {
+    position: relative;
+    min-height: 560px;
+  }
+
+  .hero-v4-slide {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 72px;
+    align-items: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.9s ease, visibility 0.9s;
+    position: absolute;
+    inset: 0;
+    transition: opacity 0.8s ease, visibility 0.8s;
   }
-  .hero-v3-slide.active {
+  .hero-v4-slide.active {
     opacity: 1;
     visibility: visible;
+    position: relative;
     z-index: 2;
   }
 
-  .hero-v3-bg {
+  /* LEFT CONTENT */
+  .hero-v4-content {
+    padding-right: 0;
+  }
+
+  .hero-v4-cat {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .hero-v4-cat .num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--rawi-red);
+    line-height: 1;
+  }
+  .hero-v4-cat .line {
+    width: 28px;
+    height: 1px;
+    background: var(--rawi-red);
+  }
+  .hero-v4-cat .label {
+    font-family: var(--font-en);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--rawi-red);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .hero-v4-title {
+    font-size: 76px;
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    color: var(--ink-black);
+    margin-bottom: 28px;
+  }
+  .hero-v4-title em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    color: var(--rawi-red);
+  }
+
+  .hero-v4-dek {
+    font-family: var(--font-serif);
+    font-size: 19px;
+    line-height: 1.7;
+    color: var(--ink-slate);
+    font-style: italic;
+    margin-bottom: 32px;
+    padding-right: 20px;
+    border-right: 3px solid var(--rawi-red);
+    max-width: 520px;
+  }
+
+  .hero-v4-byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--ink-stone);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 14px 0;
+    margin-bottom: 32px;
+    border-top: 1px solid var(--rule-hair);
+    border-bottom: 1px solid var(--rule-hair);
+  }
+  .hero-v4-byline span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .hero-v4-byline svg {
+    width: 12px;
+    height: 12px;
+    color: var(--rawi-red);
+  }
+  .hero-v4-byline .sep {
+    color: var(--ink-silver);
+  }
+  .hero-v4-byline .dur {
+    background: var(--ink-black);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+  }
+  .hero-v4-byline .dur svg {
+    color: white;
+  }
+
+  .hero-v4-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  /* RIGHT VISUAL */
+  .hero-v4-visual {
+    position: relative;
+    height: 560px;
+  }
+
+  /* Red vertical accent spine */
+  .hero-v4-visual::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -36px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--rawi-red) 20%, var(--rawi-red) 80%, transparent);
+    opacity: 0.3;
+    z-index: 1;
+  }
+
+  /* Numbered pagination (vertical, right side of visual) */
+  .hero-v4-nav {
+    position: absolute;
+    top: 50%;
+    right: -72px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    z-index: 10;
+  }
+
+  .hero-v4-nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink-ash);
+    transition: all 0.25s;
+    position: relative;
+  }
+  .hero-v4-nav-btn::before {
+    content: '';
+    width: 14px;
+    height: 1px;
+    background: var(--ink-ash);
+    transition: all 0.3s;
+  }
+  .hero-v4-nav-btn:hover {
+    color: var(--ink-black);
+  }
+  .hero-v4-nav-btn:hover::before {
+    width: 22px;
+    background: var(--ink-black);
+  }
+  .hero-v4-nav-btn.active {
+    color: var(--rawi-red);
+    font-weight: 600;
+    font-size: 28px;
+  }
+  .hero-v4-nav-btn.active::before {
+    width: 36px;
+    height: 2px;
+    background: var(--rawi-red);
+  }
+
+  /* Main image card */
+  .hero-v4-main {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--ink-graphite);
+    overflow: hidden;
+    box-shadow:
+      0 30px 70px rgba(0, 0, 0, 0.18),
+      0 8px 24px rgba(0, 0, 0, 0.08);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hero-v4-main:hover {
+    transform: translateY(-6px) rotate(0deg);
+  }
+
+  /* Ken Burns on active main image */
+  .hero-v4-slide.active .hero-v4-main-bg {
+    animation: v4KenBurns 18s ease-in-out forwards;
+  }
+  @keyframes v4KenBurns {
+    0% { transform: scale(1.05) translateX(0); }
+    100% { transform: scale(1.15) translateX(-2%); }
+  }
+
+  .hero-v4-main-bg {
     position: absolute;
     inset: 0;
     background-size: cover;
     background-position: center;
     transform: scale(1.05);
   }
-  .hero-v3-slide.active .hero-v3-bg {
-    animation: v3KenBurns 15s ease-in-out forwards;
-  }
-  @keyframes v3KenBurns {
-    0% { transform: scale(1.05) translateX(0); }
-    100% { transform: scale(1.2) translateX(-1.5%); }
-  }
-
-  .hero-bg-1 { background-image: url('https://admin.rawipress.com/media/244/XsUz5L44o1ajslarsiEVxHkOQOw0zZPW06tC5mHY.png'); }
-  .hero-bg-2 { background-image: url('https://admin.rawipress.com/media/256/DiX5LpAgLUeOBU7zfzZnuzWPcjzCzohYjkbXnNyx.jpg'); }
-  .hero-bg-3 { background-image: url('https://admin.rawipress.com/media/243/WXD80vUIys4sY8UJSutO6PKsMkQB7GIrvKRK5j2X.jpg'); }
-
-  .hero-v3-overlay {
+  .hero-v4-main::after {
+    content: '';
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(to left, rgba(0,0,0,0.2) 0%, transparent 40%, transparent 55%, rgba(0,0,0,0.5) 100%),
-      linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.7) 15%, rgba(0,0,0,0.2) 45%, transparent 65%),
-      linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 20%);
-    z-index: 1;
+      linear-gradient(135deg, transparent 55%, rgba(0,0,0,0.3)),
+      linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 20%, transparent 60%, rgba(0,0,0,0.45));
+    pointer-events: none;
+    z-index: 2;
   }
 
-  .hero-v3-chip {
+  /* Badge on main image */
+  .hero-v4-badge {
     position: absolute;
-    top: 40px;
-    right: 40px;
+    top: 24px;
+    right: 24px;
     background: var(--rawi-red);
     color: white;
-    padding: 12px 22px;
+    padding: 10px 18px;
     font-family: var(--font-en);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    z-index: 4;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: 0 8px 30px rgba(200, 32, 42, 0.4);
-  }
-  .hero-v3-chip .dot {
-    width: 7px; height: 7px;
-    background: white;
-    border-radius: 50%;
-    animation: v3Pulse 2s ease-in-out infinite;
-  }
-  @keyframes v3Pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.7); }
-  }
-
-  .hero-v3-play {
-    position: absolute;
-    top: 42%;
-    right: 50%;
-    transform: translate(50%, -50%);
-    width: 118px; height: 118px;
-    background: rgba(255,255,255,0.96);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    z-index: 4;
-    backdrop-filter: blur(24px);
-    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .hero-v3-play::before {
-    content: '';
-    position: absolute;
-    inset: -16px;
-    border: 2px solid rgba(255,255,255,0.35);
-    border-radius: 50%;
-    transition: all 0.4s ease;
-  }
-  .hero-v3-play::after {
-    content: '';
-    position: absolute;
-    inset: -34px;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 50%;
-    transition: all 0.4s ease;
-  }
-  .hero-v3-play:hover {
-    transform: translate(50%, -50%) scale(1.08);
-    background: white;
-  }
-  .hero-v3-play:hover::before {
-    inset: -24px;
-    border-color: rgba(255,255,255,0.55);
-  }
-  .hero-v3-play:hover::after {
-    inset: -48px;
-    border-color: rgba(255,255,255,0.25);
-  }
-  .hero-v3-play svg {
-    width: 44px; height: 44px;
-    color: var(--rawi-red);
-    margin-right: -5px;
-  }
-
-  .hero-v3-content {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    padding: 0 40px 72px;
-    z-index: 3;
-  }
-  .hero-v3-content-inner {
-    max-width: 1320px;
-    margin: 0 auto;
-  }
-
-  .hero-v3-content-box {
-    max-width: 780px;
-    color: white;
-  }
-
-  .hero-v3-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 14px;
-    font-family: var(--font-en);
-    font-size: 12px;
-    color: var(--rawi-red);
+    font-size: 10.5px;
     font-weight: 700;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    margin-bottom: 22px;
-    padding: 7px 16px;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(200, 32, 42, 0.4);
-    border-radius: 3px;
-  }
-  .hero-v3-eyebrow .line {
-    width: 24px;
-    height: 1px;
-    background: var(--rawi-red);
-  }
-
-  .hero-v3-title {
-    font-size: 58px;
-    font-weight: 600;
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-    margin-bottom: 22px;
-    color: white;
-    text-shadow: 0 4px 28px rgba(0,0,0,0.5);
-    max-width: 920px;
-  }
-
-  .hero-v3-dek {
-    font-family: var(--font-serif);
-    font-size: 19px;
-    line-height: 1.6;
-    color: rgba(255,255,255,0.9);
-    font-style: italic;
-    margin-bottom: 28px;
-    padding-right: 18px;
-    border-right: 3px solid var(--rawi-red);
-    max-width: 720px;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
-  }
-
-  .hero-v3-meta-strip {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: center;
-    font-family: var(--font-mono);
-    font-size: 11.5px;
-    color: rgba(255,255,255,0.85);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 32px;
-    padding: 14px 0;
-    border-top: 1px solid rgba(255,255,255,0.15);
-    border-bottom: 1px solid rgba(255,255,255,0.15);
-  }
-  .hero-v3-meta-strip span {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .hero-v3-meta-strip svg { width: 13px; height: 13px; color: var(--rawi-red); }
-  .hero-v3-meta-strip .sep { color: rgba(255,255,255,0.25); }
-  .hero-v3-meta-strip .duration-pill {
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(8px);
-    padding: 6px 12px;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 3px;
-    color: white;
-    font-weight: 500;
-  }
-
-  .hero-v3-actions {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
-
-  /* Prev/Next floating arrows */
-  .hero-v3-arrow {
-    position: absolute;
-    top: 42%;
-    transform: translateY(-50%);
-    width: 50px; height: 50px;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
     z-index: 5;
-    color: white;
-    transition: all 0.25s;
-    opacity: 0.6;
-  }
-  .hero-v3-arrow:hover {
-    opacity: 1;
-    background: rgba(0,0,0,0.75);
-    border-color: rgba(255,255,255,0.35);
-    transform: translateY(-50%) scale(1.08);
-  }
-  .hero-v3-arrow.prev { right: 32px; }
-  .hero-v3-arrow.next { left: 32px; }
-  .hero-v3-arrow svg { width: 22px; height: 22px; }
-
-  /* ============= THUMBNAIL NAVIGATION STRIP ============= */
-  .hero-v3-thumbs {
-    background: var(--ink-black);
-    border-top: 1px solid rgba(255,255,255,0.08);
-    padding: 24px 0;
-    position: relative;
-  }
-
-  .hero-v3-thumbs-inner {
-    max-width: 1320px;
-    margin: 0 auto;
-    padding: 0 40px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-
-  .hero-v3-thumb {
-    display: grid;
-    grid-template-columns: auto 120px 1fr;
-    gap: 18px;
+    display: flex;
     align-items: center;
-    padding: 18px 22px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.25s ease;
+    gap: 10px;
+    box-shadow: 0 8px 24px rgba(200, 32, 42, 0.35);
+  }
+  .hero-v4-badge .dot {
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    animation: v4Pulse 2s ease-in-out infinite;
   }
 
-  .hero-v3-thumb:hover {
-    background: rgba(255,255,255,0.06);
-    border-color: rgba(255,255,255,0.18);
-    transform: translateY(-2px);
-  }
-
-  .hero-v3-thumb.active {
-    background: linear-gradient(135deg, rgba(200, 32, 42, 0.12) 0%, rgba(200, 32, 42, 0.04) 100%);
-    border-color: rgba(200, 32, 42, 0.4);
-  }
-
-  .hero-v3-thumb-num {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 28px;
-    font-weight: 500;
-    color: rgba(255,255,255,0.3);
-    min-width: 28px;
-    text-align: center;
-    line-height: 1;
-    transition: color 0.25s;
-  }
-  .hero-v3-thumb.active .hero-v3-thumb-num {
-    color: var(--rawi-red);
-  }
-
-  .hero-v3-thumb-img {
-    width: 120px;
-    height: 68px;
-    background-size: cover;
-    background-position: center;
-    background-color: var(--ink-graphite);
-    border-radius: 4px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-v3-thumb-img::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.6));
-  }
-  .hero-v3-thumb-img svg {
+  /* Play button */
+  .hero-v4-play {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 18px; height: 18px;
-    color: white;
-    opacity: 0.9;
-    z-index: 2;
+    width: 104px;
+    height: 104px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 5;
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 24px 60px rgba(0, 0, 0, 0.35),
+      0 6px 20px rgba(0, 0, 0, 0.15);
   }
-  .hero-v3-thumb-duration {
+  .hero-v4-play::before {
+    content: '';
     position: absolute;
-    bottom: 5px;
-    right: 5px;
-    font-family: var(--font-mono);
-    font-size: 9px;
-    color: white;
-    background: rgba(0,0,0,0.7);
-    padding: 2px 6px;
-    border-radius: 2px;
-    z-index: 2;
-    letter-spacing: 0.04em;
+    inset: -14px;
+    border: 1.5px solid rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+    transition: all 0.35s;
+  }
+  .hero-v4-play::after {
+    content: '';
+    position: absolute;
+    inset: -32px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    transition: all 0.35s;
+  }
+  .hero-v4-play:hover {
+    transform: translate(-50%, -50%) scale(1.09);
+  }
+  .hero-v4-play:hover::before { inset: -22px; border-color: rgba(255, 255, 255, 0.75); }
+  .hero-v4-play:hover::after { inset: -44px; border-color: rgba(255, 255, 255, 0.4); }
+  .hero-v4-play svg {
+    width: 38px;
+    height: 38px;
+    color: var(--rawi-red);
+    margin-right: -4px;
   }
 
-  .hero-v3-thumb-meta {
+  /* Footer-tag on main image */
+  .hero-v4-main-tag {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
     display: flex;
-    flex-direction: column;
-    gap: 4px;
-    min-width: 0;
-  }
-  .hero-v3-thumb-cat {
-    font-family: var(--font-en);
-    font-size: 10px;
-    color: var(--rawi-red);
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-  .hero-v3-thumb-title {
-    font-size: 13.5px;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
     color: white;
-    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 5;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+  }
+  .hero-v4-main-tag svg { width: 13px; height: 13px; color: var(--rawi-red); }
+
+  /* Floating secondary thumbs (bottom-left, overlap main image) */
+  .hero-v4-thumbs {
+    position: absolute;
+    bottom: -28px;
+    left: -32px;
+    display: flex;
+    gap: 14px;
+    z-index: 6;
+  }
+
+  .hero-v4-thumb {
+    position: relative;
+    width: 130px;
+    height: 84px;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--ink-graphite);
+    box-shadow:
+      0 14px 36px rgba(0, 0, 0, 0.25),
+      0 4px 12px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    border: 4px solid white;
+    background-clip: padding-box;
+    overflow: hidden;
+  }
+  .hero-v4-thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.55));
+  }
+  .hero-v4-thumb:first-child {
+    transform: rotate(-3deg);
+  }
+  .hero-v4-thumb:last-child {
+    transform: rotate(2deg);
+  }
+  .hero-v4-thumb:hover {
+    transform: rotate(0) translateY(-6px) scale(1.04);
+    box-shadow:
+      0 24px 50px rgba(0, 0, 0, 0.35),
+      0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .hero-v4-thumb-label {
+    position: absolute;
+    bottom: 8px;
+    left: 10px;
+    right: 10px;
+    font-family: var(--font-ar);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: white;
+    z-index: 2;
     line-height: 1.3;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .hero-v3-thumb.active .hero-v3-thumb-title { color: white; }
-
-  .hero-v3-thumb-progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: rgba(255,255,255,0.06);
-    overflow: hidden;
-  }
-  .hero-v3-thumb-progress-fill {
-    position: absolute;
-    top: 0; bottom: 0; right: 0;
-    width: 0;
-    background: var(--rawi-red);
-  }
-  .hero-v3-thumb.active .hero-v3-thumb-progress-fill {
-    animation: v3Progress 7s linear forwards;
-  }
-  @keyframes v3Progress {
-    from { width: 0; }
-    to { width: 100%; }
   }
 
-  /* ============= INTRO SECTION ============= */
-  .intro {
-    background: var(--paper-cream);
-    padding: 80px 0;
-    border-bottom: 1px solid var(--rule-line);
-  }
+  /* ============= INTRO (unchanged) ============= */
+  .intro { background: var(--paper-white); padding: 90px 0; border-top: 1px solid var(--rule-line); border-bottom: 1px solid var(--rule-line); }
   .intro-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: center; }
-  .intro-label {
-    font-family: var(--font-en); font-size: 11px; color: var(--rawi-red);
-    font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
-    margin-bottom: 18px;
-  }
-  .intro-h1 {
-    font-size: 38px; font-weight: 600; letter-spacing: -0.02em;
-    line-height: 1.2; margin-bottom: 20px;
-  }
+  .intro-label { font-family: var(--font-en); font-size: 11px; color: var(--rawi-red); font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 18px; }
+  .intro-h1 { font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 20px; }
   .intro-h1 em { font-family: var(--font-serif); font-style: italic; font-weight: 500; color: var(--rawi-red-deep); }
   .intro-lead { font-family: var(--font-serif); font-size: 17px; line-height: 1.7; color: var(--ink-slate); font-style: italic; }
-
   .pillar-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-  .pillar {
-    background: var(--paper-white); border: 1px solid var(--rule-line);
-    padding: 24px; border-radius: 8px;
-    transition: all 0.2s;
-  }
-  .pillar:hover {
-    transform: translateY(-3px);
-    border-color: var(--ink-silver);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.04);
-  }
-  .pillar-icon {
-    width: 40px; height: 40px;
-    background: var(--rawi-red-tint); color: var(--rawi-red);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 14px;
-  }
+  .pillar { background: var(--paper-cream); border: 1px solid var(--rule-line); padding: 24px; border-radius: 8px; transition: all 0.2s; }
+  .pillar:hover { transform: translateY(-3px); border-color: var(--ink-silver); box-shadow: 0 8px 20px rgba(0,0,0,0.04); }
+  .pillar-icon { width: 40px; height: 40px; background: var(--rawi-red-tint); color: var(--rawi-red); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
   .pillar-icon svg { width: 18px; height: 18px; }
   .pillar h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
   .pillar p { font-size: 13px; color: var(--ink-slate); line-height: 1.6; }
 
-  /* ============= LATEST NEWS ============= */
+  /* ============= LATEST ============= */
   .latest { padding: 80px 0; background: var(--paper-white); }
-  .section-head {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    padding-bottom: 20px; margin-bottom: 36px;
-    border-bottom: 2px solid var(--ink-black);
-  }
+  .section-head { display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 20px; margin-bottom: 36px; border-bottom: 2px solid var(--ink-black); }
   .section-head-left h2 { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; }
-  .section-head-left .sublabel {
-    font-family: var(--font-mono); font-size: 11px; color: var(--ink-stone);
-    letter-spacing: 0.08em; text-transform: uppercase;
-  }
+  .section-head-left .sublabel { font-family: var(--font-mono); font-size: 11px; color: var(--ink-stone); letter-spacing: 0.08em; text-transform: uppercase; }
   .section-head-right { display: flex; gap: 16px; align-items: center; }
-
   .section-pills { display: flex; gap: 6px; }
-  .section-pill {
-    font-family: var(--font-ar);
-    padding: 6px 14px; font-size: 12px;
-    background: transparent;
-    border: 1px solid var(--rule-line);
-    border-radius: 100px;
-    color: var(--ink-slate); cursor: pointer;
-    transition: all 0.15s;
-  }
+  .section-pill { font-family: var(--font-ar); padding: 6px 14px; font-size: 12px; background: transparent; border: 1px solid var(--rule-line); border-radius: 100px; color: var(--ink-slate); cursor: pointer; transition: all 0.15s; }
   .section-pill:hover { background: var(--paper-cream); }
   .section-pill.active { background: var(--ink-black); color: white; border-color: var(--ink-black); }
-
   .news-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-
   .card { cursor: pointer; display: flex; flex-direction: column; transition: transform 0.2s; }
   .card:hover { transform: translateY(-3px); }
-  .card-thumb {
-    position: relative; aspect-ratio: 16/10; overflow: hidden;
-    background: var(--ink-graphite);
-    background-size: cover; background-position: center;
-    margin-bottom: 14px; border-radius: 4px;
-  }
-  .card-thumb::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 65%, rgba(0,0,0,0.5));
-    transition: background 0.2s;
-  }
-  .card:hover .card-thumb::after {
-    background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
-  }
-  .card-play {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 44px; height: 44px;
-    background: rgba(255,255,255,0.92);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transition: opacity 0.15s; z-index: 2;
-  }
+  .card-thumb { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--ink-graphite); background-size: cover; background-position: center; margin-bottom: 14px; border-radius: 4px; }
+  .card-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 65%, rgba(0,0,0,0.5)); transition: background 0.2s; }
+  .card:hover .card-thumb::after { background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.5)); }
+  .card-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; background: rgba(255,255,255,0.92); border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.15s; z-index: 2; }
   .card:hover .card-play { opacity: 1; }
   .card-play svg { width: 16px; height: 16px; color: var(--rawi-red); margin-right: -2px; }
-  .card-duration {
-    position: absolute; bottom: 10px; right: 10px;
-    background: rgba(0,0,0,0.85); color: white;
-    padding: 3px 8px;
-    font-family: var(--font-mono); font-size: 10px; font-weight: 500;
-    letter-spacing: 0.02em; border-radius: 2px;
-    z-index: 2;
-    display: flex; align-items: center; gap: 4px;
-  }
+  .card-duration { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.85); color: white; padding: 3px 8px; font-family: var(--font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.02em; border-radius: 2px; z-index: 2; display: flex; align-items: center; gap: 4px; }
   .card-duration svg { width: 9px; height: 9px; }
-  .card-rushes {
-    position: absolute; top: 10px; right: 10px;
-    background: rgba(255, 255, 255, 0.95); color: var(--ink-black);
-    padding: 3px 8px;
-    font-family: var(--font-en); font-size: 9px; font-weight: 700;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    border-radius: 2px; z-index: 2;
-  }
-  .card-cat {
-    font-family: var(--font-en); font-size: 10px; color: var(--rawi-red);
-    font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em;
-    margin-bottom: 8px;
-  }
-  .card-title {
-    font-size: 16px; font-weight: 600; line-height: 1.4;
-    color: var(--ink-black); margin-bottom: 10px;
-    letter-spacing: -0.01em; transition: color 0.15s;
-  }
+  .card-rushes { position: absolute; top: 10px; right: 10px; background: rgba(255, 255, 255, 0.95); color: var(--ink-black); padding: 3px 8px; font-family: var(--font-en); font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; z-index: 2; }
+  .card-cat { font-family: var(--font-en); font-size: 10px; color: var(--rawi-red); font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; }
+  .card-title { font-size: 16px; font-weight: 600; line-height: 1.4; color: var(--ink-black); margin-bottom: 10px; letter-spacing: -0.01em; transition: color 0.15s; }
   .card:hover .card-title { color: var(--rawi-red); }
-  .card-byline {
-    font-family: var(--font-mono); font-size: 10px; color: var(--ink-stone);
-    letter-spacing: 0.06em; text-transform: uppercase;
-  }
+  .card-byline { font-family: var(--font-mono); font-size: 10px; color: var(--ink-stone); letter-spacing: 0.06em; text-transform: uppercase; }
 
   /* ============= CATEGORIES ============= */
-  .categories {
-    padding: 80px 0;
-    background: var(--paper-cream);
-    border-top: 1px solid var(--rule-line);
-    border-bottom: 1px solid var(--rule-line);
-  }
+  .categories { padding: 80px 0; background: var(--paper-cream); border-top: 1px solid var(--rule-line); border-bottom: 1px solid var(--rule-line); }
   .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .cat-card {
-    background: var(--paper-white); border: 1px solid var(--rule-line);
-    border-radius: 10px; padding: 28px;
-    transition: all 0.25s; cursor: pointer;
-    position: relative; overflow: hidden;
-  }
-  .cat-card:hover {
-    border-color: var(--rawi-red);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
-  }
-  .cat-card::before {
-    content: ''; position: absolute; top: 0; right: 0; left: 0;
-    height: 3px; background: var(--rawi-red);
-    transform: scaleX(0); transform-origin: center;
-    transition: transform 0.3s;
-  }
+  .cat-card { background: var(--paper-white); border: 1px solid var(--rule-line); border-radius: 10px; padding: 28px; transition: all 0.25s; cursor: pointer; position: relative; overflow: hidden; }
+  .cat-card:hover { border-color: var(--rawi-red); transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
+  .cat-card::before { content: ''; position: absolute; top: 0; right: 0; left: 0; height: 3px; background: var(--rawi-red); transform: scaleX(0); transform-origin: center; transition: transform 0.3s; }
   .cat-card:hover::before { transform: scaleX(1); }
   .cat-card.inactive { opacity: 0.5; cursor: default; }
   .cat-card.inactive:hover { transform: none; border-color: var(--rule-line); box-shadow: none; }
-
   .cat-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-  .cat-icon {
-    width: 44px; height: 44px;
-    background: var(--paper-cream); border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--ink-black);
-  }
+  .cat-icon { width: 44px; height: 44px; background: var(--paper-cream); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--ink-black); }
   .cat-icon svg { width: 20px; height: 20px; }
-  .cat-count {
-    font-family: var(--font-serif); font-size: 36px; font-weight: 600;
-    color: var(--rawi-red); letter-spacing: -0.04em; line-height: 1;
-  }
+  .cat-count { font-family: var(--font-serif); font-size: 36px; font-weight: 600; color: var(--rawi-red); letter-spacing: -0.04em; line-height: 1; }
   .cat-title { font-size: 18px; font-weight: 600; margin-bottom: 6px; letter-spacing: -0.01em; }
-  .cat-sub {
-    font-family: var(--font-en); font-size: 11px; color: var(--ink-stone);
-    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px;
-  }
+  .cat-sub { font-family: var(--font-en); font-size: 11px; color: var(--ink-stone); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
   .cat-desc { font-size: 13px; color: var(--ink-slate); line-height: 1.6; margin-bottom: 18px; }
-  .cat-link {
-    font-size: 12.5px; color: var(--rawi-red); font-weight: 600;
-    display: inline-flex; align-items: center; gap: 6px;
-    transition: gap 0.15s;
-  }
+  .cat-link { font-size: 12.5px; color: var(--rawi-red); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: gap 0.15s; }
   .cat-card:hover .cat-link { gap: 10px; }
   .cat-link svg { width: 13px; height: 13px; }
-  .cat-soon {
-    background: var(--paper-linen); color: var(--ink-stone);
-    font-family: var(--font-en); font-size: 10px;
-    padding: 3px 8px; border-radius: 3px;
-    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-  }
+  .cat-soon { background: var(--paper-linen); color: var(--ink-stone); font-family: var(--font-en); font-size: 10px; padding: 3px 8px; border-radius: 3px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
 
   /* ============= TIERS ============= */
   .tiers { padding: 90px 0; background: var(--paper-white); }
-  .tiers-head {
-    text-align: center; margin-bottom: 56px;
-    max-width: 720px; margin-left: auto; margin-right: auto;
-  }
-  .tiers-label {
-    font-family: var(--font-en); font-size: 11px; color: var(--rawi-red);
-    font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-  .tiers-h {
-    font-size: 36px; font-weight: 600; letter-spacing: -0.02em;
-    line-height: 1.2; margin-bottom: 16px;
-  }
+  .tiers-head { text-align: center; margin-bottom: 56px; max-width: 720px; margin-left: auto; margin-right: auto; }
+  .tiers-label { font-family: var(--font-en); font-size: 11px; color: var(--rawi-red); font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; }
+  .tiers-h { font-size: 36px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 16px; }
   .tiers-h em { font-family: var(--font-serif); font-style: italic; font-weight: 500; }
   .tiers-sub { font-family: var(--font-serif); font-size: 17px; color: var(--ink-slate); line-height: 1.6; font-style: italic; }
-
   .tier-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  .tier-card {
-    background: var(--paper-white); border: 1px solid var(--rule-line);
-    border-radius: 10px; padding: 28px 24px;
-    display: flex; flex-direction: column;
-    transition: all 0.2s; position: relative;
-  }
+  .tier-card { background: var(--paper-white); border: 1px solid var(--rule-line); border-radius: 10px; padding: 28px 24px; display: flex; flex-direction: column; transition: all 0.2s; position: relative; }
   .tier-card:hover { border-color: var(--ink-black); transform: translateY(-3px); }
-  .tier-num {
-    font-family: var(--font-serif); font-size: 12px; color: var(--ink-ash);
-    font-style: italic; margin-bottom: 8px; letter-spacing: 0.05em;
-  }
+  .tier-num { font-family: var(--font-serif); font-size: 12px; color: var(--ink-ash); font-style: italic; margin-bottom: 8px; letter-spacing: 0.05em; }
   .tier-name { font-size: 18px; font-weight: 600; margin-bottom: 4px; letter-spacing: -0.01em; }
-  .tier-en {
-    font-family: var(--font-en); font-size: 10.5px; color: var(--ink-stone);
-    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px;
-  }
-  .tier-usecase {
-    background: var(--paper-cream);
-    border-right: 2px solid var(--rawi-red);
-    padding: 12px 14px;
-    font-family: var(--font-serif); font-size: 13px;
-    font-style: italic; color: var(--ink-slate); line-height: 1.55;
-    margin-bottom: 20px; border-radius: 0 6px 6px 0;
-  }
+  .tier-en { font-family: var(--font-en); font-size: 10.5px; color: var(--ink-stone); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+  .tier-usecase { background: var(--paper-cream); border-right: 2px solid var(--rawi-red); padding: 12px 14px; font-family: var(--font-serif); font-size: 13px; font-style: italic; color: var(--ink-slate); line-height: 1.55; margin-bottom: 20px; border-radius: 0 6px 6px 0; }
   .tier-features { list-style: none; padding: 0; margin: 0 0 24px 0; flex: 1; }
-  .tier-features li {
-    display: flex; align-items: flex-start; gap: 8px;
-    font-size: 13px; color: var(--ink-slate); padding: 6px 0;
-  }
+  .tier-features li { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--ink-slate); padding: 6px 0; }
   .tier-features svg { width: 14px; height: 14px; color: var(--rawi-red); flex-shrink: 0; margin-top: 3px; }
 
-  /* ============= TRUSTED BY ============= */
-  .trusted {
-    padding: 70px 0;
-    background: var(--paper-cream);
-    border-top: 1px solid var(--rule-line);
-    border-bottom: 1px solid var(--rule-line);
-  }
-  .trusted-label {
-    text-align: center;
-    font-family: var(--font-en); font-size: 11px; color: var(--ink-stone);
-    letter-spacing: 0.2em; text-transform: uppercase;
-    margin-bottom: 36px; font-weight: 500;
-  }
-  .logo-wall {
-    display: flex; flex-wrap: wrap;
-    justify-content: center; align-items: center;
-    gap: 48px 64px;
-    max-width: 1100px; margin: 0 auto;
-  }
-  .logo-stamp {
-    font-family: var(--font-en); font-size: 15px; font-weight: 700;
-    color: var(--ink-stone); letter-spacing: 0.05em;
-    text-transform: uppercase; opacity: 0.55;
-    transition: opacity 0.2s;
-  }
+  /* ============= TRUSTED ============= */
+  .trusted { padding: 70px 0; background: var(--paper-cream); border-top: 1px solid var(--rule-line); border-bottom: 1px solid var(--rule-line); }
+  .trusted-label { text-align: center; font-family: var(--font-en); font-size: 11px; color: var(--ink-stone); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 36px; font-weight: 500; }
+  .logo-wall { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 48px 64px; max-width: 1100px; margin: 0 auto; }
+  .logo-stamp { font-family: var(--font-en); font-size: 15px; font-weight: 700; color: var(--ink-stone); letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.55; transition: opacity 0.2s; }
   .logo-stamp:hover { opacity: 1; }
-  .logo-stamp.serif {
-    font-family: var(--font-serif); font-weight: 600; font-style: italic;
-    letter-spacing: 0; text-transform: none; font-size: 18px;
-  }
-  .logo-stamp.ar {
-    font-family: var(--font-ar); font-size: 17px; font-weight: 600;
-    letter-spacing: -0.01em; text-transform: none;
-  }
+  .logo-stamp.serif { font-family: var(--font-serif); font-weight: 600; font-style: italic; letter-spacing: 0; text-transform: none; font-size: 18px; }
+  .logo-stamp.ar { font-family: var(--font-ar); font-size: 17px; font-weight: 600; letter-spacing: -0.01em; text-transform: none; }
 
   /* ============= CTA ============= */
-  .cta {
-    background: var(--ink-black); color: white;
-    padding: 96px 0;
-    position: relative; overflow: hidden;
-  }
-  .cta::before {
-    content: ''; position: absolute;
-    top: 0; right: 0; width: 240px; height: 240px;
-    background: radial-gradient(circle, rgba(200, 32, 42, 0.25), transparent 70%);
-    pointer-events: none;
-  }
-  .cta::after {
-    content: ''; position: absolute;
-    bottom: 0; left: 0; width: 180px; height: 180px;
-    background: radial-gradient(circle, rgba(200, 32, 42, 0.15), transparent 70%);
-    pointer-events: none;
-  }
-  .cta-inner {
-    text-align: center; max-width: 780px; margin: 0 auto;
-    position: relative; z-index: 1;
-  }
-  .cta-label {
-    font-family: var(--font-en); font-size: 11px; color: var(--rawi-red);
-    font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase;
-    margin-bottom: 24px;
-    display: flex; align-items: center; justify-content: center; gap: 14px;
-  }
-  .cta-label::before, .cta-label::after {
-    content: ''; width: 32px; height: 1px; background: var(--rawi-red);
-  }
-  .cta h2 {
-    font-size: 52px; font-weight: 600; letter-spacing: -0.025em;
-    line-height: 1.1; margin-bottom: 24px;
-  }
+  .cta { background: var(--ink-black); color: white; padding: 96px 0; position: relative; overflow: hidden; }
+  .cta::before { content: ''; position: absolute; top: 0; right: 0; width: 240px; height: 240px; background: radial-gradient(circle, rgba(200, 32, 42, 0.25), transparent 70%); pointer-events: none; }
+  .cta::after { content: ''; position: absolute; bottom: 0; left: 0; width: 180px; height: 180px; background: radial-gradient(circle, rgba(200, 32, 42, 0.15), transparent 70%); pointer-events: none; }
+  .cta-inner { text-align: center; max-width: 780px; margin: 0 auto; position: relative; z-index: 1; }
+  .cta-label { font-family: var(--font-en); font-size: 11px; color: var(--rawi-red); font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; gap: 14px; }
+  .cta-label::before, .cta-label::after { content: ''; width: 32px; height: 1px; background: var(--rawi-red); }
+  .cta h2 { font-size: 52px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 24px; }
   .cta h2 em { font-family: var(--font-serif); font-style: italic; font-weight: 500; }
-  .cta p {
-    font-family: var(--font-serif); font-size: 19px; font-style: italic;
-    color: rgba(255, 255, 255, 0.75); line-height: 1.6;
-    margin-bottom: 40px;
-  }
+  .cta p { font-family: var(--font-serif); font-size: 19px; font-style: italic; color: rgba(255, 255, 255, 0.75); line-height: 1.6; margin-bottom: 40px; }
   .cta-btns { display: flex; gap: 12px; justify-content: center; margin-bottom: 40px; }
   .cta .btn-red { border-color: var(--rawi-red); }
-  .cta .btn-outline {
-    background: transparent; color: white;
-    border-color: rgba(255,255,255,0.3);
-  }
-  .cta .btn-outline:hover {
-    background: white; color: var(--ink-black); border-color: white;
-  }
-  .cta-trust {
-    display: flex; gap: 32px; justify-content: center;
-    color: rgba(255, 255, 255, 0.55);
-    font-family: var(--font-mono); font-size: 11px;
-    letter-spacing: 0.1em; text-transform: uppercase;
-  }
+  .cta .btn-outline { background: transparent; color: white; border-color: rgba(255,255,255,0.3); }
+  .cta .btn-outline:hover { background: white; color: var(--ink-black); border-color: white; }
+  .cta-trust { display: flex; gap: 32px; justify-content: center; color: rgba(255, 255, 255, 0.55); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
   .cta-trust span { display: flex; align-items: center; gap: 6px; }
   .cta-trust svg { width: 12px; height: 12px; color: var(--rawi-red); }
 
   /* ============= FOOTER ============= */
-  footer {
-    background: var(--ink-black); color: rgba(255,255,255,0.7);
-    border-top: 1px solid var(--ink-graphite);
-    padding: 72px 0 32px;
-  }
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1.4fr repeat(3, 1fr);
-    gap: 60px; margin-bottom: 48px;
-  }
-  .footer-brand .logo-mark {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
+  footer { background: var(--ink-black); color: rgba(255,255,255,0.7); border-top: 1px solid var(--ink-graphite); padding: 72px 0 32px; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 60px; margin-bottom: 48px; }
+  .footer-brand .logo-mark { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); }
   .footer-brand .logo-mark:hover { background: rgba(255, 255, 255, 0.08); }
   .footer-brand .logo-text { border-right: 1px solid rgba(255, 255, 255, 0.15); }
   .footer-brand .logo-text .ar { color: rgba(255, 255, 255, 0.85); }
   .footer-brand .logo-text .en { color: rgba(255, 255, 255, 0.4); }
-  .footer-brand h4 {
-    font-size: 16px; font-weight: 600;
-    margin: 22px 0 12px; letter-spacing: -0.01em; color: white;
-  }
-  .footer-brand p {
-    font-size: 13px; color: rgba(255, 255, 255, 0.55);
-    line-height: 1.65; max-width: 340px;
-  }
-  .footer-col h5 {
-    font-family: var(--font-en); font-size: 11px;
-    color: rgba(255, 255, 255, 0.9);
-    text-transform: uppercase; letter-spacing: 0.12em;
-    font-weight: 600; margin-bottom: 16px;
-  }
+  .footer-brand h4 { font-size: 16px; font-weight: 600; margin: 22px 0 12px; letter-spacing: -0.01em; color: white; }
+  .footer-brand p { font-size: 13px; color: rgba(255, 255, 255, 0.55); line-height: 1.65; max-width: 340px; }
+  .footer-col h5 { font-family: var(--font-en); font-size: 11px; color: rgba(255, 255, 255, 0.9); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; margin-bottom: 16px; }
   .footer-col ul { list-style: none; padding: 0; }
   .footer-col li { margin-bottom: 10px; }
-  .footer-col a {
-    font-size: 13px; color: rgba(255, 255, 255, 0.55);
-    transition: color 0.15s;
-  }
+  .footer-col a { font-size: 13px; color: rgba(255, 255, 255, 0.55); transition: color 0.15s; }
   .footer-col a:hover { color: var(--rawi-red); }
-
-  .footer-bottom {
-    display: flex; align-items: center; justify-content: space-between;
-    padding-top: 28px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    font-family: var(--font-mono); font-size: 10.5px;
-    color: rgba(255, 255, 255, 0.45); letter-spacing: 0.08em;
-  }
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-family: var(--font-mono); font-size: 10.5px; color: rgba(255, 255, 255, 0.45); letter-spacing: 0.08em; }
   .footer-bottom .right { display: flex; gap: 20px; align-items: center; }
 
   /* ============= RESPONSIVE ============= */
+  @media (max-width: 1200px) {
+    .hero-v4-nav { right: -54px; }
+    .hero-v4-title { font-size: 62px; }
+    .hero-v4-mega-num { font-size: 340px; }
+  }
+
   @media (max-width: 1100px) {
-    .hero-v3-stage { height: 580px; }
-    .hero-v3-title { font-size: 42px; }
-    .hero-v3-dek { font-size: 16px; }
-    .hero-v3-play { width: 96px; height: 96px; }
-    .hero-v3-play svg { width: 36px; height: 36px; }
-    .hero-v3-thumbs-inner { grid-template-columns: 1fr; }
-    .hero-v3-arrow { width: 42px; height: 42px; }
+    .hero-v4 { padding: 48px 0 64px; }
+    .hero-v4-slide { grid-template-columns: 1fr; gap: 48px; }
+    .hero-v4-visual { height: 440px; order: -1; }
+    .hero-v4-nav { position: static; transform: none; flex-direction: row; gap: 20px; margin-top: 40px; justify-content: center; }
+    .hero-v4-visual::before { display: none; }
+    .hero-v4-title { font-size: 48px; }
+    .hero-v4-mega-num { font-size: 260px; top: 20%; left: 0; }
+    .hero-v4-thumbs { left: 20px; bottom: -20px; }
+    .hero-v4-thumb { width: 100px; height: 66px; }
     .intro-grid { grid-template-columns: 1fr; gap: 48px; }
     .news-grid { grid-template-columns: repeat(2, 1fr); }
     .cat-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1050,22 +772,22 @@
     .lang-pick { display: none; }
     .masthead { padding: 20px 0 14px; }
     .masthead-inner { flex-direction: column; gap: 10px; align-items: center; text-align: center; }
-    .hero-v3-stage { height: 500px; }
-    .hero-v3-content { padding: 0 20px 48px; }
-    .hero-v3-title { font-size: 28px; }
-    .hero-v3-dek { font-size: 14px; padding-right: 12px; }
-    .hero-v3-play { width: 80px; height: 80px; top: 38%; }
-    .hero-v3-play svg { width: 28px; height: 28px; }
-    .hero-v3-chip { top: 24px; right: 24px; padding: 8px 14px; font-size: 10px; }
-    .hero-v3-arrow { display: none; }
-    .hero-v3-meta-strip { gap: 12px; font-size: 10px; padding: 10px 0; }
-    .hero-v3-actions { flex-direction: column; align-items: stretch; }
-    .hero-v3-actions .btn { justify-content: center; }
-    .hero-v3-thumbs-inner { padding: 0 20px; gap: 12px; }
-    .hero-v3-thumb { padding: 12px; grid-template-columns: auto 80px 1fr; gap: 12px; }
-    .hero-v3-thumb-img { width: 80px; height: 48px; }
-    .hero-v3-thumb-num { font-size: 22px; }
-    .hero-v3-thumb-title { font-size: 12px; -webkit-line-clamp: 1; }
+    .hero-v4 { padding: 32px 0 48px; }
+    .hero-v4-inner { padding: 0 20px; }
+    .hero-v4-top { flex-direction: column; gap: 12px; align-items: flex-start; padding-bottom: 20px; margin-bottom: 28px; }
+    .hero-v4-issue::before { display: none; }
+    .hero-v4-visual { height: 320px; }
+    .hero-v4-title { font-size: 32px; }
+    .hero-v4-dek { font-size: 15px; padding-right: 12px; }
+    .hero-v4-byline { font-size: 9px; gap: 8px; }
+    .hero-v4-play { width: 72px; height: 72px; }
+    .hero-v4-play svg { width: 26px; height: 26px; }
+    .hero-v4-badge { top: 12px; right: 12px; padding: 7px 12px; font-size: 9px; }
+    .hero-v4-main-tag { display: none; }
+    .hero-v4-thumbs { display: none; }
+    .hero-v4-mega-num { font-size: 180px; opacity: 0.03; }
+    .hero-v4-actions { flex-direction: column; width: 100%; }
+    .hero-v4-actions .btn { width: 100%; justify-content: center; }
     .intro { padding: 48px 0; }
     .intro-h1 { font-size: 28px; }
     .pillar-grid { grid-template-columns: 1fr; }
@@ -1086,7 +808,7 @@
 </head>
 <body>
 
-<!-- ============= TOP DATELINE ============= -->
+<!-- DATELINE -->
 <div class="dateline">
   <div class="dateline-inner">
     <div class="dateline-left">
@@ -1105,7 +827,7 @@
   </div>
 </div>
 
-<!-- ============= NAVIGATION ============= -->
+<!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
     <a href="#" class="logo">
@@ -1117,7 +839,6 @@
         <span class="en">Est. 2026 · Riyadh</span>
       </div>
     </a>
-
     <div class="main-nav">
       <a href="#latest">المنصة</a>
       <a href="#categories">الأقسام</a>
@@ -1125,28 +846,16 @@
       <a href="#">الأسعار</a>
       <a href="#">عن راوي</a>
     </div>
-
     <div class="nav-actions">
-      <div class="icon-btn" title="بحث">
-        <svg data-lucide="search"></svg>
-      </div>
-      <div class="lang-pick">
-        <button class="active">AR</button>
-        <button>EN</button>
-      </div>
-      <a href="login.html" class="btn btn-ghost">
-        <svg data-lucide="log-in"></svg>
-        تسجيل الدخول
-      </a>
-      <a href="request-access.html" class="btn btn-red">
-        طلب وصول
-        <svg data-lucide="arrow-left"></svg>
-      </a>
+      <div class="icon-btn" title="بحث"><svg data-lucide="search"></svg></div>
+      <div class="lang-pick"><button class="active">AR</button><button>EN</button></div>
+      <a href="login.html" class="btn btn-ghost"><svg data-lucide="log-in"></svg>تسجيل الدخول</a>
+      <a href="request-access.html" class="btn btn-red">طلب وصول<svg data-lucide="arrow-left"></svg></a>
     </div>
   </div>
 </nav>
 
-<!-- ============= MASTHEAD ============= -->
+<!-- MASTHEAD -->
 <div class="masthead">
   <div class="container masthead-inner">
     <div class="masthead-label">
@@ -1166,212 +875,227 @@
   </div>
 </div>
 
-<!-- ============= CINEMATIC FULL-BLEED HERO V3 ============= -->
-<section class="hero-v3">
-  <div class="hero-v3-stage">
+<!-- ================================================
+     HERO V4 - EDITORIAL MAGAZINE SPREAD
+     ================================================ -->
+<section class="hero-v4">
+  <span class="hero-v4-mega-num" id="megaNum">01</span>
 
-    <!-- SLIDE 1 : Al Nassr vs Al Ittihad -->
-    <article class="hero-v3-slide active" data-idx="0">
-      <div class="hero-v3-bg hero-bg-1"></div>
-      <div class="hero-v3-overlay"></div>
+  <div class="hero-v4-inner">
 
-      <span class="hero-v3-chip">
+    <!-- Top header row -->
+    <div class="hero-v4-top">
+      <div class="hero-v4-issue">
+        <span>EDITION</span>
+        <span class="red">047</span>
+        <span class="sep">·</span>
+        <span>THURSDAY</span>
+        <span class="sep">·</span>
+        <span>APR 23, 2026</span>
+      </div>
+      <div class="hero-v4-top-label">
         <span class="dot"></span>
-        LEAD STORY
-      </span>
+        <span>The Lead Feature</span>
+      </div>
+    </div>
 
-      <button class="hero-v3-play" aria-label="شاهد التغطية">
-        <svg data-lucide="play" fill="currentColor"></svg>
-      </button>
+    <!-- Slides container -->
+    <div class="hero-v4-slides">
 
-      <div class="hero-v3-content">
-        <div class="hero-v3-content-inner">
-          <div class="hero-v3-content-box">
-            <span class="hero-v3-eyebrow">
-              <span class="line"></span>
-              كرة القدم · دوري روشن السعودي
+      <!-- SLIDE 1 : Al Nassr vs Al Ittihad -->
+      <article class="hero-v4-slide active" data-idx="0">
+
+        <!-- LEFT CONTENT -->
+        <div class="hero-v4-content">
+          <div class="hero-v4-cat">
+            <span class="num">01</span>
+            <span class="line"></span>
+            <span class="label">كرة القدم · دوري روشن</span>
+          </div>
+
+          <h1 class="hero-v4-title">قمة النصر والاتحاد تُشعل <em>أجواء الموسم</em></h1>
+
+          <p class="hero-v4-dek">
+            مواجهة مثيرة بين أكبر أندية الكرة السعودية، يلتقي فيها النصر والاتحاد في صراع كروي مليء بالنجوم والحماس — تغطية حصرية جاهزة للبث.
+          </p>
+
+          <div class="hero-v4-byline">
+            <span><svg data-lucide="map-pin"></svg> الرياض</span>
+            <span class="sep">·</span>
+            <span><svg data-lucide="calendar"></svg> 5 فبراير 2026</span>
+            <span class="sep">·</span>
+            <span><svg data-lucide="clock"></svg> 22:36 GMT+3</span>
+            <span class="dur"><svg data-lucide="video"></svg> 03:45</span>
+          </div>
+
+          <div class="hero-v4-actions">
+            <a href="#" class="btn btn-red btn-lg">
+              <svg data-lucide="play"></svg>
+              شاهد التغطية
+            </a>
+            <a href="#" class="btn btn-dark-ghost btn-lg">
+              <svg data-lucide="bookmark"></svg>
+              إضافة للمحفوظات
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT VISUAL -->
+        <div class="hero-v4-visual">
+          <div class="hero-v4-main">
+            <div class="hero-v4-main-bg" style="background-image: url('https://admin.rawipress.com/media/244/XsUz5L44o1ajslarsiEVxHkOQOw0zZPW06tC5mHY.png');"></div>
+            <span class="hero-v4-badge">
+              <span class="dot"></span>
+              LEAD STORY
             </span>
-            <h1 class="hero-v3-title">قمة النصر والاتحاد تُشعل أجواء الموسم</h1>
-            <p class="hero-v3-dek">
-              مواجهة مثيرة بين أكبر أندية الكرة السعودية، يلتقي فيها النصر والاتحاد في صراع كروي مليء بالنجوم والحماس — تغطية حصرية بالفيديو والنص والصور جاهزة للبث.
-            </p>
-            <div class="hero-v3-meta-strip">
-              <span><svg data-lucide="map-pin"></svg> الرياض</span>
-              <span class="sep">·</span>
-              <span><svg data-lucide="calendar"></svg> 5 فبراير 2026</span>
-              <span class="sep">·</span>
-              <span><svg data-lucide="clock"></svg> 22:36 GMT+3</span>
-              <span class="duration-pill"><svg data-lucide="video"></svg> 03:45</span>
+            <button class="hero-v4-play" aria-label="شاهد التغطية">
+              <svg data-lucide="play" fill="currentColor"></svg>
+            </button>
+            <span class="hero-v4-main-tag">
+              <svg data-lucide="map-pin"></svg>
+              RIYADH · SAUDI PRO LEAGUE
+            </span>
+          </div>
+
+          <!-- Floating secondary thumbs -->
+          <div class="hero-v4-thumbs">
+            <div class="hero-v4-thumb" data-idx="1" style="background-image: url('https://admin.rawipress.com/media/256/DiX5LpAgLUeOBU7zfzZnuzWPcjzCzohYjkbXnNyx.jpg');">
+              <span class="hero-v4-thumb-label">فورمولا إي الدرعية</span>
             </div>
-            <div class="hero-v3-actions">
-              <a href="#" class="btn btn-red btn-lg">
-                <svg data-lucide="play"></svg>
-                شاهد التغطية
-              </a>
-              <a href="#" class="btn btn-white-outline btn-lg">
-                <svg data-lucide="bookmark"></svg>
-                إضافة للمحفوظات
-              </a>
+            <div class="hero-v4-thumb" data-idx="2" style="background-image: url('https://admin.rawipress.com/media/243/WXD80vUIys4sY8UJSutO6PKsMkQB7GIrvKRK5j2X.jpg');">
+              <span class="hero-v4-thumb-label">تطوير القدية</span>
             </div>
           </div>
         </div>
-      </div>
-    </article>
+      </article>
 
-    <!-- SLIDE 2 : Formula E -->
-    <article class="hero-v3-slide" data-idx="1">
-      <div class="hero-v3-bg hero-bg-2"></div>
-      <div class="hero-v3-overlay"></div>
-
-      <span class="hero-v3-chip">
-        <span class="dot"></span>
-        FEATURED
-      </span>
-
-      <button class="hero-v3-play" aria-label="شاهد التغطية">
-        <svg data-lucide="play" fill="currentColor"></svg>
-      </button>
-
-      <div class="hero-v3-content">
-        <div class="hero-v3-content-inner">
-          <div class="hero-v3-content-box">
-            <span class="hero-v3-eyebrow">
-              <span class="line"></span>
-              سباقات السيارات · FORMULA E
+      <!-- SLIDE 2 : Formula E -->
+      <article class="hero-v4-slide" data-idx="1">
+        <div class="hero-v4-content">
+          <div class="hero-v4-cat">
+            <span class="num">02</span>
+            <span class="line"></span>
+            <span class="label">سباقات السيارات · FORMULA E</span>
+          </div>
+          <h1 class="hero-v4-title">نيوم ماكلارين في سباق <em>الدرعية إي بري</em></h1>
+          <p class="hero-v4-dek">
+            ليلة حماسية من سباقات السرعة الكهربائية بمشاركة فريق نيوم ماكلارين في أبرز جولات بطولة العالم — محتوى حصري بجودة البث الاحترافي.
+          </p>
+          <div class="hero-v4-byline">
+            <span><svg data-lucide="map-pin"></svg> الدرعية</span>
+            <span class="sep">·</span>
+            <span><svg data-lucide="calendar"></svg> 25 فبراير 2026</span>
+            <span class="sep">·</span>
+            <span><svg data-lucide="clock"></svg> 14:58 GMT+3</span>
+            <span class="dur"><svg data-lucide="video"></svg> 04:32</span>
+          </div>
+          <div class="hero-v4-actions">
+            <a href="#" class="btn btn-red btn-lg">
+              <svg data-lucide="play"></svg>
+              شاهد التغطية
+            </a>
+            <a href="#" class="btn btn-dark-ghost btn-lg">
+              <svg data-lucide="bookmark"></svg>
+              إضافة للمحفوظات
+            </a>
+          </div>
+        </div>
+        <div class="hero-v4-visual">
+          <div class="hero-v4-main">
+            <div class="hero-v4-main-bg" style="background-image: url('https://admin.rawipress.com/media/256/DiX5LpAgLUeOBU7zfzZnuzWPcjzCzohYjkbXnNyx.jpg');"></div>
+            <span class="hero-v4-badge">
+              <span class="dot"></span>
+              FEATURED
             </span>
-            <h1 class="hero-v3-title">نيوم ماكلارين في سباق الدرعية إي بري 2026</h1>
-            <p class="hero-v3-dek">
-              ليلة حماسية من سباقات السرعة الكهربائية بمشاركة فريق نيوم ماكلارين فورمولا إي في أحد أبرز جولات بطولة العالم — محتوى حصري بجودة البث الاحترافي.
-            </p>
-            <div class="hero-v3-meta-strip">
-              <span><svg data-lucide="map-pin"></svg> الدرعية</span>
-              <span class="sep">·</span>
-              <span><svg data-lucide="calendar"></svg> 25 فبراير 2026</span>
-              <span class="sep">·</span>
-              <span><svg data-lucide="clock"></svg> 14:58 GMT+3</span>
-              <span class="duration-pill"><svg data-lucide="video"></svg> 04:32</span>
+            <button class="hero-v4-play" aria-label="شاهد التغطية">
+              <svg data-lucide="play" fill="currentColor"></svg>
+            </button>
+            <span class="hero-v4-main-tag">
+              <svg data-lucide="flag-triangle-right"></svg>
+              DIRIYAH · FORMULA E
+            </span>
+          </div>
+          <div class="hero-v4-thumbs">
+            <div class="hero-v4-thumb" data-idx="0" style="background-image: url('https://admin.rawipress.com/media/244/XsUz5L44o1ajslarsiEVxHkOQOw0zZPW06tC5mHY.png');">
+              <span class="hero-v4-thumb-label">النصر × الاتحاد</span>
             </div>
-            <div class="hero-v3-actions">
-              <a href="#" class="btn btn-red btn-lg">
-                <svg data-lucide="play"></svg>
-                شاهد التغطية
-              </a>
-              <a href="#" class="btn btn-white-outline btn-lg">
-                <svg data-lucide="bookmark"></svg>
-                إضافة للمحفوظات
-              </a>
+            <div class="hero-v4-thumb" data-idx="2" style="background-image: url('https://admin.rawipress.com/media/243/WXD80vUIys4sY8UJSutO6PKsMkQB7GIrvKRK5j2X.jpg');">
+              <span class="hero-v4-thumb-label">تطوير القدية</span>
             </div>
           </div>
         </div>
-      </div>
-    </article>
+      </article>
 
-    <!-- SLIDE 3 : Qiddiya -->
-    <article class="hero-v3-slide" data-idx="2">
-      <div class="hero-v3-bg hero-bg-3"></div>
-      <div class="hero-v3-overlay"></div>
-
-      <span class="hero-v3-chip">
-        <span class="dot"></span>
-        SPECIAL REPORT
-      </span>
-
-      <button class="hero-v3-play" aria-label="شاهد التغطية">
-        <svg data-lucide="play" fill="currentColor"></svg>
-      </button>
-
-      <div class="hero-v3-content">
-        <div class="hero-v3-content-inner">
-          <div class="hero-v3-content-box">
-            <span class="hero-v3-eyebrow">
-              <span class="line"></span>
-              رؤية 2030 · قطاع الترفيه
+      <!-- SLIDE 3 : Qiddiya -->
+      <article class="hero-v4-slide" data-idx="2">
+        <div class="hero-v4-content">
+          <div class="hero-v4-cat">
+            <span class="num">03</span>
+            <span class="line"></span>
+            <span class="label">رؤية 2030 · قطاع الترفيه</span>
+          </div>
+          <h1 class="hero-v4-title">أبرز مستجدات تطوير <em>مدينة القدية</em></h1>
+          <p class="hero-v4-dek">
+            تقرير خاص يرصد أهم المحطات في مشروع القدية — عاصمة الترفيه والرياضة، أحد أبرز مشاريع رؤية المملكة 2030 وبوابة المستقبل الترفيهي في المنطقة.
+          </p>
+          <div class="hero-v4-byline">
+            <span><svg data-lucide="map-pin"></svg> الرياض</span>
+            <span class="sep">·</span>
+            <span><svg data-lucide="calendar"></svg> 1 فبراير 2026</span>
+            <span class="sep">·</span>
+            <span><svg data-lucide="clock"></svg> 17:35 GMT+3</span>
+            <span class="dur"><svg data-lucide="video"></svg> 05:18</span>
+          </div>
+          <div class="hero-v4-actions">
+            <a href="#" class="btn btn-red btn-lg">
+              <svg data-lucide="play"></svg>
+              شاهد التغطية
+            </a>
+            <a href="#" class="btn btn-dark-ghost btn-lg">
+              <svg data-lucide="bookmark"></svg>
+              إضافة للمحفوظات
+            </a>
+          </div>
+        </div>
+        <div class="hero-v4-visual">
+          <div class="hero-v4-main">
+            <div class="hero-v4-main-bg" style="background-image: url('https://admin.rawipress.com/media/243/WXD80vUIys4sY8UJSutO6PKsMkQB7GIrvKRK5j2X.jpg');"></div>
+            <span class="hero-v4-badge">
+              <span class="dot"></span>
+              SPECIAL REPORT
             </span>
-            <h1 class="hero-v3-title">أبرز مستجدات تطوير مدينة القدية</h1>
-            <p class="hero-v3-dek">
-              تقرير خاص يرصد أهم المحطات في مشروع القدية — عاصمة الترفيه والرياضة والثقافة، أحد أبرز مشاريع رؤية المملكة 2030 وبوابة المستقبل الترفيهي في المنطقة.
-            </p>
-            <div class="hero-v3-meta-strip">
-              <span><svg data-lucide="map-pin"></svg> الرياض</span>
-              <span class="sep">·</span>
-              <span><svg data-lucide="calendar"></svg> 1 فبراير 2026</span>
-              <span class="sep">·</span>
-              <span><svg data-lucide="clock"></svg> 17:35 GMT+3</span>
-              <span class="duration-pill"><svg data-lucide="video"></svg> 05:18</span>
+            <button class="hero-v4-play" aria-label="شاهد التغطية">
+              <svg data-lucide="play" fill="currentColor"></svg>
+            </button>
+            <span class="hero-v4-main-tag">
+              <svg data-lucide="building-2"></svg>
+              RIYADH · VISION 2030
+            </span>
+          </div>
+          <div class="hero-v4-thumbs">
+            <div class="hero-v4-thumb" data-idx="0" style="background-image: url('https://admin.rawipress.com/media/244/XsUz5L44o1ajslarsiEVxHkOQOw0zZPW06tC5mHY.png');">
+              <span class="hero-v4-thumb-label">النصر × الاتحاد</span>
             </div>
-            <div class="hero-v3-actions">
-              <a href="#" class="btn btn-red btn-lg">
-                <svg data-lucide="play"></svg>
-                شاهد التغطية
-              </a>
-              <a href="#" class="btn btn-white-outline btn-lg">
-                <svg data-lucide="bookmark"></svg>
-                إضافة للمحفوظات
-              </a>
+            <div class="hero-v4-thumb" data-idx="1" style="background-image: url('https://admin.rawipress.com/media/256/DiX5LpAgLUeOBU7zfzZnuzWPcjzCzohYjkbXnNyx.jpg');">
+              <span class="hero-v4-thumb-label">فورمولا إي الدرعية</span>
             </div>
           </div>
         </div>
-      </div>
-    </article>
-
-    <!-- Navigation Arrows -->
-    <button class="hero-v3-arrow prev" aria-label="السابق" data-dir="prev">
-      <svg data-lucide="chevron-right"></svg>
-    </button>
-    <button class="hero-v3-arrow next" aria-label="التالي" data-dir="next">
-      <svg data-lucide="chevron-left"></svg>
-    </button>
-
-  </div>
-
-  <!-- Thumbnail Navigation Strip -->
-  <div class="hero-v3-thumbs">
-    <div class="hero-v3-thumbs-inner">
-
-      <button class="hero-v3-thumb active" data-idx="0">
-        <span class="hero-v3-thumb-num">01</span>
-        <div class="hero-v3-thumb-img" style="background-image: url('https://admin.rawipress.com/media/244/XsUz5L44o1ajslarsiEVxHkOQOw0zZPW06tC5mHY.png');">
-          <svg data-lucide="play" fill="currentColor"></svg>
-          <span class="hero-v3-thumb-duration">03:45</span>
-        </div>
-        <div class="hero-v3-thumb-meta">
-          <span class="hero-v3-thumb-cat">كرة القدم · روشن</span>
-          <span class="hero-v3-thumb-title">قمة النصر والاتحاد تُشعل أجواء الموسم</span>
-        </div>
-        <span class="hero-v3-thumb-progress"><span class="hero-v3-thumb-progress-fill"></span></span>
-      </button>
-
-      <button class="hero-v3-thumb" data-idx="1">
-        <span class="hero-v3-thumb-num">02</span>
-        <div class="hero-v3-thumb-img" style="background-image: url('https://admin.rawipress.com/media/256/DiX5LpAgLUeOBU7zfzZnuzWPcjzCzohYjkbXnNyx.jpg');">
-          <svg data-lucide="play" fill="currentColor"></svg>
-          <span class="hero-v3-thumb-duration">04:32</span>
-        </div>
-        <div class="hero-v3-thumb-meta">
-          <span class="hero-v3-thumb-cat">سباقات السيارات</span>
-          <span class="hero-v3-thumb-title">نيوم ماكلارين في سباق الدرعية إي بري 2026</span>
-        </div>
-        <span class="hero-v3-thumb-progress"><span class="hero-v3-thumb-progress-fill"></span></span>
-      </button>
-
-      <button class="hero-v3-thumb" data-idx="2">
-        <span class="hero-v3-thumb-num">03</span>
-        <div class="hero-v3-thumb-img" style="background-image: url('https://admin.rawipress.com/media/243/WXD80vUIys4sY8UJSutO6PKsMkQB7GIrvKRK5j2X.jpg');">
-          <svg data-lucide="play" fill="currentColor"></svg>
-          <span class="hero-v3-thumb-duration">05:18</span>
-        </div>
-        <div class="hero-v3-thumb-meta">
-          <span class="hero-v3-thumb-cat">رؤية 2030</span>
-          <span class="hero-v3-thumb-title">أبرز مستجدات تطوير مدينة القدية</span>
-        </div>
-        <span class="hero-v3-thumb-progress"><span class="hero-v3-thumb-progress-fill"></span></span>
-      </button>
+      </article>
 
     </div>
+
+    <!-- Numbered navigation -->
+    <div class="hero-v4-nav">
+      <button class="hero-v4-nav-btn active" data-idx="0">01</button>
+      <button class="hero-v4-nav-btn" data-idx="1">02</button>
+      <button class="hero-v4-nav-btn" data-idx="2">03</button>
+    </div>
+
   </div>
 </section>
 
-<!-- ============= INTRO / VALUE PROP ============= -->
+<!-- INTRO -->
 <section class="intro">
   <div class="container">
     <div class="intro-grid">
@@ -1382,7 +1106,6 @@
           راوي برس هي البنية الإخبارية التي تربط المصادر الرسمية بالمؤسسات الإعلامية في المنطقة — تغطية احترافية بالفيديو والنص والصور جاهزة للبث في أقل من خمس دقائق، مدعومة بأدوات ذكاء اصطناعي مخصصة للسياق الإخباري العربي.
         </p>
       </div>
-
       <div class="pillar-grid">
         <div class="pillar">
           <div class="pillar-icon"><svg data-lucide="zap"></svg></div>
@@ -1409,7 +1132,7 @@
   </div>
 </section>
 
-<!-- ============= LATEST NEWS ============= -->
+<!-- LATEST -->
 <section class="latest" id="latest">
   <div class="container">
     <div class="section-head">
@@ -1424,13 +1147,9 @@
           <button class="section-pill">سباقات</button>
           <button class="section-pill">رؤية 2030</button>
         </div>
-        <a href="#" class="btn btn-ghost">
-          عرض الأرشيف
-          <svg data-lucide="arrow-left"></svg>
-        </a>
+        <a href="#" class="btn btn-ghost">عرض الأرشيف<svg data-lucide="arrow-left"></svg></a>
       </div>
     </div>
-
     <div class="news-grid">
       <a href="#" class="card">
         <div class="card-thumb" style="background-image: url('https://admin.rawipress.com/media/261/kBo41tiM4gbAMRFIXd6zvRUsx2sD4Ri52yjzGWhM.jpg');">
@@ -1441,7 +1160,6 @@
         <h3 class="card-title">الأهلي يواجه أبها في الدوري السعودي</h3>
         <span class="card-byline">JEDDAH · FEB 25, 2026</span>
       </a>
-
       <a href="#" class="card">
         <div class="card-thumb" style="background-image: url('https://admin.rawipress.com/media/260/5Kl7oX2NKdPHhTtk6ijFbcWIRFWOPPzIOSUGzVdJ.jpg');">
           <span class="card-rushes">Rushes</span>
@@ -1452,7 +1170,6 @@
         <h3 class="card-title">الشباب والفتح في لقاء الانضباط التكتيكي</h3>
         <span class="card-byline">RIYADH · FEB 25, 2026</span>
       </a>
-
       <a href="#" class="card">
         <div class="card-thumb" style="background-image: url('https://admin.rawipress.com/media/253/A3rzfeFmiBU9RTpij7op1pgDXCfXHXdsgzhELiGn.jpg');">
           <div class="card-play"><svg data-lucide="play" fill="currentColor"></svg></div>
@@ -1462,7 +1179,6 @@
         <h3 class="card-title">الطائي والفتح في صراع نقاط دوري روشن</h3>
         <span class="card-byline">HAIL · FEB 25, 2026</span>
       </a>
-
       <a href="#" class="card">
         <div class="card-thumb" style="background-image: url('https://admin.rawipress.com/media/264/kTpQ0Gw2pOffQn5nnSTm1RvSmlZPZcDdvuvD5hZp.jpg');">
           <span class="card-rushes">Rushes</span>
@@ -1477,7 +1193,7 @@
   </div>
 </section>
 
-<!-- ============= CATEGORIES ============= -->
+<!-- CATEGORIES -->
 <section class="categories" id="categories">
   <div class="container">
     <div class="section-head">
@@ -1486,7 +1202,6 @@
         <span class="sublabel">EDITORIAL COVERAGE · EXPANDING MONTHLY</span>
       </div>
     </div>
-
     <div class="cat-grid">
       <a href="#" class="cat-card">
         <div class="cat-head">
@@ -1496,12 +1211,8 @@
         <h3 class="cat-title">كرة القدم</h3>
         <div class="cat-sub">FOOTBALL · LIVE COVERAGE</div>
         <p class="cat-desc">تغطيات دوري روشن السعودي بالفيديو والنص، مع لقطات خام إضافية للقنوات التلفزيونية.</p>
-        <span class="cat-link">
-          عرض القسم
-          <svg data-lucide="arrow-left"></svg>
-        </span>
+        <span class="cat-link">عرض القسم<svg data-lucide="arrow-left"></svg></span>
       </a>
-
       <a href="#" class="cat-card">
         <div class="cat-head">
           <div class="cat-icon"><svg data-lucide="flag-triangle-right"></svg></div>
@@ -1510,12 +1221,8 @@
         <h3 class="cat-title">سباقات السيارات</h3>
         <div class="cat-sub">MOTORSPORT · FEATURED</div>
         <p class="cat-desc">تغطيات فورمولا إي الدرعية، راليات المملكة، وأبرز السباقات العالمية من قلب السعودية.</p>
-        <span class="cat-link">
-          عرض القسم
-          <svg data-lucide="arrow-left"></svg>
-        </span>
+        <span class="cat-link">عرض القسم<svg data-lucide="arrow-left"></svg></span>
       </a>
-
       <a href="#" class="cat-card">
         <div class="cat-head">
           <div class="cat-icon"><svg data-lucide="building-2"></svg></div>
@@ -1524,12 +1231,8 @@
         <h3 class="cat-title">رؤية 2030</h3>
         <div class="cat-sub">VISION 2030 · SPECIAL</div>
         <p class="cat-desc">مشاريع المملكة الكبرى — من القدية ونيوم والعُلا — تغطيات حصرية بفيديوهات المطوّر الرسمي.</p>
-        <span class="cat-link">
-          عرض القسم
-          <svg data-lucide="arrow-left"></svg>
-        </span>
+        <span class="cat-link">عرض القسم<svg data-lucide="arrow-left"></svg></span>
       </a>
-
       <div class="cat-card inactive">
         <div class="cat-head">
           <div class="cat-icon"><svg data-lucide="landmark"></svg></div>
@@ -1539,7 +1242,6 @@
         <div class="cat-sub">POLITICS · Q2 2026</div>
         <p class="cat-desc">المؤتمرات الرسمية، القمم الإقليمية، وتصريحات المسؤولين — قريباً على المنصة.</p>
       </div>
-
       <div class="cat-card inactive">
         <div class="cat-head">
           <div class="cat-icon"><svg data-lucide="trending-up"></svg></div>
@@ -1549,7 +1251,6 @@
         <div class="cat-sub">ECONOMY · Q3 2026</div>
         <p class="cat-desc">البورصات، الاستثمار، والصفقات الاقتصادية الكبرى في المنطقة — قريباً.</p>
       </div>
-
       <div class="cat-card inactive">
         <div class="cat-head">
           <div class="cat-icon"><svg data-lucide="cpu"></svg></div>
@@ -1563,7 +1264,7 @@
   </div>
 </section>
 
-<!-- ============= TIERS ============= -->
+<!-- TIERS -->
 <section class="tiers" id="tiers">
   <div class="container">
     <div class="tiers-head">
@@ -1573,7 +1274,6 @@
         راوي برس تخدم أربع فئات من المشتركين — من الجهات الحكومية إلى صنّاع المحتوى — بصلاحيات وأدوات مخصصة لكل فئة.
       </p>
     </div>
-
     <div class="tier-grid">
       <div class="tier-card">
         <div class="tier-num">01</div>
@@ -1589,7 +1289,6 @@
           <li><svg data-lucide="check"></svg>أدوات ذكاء اصطناعي كاملة</li>
         </ul>
       </div>
-
       <div class="tier-card">
         <div class="tier-num">02</div>
         <h3 class="tier-name">القنوات التلفزيونية</h3>
@@ -1604,7 +1303,6 @@
           <li><svg data-lucide="check"></svg>أولوية في البث المباشر</li>
         </ul>
       </div>
-
       <div class="tier-card">
         <div class="tier-num">03</div>
         <h3 class="tier-name">الصحفيون المستقلون</h3>
@@ -1619,7 +1317,6 @@
           <li><svg data-lucide="check"></svg>هوية بصرية شخصية</li>
         </ul>
       </div>
-
       <div class="tier-card">
         <div class="tier-num">04</div>
         <h3 class="tier-name">صنّاع المحتوى</h3>
@@ -1638,7 +1335,7 @@
   </div>
 </section>
 
-<!-- ============= TRUSTED BY ============= -->
+<!-- TRUSTED -->
 <section class="trusted">
   <div class="container">
     <div class="trusted-label">موثوق من كبرى المؤسسات الإعلامية في المنطقة</div>
@@ -1657,7 +1354,7 @@
   </div>
 </section>
 
-<!-- ============= CTA ============= -->
+<!-- CTA -->
 <section class="cta">
   <div class="container cta-inner">
     <div class="cta-label">LIMITED ACCESS · الوصول عبر الدعوة</div>
@@ -1666,14 +1363,8 @@
       المنصة متاحة حالياً بنظام الدعوة فقط للمؤسسات الإعلامية والجهات الرسمية. قدّم طلب الوصول وسيتواصل معك فريق التحرير خلال 24 ساعة.
     </p>
     <div class="cta-btns">
-      <a href="request-access.html" class="btn btn-red btn-lg">
-        طلب وصول الآن
-        <svg data-lucide="arrow-left"></svg>
-      </a>
-      <a href="#" class="btn btn-outline btn-lg">
-        <svg data-lucide="play-circle"></svg>
-        شاهد عرض المنصة
-      </a>
+      <a href="request-access.html" class="btn btn-red btn-lg">طلب وصول الآن<svg data-lucide="arrow-left"></svg></a>
+      <a href="#" class="btn btn-outline btn-lg"><svg data-lucide="play-circle"></svg>شاهد عرض المنصة</a>
     </div>
     <div class="cta-trust">
       <span><svg data-lucide="check"></svg>مراجعة يدوية لكل طلب</span>
@@ -1683,7 +1374,7 @@
   </div>
 </section>
 
-<!-- ============= FOOTER ============= -->
+<!-- FOOTER -->
 <footer>
   <div class="container">
     <div class="footer-grid">
@@ -1700,7 +1391,6 @@
         <h4>البنية الإخبارية الاستراتيجية للمنطقة.</h4>
         <p>منصة تربط المصادر الرسمية بالقنوات والصحفيين ومنصات التواصل — مدعومة بأدوات ذكاء اصطناعي مخصصة للسياق العربي، من قلب الرياض.</p>
       </div>
-
       <div class="footer-col">
         <h5>المنصة</h5>
         <ul>
@@ -1711,7 +1401,6 @@
           <li><a href="#">واجهة API</a></li>
         </ul>
       </div>
-
       <div class="footer-col">
         <h5>الشركة</h5>
         <ul>
@@ -1722,7 +1411,6 @@
           <li><a href="#">تواصل معنا</a></li>
         </ul>
       </div>
-
       <div class="footer-col">
         <h5>قانوني</h5>
         <ul>
@@ -1733,7 +1421,6 @@
         </ul>
       </div>
     </div>
-
     <div class="footer-bottom">
       <span>© 2026 RAWI PRESS · STRATEGIC NEWS INFRASTRUCTURE</span>
       <div class="right">
@@ -1747,7 +1434,7 @@
 <script>
   lucide.createIcons();
 
-  // Live Riyadh clock
+  // Riyadh clock
   function updateClock() {
     const now = new Date();
     const riyadh = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Riyadh' }));
@@ -1762,7 +1449,7 @@
   updateClock();
   setInterval(updateClock, 1000);
 
-  // Section pill toggle
+  // Pills
   document.querySelectorAll('.section-pill').forEach(pill => {
     pill.addEventListener('click', () => {
       document.querySelectorAll('.section-pill').forEach(p => p.classList.remove('active'));
@@ -1770,7 +1457,7 @@
     });
   });
 
-  // Language pick
+  // Lang
   document.querySelectorAll('.lang-pick button').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.lang-pick button').forEach(b => b.classList.remove('active'));
@@ -1778,69 +1465,66 @@
     });
   });
 
-  // ============ CINEMATIC HERO V3 SLIDER ============
-  const v3Slides = document.querySelectorAll('.hero-v3-slide');
-  const v3Thumbs = document.querySelectorAll('.hero-v3-thumb');
-  const v3Arrows = document.querySelectorAll('.hero-v3-arrow');
-  let v3Current = 0;
-  let v3Timer;
+  // ============ HERO V4 — EDITORIAL SPREAD SLIDER ============
+  const v4Slides = document.querySelectorAll('.hero-v4-slide');
+  const v4NavBtns = document.querySelectorAll('.hero-v4-nav-btn');
+  const v4Thumbs = document.querySelectorAll('.hero-v4-thumb');
+  const megaNum = document.getElementById('megaNum');
+  let v4Current = 0;
+  let v4Timer;
 
-  function v3Activate(idx) {
-    if (idx < 0) idx = v3Slides.length - 1;
-    if (idx >= v3Slides.length) idx = 0;
+  function v4Activate(idx) {
+    if (idx < 0) idx = v4Slides.length - 1;
+    if (idx >= v4Slides.length) idx = 0;
 
-    v3Slides.forEach((s, i) => s.classList.toggle('active', i === idx));
-    v3Thumbs.forEach((t, i) => {
-      t.classList.remove('active');
-      // Reset progress fill animation
-      const fill = t.querySelector('.hero-v3-thumb-progress-fill');
-      if (fill) {
-        fill.style.animation = 'none';
-        void fill.offsetHeight; // force reflow
-        fill.style.animation = '';
-      }
-    });
-    v3Thumbs[idx].classList.add('active');
-    v3Current = idx;
+    v4Slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+    v4NavBtns.forEach((b, i) => b.classList.toggle('active', i === idx));
+
+    // Update mega background number
+    if (megaNum) {
+      megaNum.textContent = String(idx + 1).padStart(2, '0');
+    }
+
+    v4Current = idx;
   }
 
-  function v3Next() { v3Activate(v3Current + 1); }
-  function v3Prev() { v3Activate(v3Current - 1); }
+  function v4Next() { v4Activate(v4Current + 1); }
 
-  function v3StartTimer() {
-    clearInterval(v3Timer);
-    v3Timer = setInterval(v3Next, 7000);
+  function v4Start() {
+    clearInterval(v4Timer);
+    v4Timer = setInterval(v4Next, 8000);
   }
 
-  v3Thumbs.forEach((thumb) => {
-    thumb.addEventListener('click', () => {
-      v3Activate(parseInt(thumb.dataset.idx));
-      v3StartTimer();
+  v4NavBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      v4Activate(parseInt(btn.dataset.idx));
+      v4Start();
     });
   });
 
-  v3Arrows.forEach((arrow) => {
-    arrow.addEventListener('click', () => {
-      if (arrow.dataset.dir === 'prev') v3Prev();
-      else v3Next();
-      v3StartTimer();
-    });
+  // Thumbnail click -> switch slide (re-query after each slide change)
+  document.addEventListener('click', (e) => {
+    const thumb = e.target.closest('.hero-v4-thumb');
+    if (thumb && thumb.dataset.idx !== undefined) {
+      v4Activate(parseInt(thumb.dataset.idx));
+      v4Start();
+    }
   });
 
   // Pause on hover
-  const v3Stage = document.querySelector('.hero-v3-stage');
-  if (v3Stage) {
-    v3Stage.addEventListener('mouseenter', () => clearInterval(v3Timer));
-    v3Stage.addEventListener('mouseleave', v3StartTimer);
+  const v4Hero = document.querySelector('.hero-v4');
+  if (v4Hero) {
+    v4Hero.addEventListener('mouseenter', () => clearInterval(v4Timer));
+    v4Hero.addEventListener('mouseleave', v4Start);
   }
 
-  // Keyboard navigation
+  // Keyboard
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') { v3Next(); v3StartTimer(); }
-    if (e.key === 'ArrowRight') { v3Prev(); v3StartTimer(); }
+    if (e.key === 'ArrowLeft') { v4Next(); v4Start(); }
+    if (e.key === 'ArrowRight') { v4Activate(v4Current - 1); v4Start(); }
   });
 
-  v3StartTimer();
+  v4Start();
 </script>
 </body>
 </html>
