@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>راوي برس — منصة الأخبار السعودية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  :root {
+    --rawi-red: #C8202A;
+    --rawi-red-deep: #9B1520;
+    --rawi-red-tint: #FDECED;
+    --rawi-red-glow: rgba(200, 32, 42, 0.10);
+
+    --ink-black: #0A0A0A;
+    --ink-graphite: #1F1F1F;
+    --ink-slate: #3D3D3D;
+    --ink-stone: #6B6B6B;
+    --ink-ash: #9E9E9E;
+    --ink-silver: #C4C4C4;
+
+    --paper-white: #FEFEFD;
+    --paper-cream: #F8F7F3;
+    --paper-linen: #F1EFE9;
+    --rule-line: #DDD9D0;
+    --rule-hair: #EAE6DD;
+
+    --font-ar: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+    --font-serif: 'IBM Plex Serif', Georgia, serif;
+    --font-en: 'IBM Plex Sans', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-ar);
+    background: var(--paper-white);
+    color: var(--ink-black);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "ss02";
+  }
+
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  .container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ============= TOP DATELINE STRIP ============= */
+  .dateline {
+    background: var(--ink-black);
+    color: white;
+    padding: 8px 0;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+  }
+  .dateline-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .dateline-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .dateline-left .mark {
+    color: var(--rawi-red);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+  .dateline-left .sep { color: var(--ink-stone); }
+  .dateline-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--ink-silver);
+  }
+  .dateline-right a { transition: color 0.15s; }
+  .dateline-right a:hover { color: var(--rawi-red); }
+
+  /* ============= NAVIGATION ============= */
+  .nav {
+    background: var(--paper-white);
+    border-bottom: 1px solid var(--rule-line);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(8px);
+    background: rgba(254, 254, 253, 0.96);
+  }
+  .nav-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 84px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo-mark {
+    width: 44px;
+    height: 44px;
+    background: var(--rawi-red);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 24px;
+    border-radius: 6px;
+    position: relative;
+  }
+  .logo-mark::after {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    right: 9px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 10px solid var(--rawi-red);
+  }
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.05;
+  }
+  .logo-text .ar {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .logo-text .en {
+    font-family: var(--font-en);
+    font-size: 9.5px;
+    color: var(--ink-stone);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-top: 2px;
+    font-weight: 500;
+  }
+
+  .main-nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex: 1;
+  }
+  .main-nav a {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--ink-slate);
+    transition: color 0.15s;
+    position: relative;
+    padding: 6px 0;
+  }
+  .main-nav a:hover { color: var(--rawi-red); }
+  .main-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0; left: 0;
+    height: 2px;
+    background: var(--rawi-red);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.2s;
+  }
+  .main-nav a:hover::after { transform: scaleX(1); }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .icon-btn {
+    width: 38px; height: 38px;
+    background: transparent;
+    border: 1px solid var(--rule-line);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-slate);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .icon-btn:hover { background: var(--paper-cream); color: var(--ink-black); }
+  .icon-btn svg { width: 15px; height: 15px; }
+
+  .lang-pick {
+    display: flex;
+    gap: 2px;
+    background: transparent;
+    border: 1px solid var(--rule-line);
+    border-radius: 6px;
+    padding: 3px;
+    font-family: var(--font-en);
+  }
+  .lang-pick button {
+    background: transparent;
+    border: none;
+    padding: 5px 9px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-stone);
+    cursor: pointer;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    transition: all 0.12s;
+  }
+  .lang-pick button.active {
+    background: var(--ink-black);
+    color: white;
+  }
+
+  .btn {
+    font-family: var(--font-ar);
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.15s;
+    height: 40px;
+    white-space: nowrap;
+  }
+  .btn svg { width: 14px; height: 14px; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink-black);
+    border-color: var(--rule-line);
+  }
+  .btn-ghost:hover { background: var(--paper-cream); border-color: var(--ink-silver); }
+
+  .btn-red {
+    background: var(--rawi-red);
+    color: white;
+    border-color: var(--rawi-red);
+    font-weight: 600;
+  }
+  .btn-red:hover {
+    background: var(--rawi-red-deep);
+    border-color: var(--rawi-red-deep);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(200, 32, 42, 0.25);
+  }
+
+  .btn-dark {
+    background: var(--ink-black);
+    color: white;
+    border-color: var(--ink-black);
+    font-weight: 600;
+  }
+  .btn-dark:hover {
+    background: var(--ink-graphite);
+    transform: translateY(-1px);
+  }
+
+  .btn-lg {
+    height: 48px;
+    padding: 0 28px;
+    font-size: 14.5px;
+  }
+
+  /* ============= MASTHEAD (Editorial Header below nav) ============= */
+  .masthead {
+    padding: 28px 0 20px;
+    border-bottom: 1px solid var(--ink-black);
+    background: var(--paper-white);
+  }
+  .masthead-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .masthead-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--ink-stone);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .masthead-label .dot {
+    width: 6px; height: 6px;
+    background: var(--rawi-red);
+    border-radius: 50%;
+  }
+  .masthead-title {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink-graphite);
+    font-style: italic;
+  }
+  .masthead-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-stone);
+    text-transform: uppercase;
+  }
+  .masthead-meta .sep { color: var(--ink-silver); margin: 0 8px; }
+
+  /* ============= HERO ============= */
+  .hero {
+    padding: 48px 0 64px;
+    background: var(--paper-white);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* Hero — Lead Story */
+  .lead {
+    position: relative;
+  }
+
+  .lead-image {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: var(--ink-graphite);
+    margin-bottom: 24px;
+  }
+  .lead-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.01);
+    transition: transform 8s ease;
+  }
+  .lead-image:hover::before { transform: scale(1.05); }
+  .lead-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.55));
+  }
+
+  .lead-image-1::before {
+    background-image: url('https://admin.rawipress.com/media/244/XsUz5L44o1ajslarsiEVxHkOQOw0zZPW06tC5mHY.png');
+  }
+
+  .lead-badge {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: var(--rawi-red);
+    color: white;
+    padding: 8px 14px;
+    font-family: var(--font-en);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+
+  .lead-play {
+    position: absolute;
+    bottom: 20px; right: 20px;
+    width: 64px; height: 64px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+  }
+  .lead-play:hover { background: white; transform: scale(1.06); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .lead-play svg { width: 22px; height: 22px; color: var(--rawi-red); margin-right: -2px; }
+
+  .lead-duration {
+    position: absolute;
+    bottom: 20px; left: 20px;
+    background: rgba(0,0,0,0.75);
+    color: white;
+    padding: 6px 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    border-radius: 3px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .lead-duration svg { width: 11px; height: 11px; }
+
+  .lead-content { max-width: 92%; }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-en);
+    font-size: 11px;
+    color: var(--rawi-red);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 18px;
+  }
+  .eyebrow .line {
+    width: 40px;
+    height: 2px;
+    background: var(--rawi-red);
+  }
+
+  .lead-title {
+    font-size: 44px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 20px;
+    color: var(--ink-black);
+  }
+
+  .lead-dek {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-slate);
+    font-style: italic;
+    margin-bottom: 28px;
+    max-width: 640px;
+    padding-right: 16px;
+    border-right: 2px solid var(--rule-line);
+  }
+
+  .byline {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    border-top: 1px solid var(--rule-hair);
+    border-bottom: 1px solid var(--rule-hair);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--ink-stone);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .byline span { display: flex; align-items: center; gap: 6px; }
+  .byline svg { width: 11px; height: 11px; }
+  .byline .sep { color: var(--ink-silver); }
+
+  .lead-cta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  /* Hero — Secondary Stories */
+  .secondary-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding-top: 4px;
+  }
+
+  .sec-title-bar {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--ink-black);
+    margin-bottom: 4px;
+  }
+  .sec-title-bar h3 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .sec-title-bar .meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--ink-stone);
+    letter-spacing: 0.05em;
+  }
+
+  .sec-item {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 16px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .sec-item:hover { opacity: 0.75; }
+
+  .sec-thumb {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: var(--ink-graphite);
+    background-size: cover;
+    background-position: center;
+  }
+  .sec-thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.5));
+  }
+  .sec-thumb .mini-play {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px; height: 30px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 2;
+  }
+  .sec-item:hover .mini-play { opacity: 1; }
+  .mini-play svg { width: 12px; height: 12px; color: var(--rawi-red); margin-right: -1px; }
+  .sec-dur {
+    position: absolute;
+    bottom: 6px; right: 6px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    z-index: 2;
+  }
+
+  .sec-body {
+    padding-top: 4px;
+  }
+  .sec-cat {
+    font-family: var(--font-en);
+    font-size: 9.5px;
+    color: var(--rawi-red);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+  }
+  .sec-headline {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+    color: var(--ink-black);
+  }
+  .sec-item:hover .sec-headline { color: var(--rawi-red); }
+  .sec-byline {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    color: var(--ink-stone);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ============= INTRO SECTION ============= */
+  .intro {
+    background: var(--paper-cream);
+    padding: 80px 0;
+    border-top: 1px solid var(--rule-line);
+    border-bottom: 1px solid var(--rule-line);
+  }
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .intro-label {
+    font-family: var(--font-en);
+    font-size: 11px;
+    color: var(--rawi-red);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .intro-h1 {
+    font-size: 38px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .intro-h1 em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    color: var(--rawi-red-deep);
+  }
+  .intro-lead {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink-slate);
+    font-style: italic;
+  }
+
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .pillar {
+    background: var(--paper-white);
+    border: 1px solid var(--rule-line);
+    padding: 24px;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .pillar:hover {
+    transform: translateY(-3px);
+    border-color: var(--ink-silver);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+  }
+  .pillar-icon {
+    width: 40px; height: 40px;
+    background: var(--rawi-red-tint);
+    color: var(--rawi-red);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  .pillar-icon svg { width: 18px; height: 18px; }
+  .pillar h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .pillar p {
+    font-size: 13px;
+    color: var(--ink-slate);
+    line-height: 1.6;
+  }
+
+  /* ============= LATEST NEWS SECTION ============= */
+  .latest {
+    padding: 80px 0;
+    background: var(--paper-white);
+  }
+
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    margin-bottom: 36px;
+    border-bottom: 2px solid var(--ink-black);
+  }
+  .section-head-left h2 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .section-head-left .sublabel {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-stone);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .section-head-right {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .section-pills {
+    display: flex;
+    gap: 6px;
+  }
+  .section-pill {
+    font-family: var(--font-ar);
+    padding: 6px 14px;
+    font-size: 12px;
+    background: transparent;
+    border: 1px solid var(--rule-line);
+    border-radius: 100px;
+    color: var(--ink-slate);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .section-pill:hover { background: var(--paper-cream); }
+  .section-pill.active {
+    background: var(--ink-black);
+    color: white;
+    border-color: var(--ink-black);
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+  }
+  .card:hover { transform: translateY(-3px); }
+
+  .card-thumb {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: var(--ink-graphite);
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 14px;
+    border-radius: 4px;
+  }
+  .card-thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 65%, rgba(0,0,0,0.5));
+    transition: background 0.2s;
+  }
+  .card:hover .card-thumb::after {
+    background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+  }
+
+  .card-play {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 2;
+  }
+  .card:hover .card-play { opacity: 1; }
+  .card-play svg { width: 16px; height: 16px; color: var(--rawi-red); margin-right: -2px; }
+
+  .card-duration {
+    position: absolute;
+    bottom: 10px; right: 10px;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    padding: 3px 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border-radius: 2px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .card-duration svg { width: 9px; height: 9px; }
+
+  .card-rushes {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--ink-black);
+    padding: 3px 8px;
+    font-family: var(--font-en);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    z-index: 2;
+  }
+
+  .card-cat {
+    font-family: var(--font-en);
+    font-size: 10px;
+    color: var(--rawi-red);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--ink-black);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+    transition: color 0.15s;
+  }
+  .card:hover .card-title { color: var(--rawi-red); }
+  .card-byline {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--ink-stone);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ============= CATEGORIES ============= */
+  .categories {
+    padding: 80px 0;
+    background: var(--paper-cream);
+    border-top: 1px solid var(--rule-line);
+    border-bottom: 1px solid var(--rule-line);
+  }
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .cat-card {
+    background: var(--paper-white);
+    border: 1px solid var(--rule-line);
+    border-radius: 10px;
+    padding: 28px;
+    transition: all 0.25s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .cat-card:hover {
+    border-color: var(--rawi-red);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  }
+  .cat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; left: 0;
+    height: 3px;
+    background: var(--rawi-red);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s;
+  }
+  .cat-card:hover::before { transform: scaleX(1); }
+
+  .cat-card.inactive {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .cat-card.inactive:hover {
+    transform: none;
+    border-color: var(--rule-line);
+    box-shadow: none;
+  }
+
+  .cat-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .cat-icon {
+    width: 44px; height: 44px;
+    background: var(--paper-cream);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-black);
+  }
+  .cat-icon svg { width: 20px; height: 20px; }
+  .cat-count {
+    font-family: var(--font-serif);
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--rawi-red);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .cat-count.zero { color: var(--ink-ash); }
+
+  .cat-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .cat-sub {
+    font-family: var(--font-en);
+    font-size: 11px;
+    color: var(--ink-stone);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .cat-desc {
+    font-size: 13px;
+    color: var(--ink-slate);
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  .cat-link {
+    font-size: 12.5px;
+    color: var(--rawi-red);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.15s;
+  }
+  .cat-card:hover .cat-link { gap: 10px; }
+  .cat-link svg { width: 13px; height: 13px; }
+
+  .cat-soon {
+    background: var(--paper-linen);
+    color: var(--ink-stone);
+    font-family: var(--font-en);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ============= TIERS ============= */
+  .tiers {
+    padding: 90px 0;
+    background: var(--paper-white);
+  }
+
+  .tiers-head {
+    text-align: center;
+    margin-bottom: 56px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .tiers-label {
+    font-family: var(--font-en);
+    font-size: 11px;
+    color: var(--rawi-red);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tiers-h {
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .tiers-h em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+  }
+  .tiers-sub {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    color: var(--ink-slate);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .tier-card {
+    background: var(--paper-white);
+    border: 1px solid var(--rule-line);
+    border-radius: 10px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .tier-card:hover {
+    border-color: var(--ink-black);
+    transform: translateY(-3px);
+  }
+  .tier-num {
+    font-family: var(--font-serif);
+    font-size: 12px;
+    color: var(--ink-ash);
+    font-style: italic;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+  .tier-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .tier-en {
+    font-family: var(--font-en);
+    font-size: 10.5px;
+    color: var(--ink-stone);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+  .tier-usecase {
+    background: var(--paper-cream);
+    border-right: 2px solid var(--rawi-red);
+    padding: 12px 14px;
+    font-family: var(--font-serif);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-slate);
+    line-height: 1.55;
+    margin-bottom: 20px;
+    border-radius: 0 6px 6px 0;
+  }
+  .tier-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+    flex: 1;
+  }
+  .tier-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--ink-slate);
+    padding: 6px 0;
+  }
+  .tier-features svg {
+    width: 14px;
+    height: 14px;
+    color: var(--rawi-red);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  /* ============= TRUSTED BY ============= */
+  .trusted {
+    padding: 70px 0;
+    background: var(--paper-cream);
+    border-top: 1px solid var(--rule-line);
+    border-bottom: 1px solid var(--rule-line);
+  }
+  .trusted-label {
+    text-align: center;
+    font-family: var(--font-en);
+    font-size: 11px;
+    color: var(--ink-stone);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+    font-weight: 500;
+  }
+  .logo-wall {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 48px 64px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .logo-stamp {
+    font-family: var(--font-en);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink-stone);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    transition: opacity 0.2s;
+  }
+  .logo-stamp:hover { opacity: 1; }
+  .logo-stamp.serif {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 18px;
+  }
+  .logo-stamp.ar {
+    font-family: var(--font-ar);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-transform: none;
+  }
+
+  /* ============= CTA ============= */
+  .cta {
+    background: var(--ink-black);
+    color: white;
+    padding: 96px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(200, 32, 42, 0.25), transparent 70%);
+    pointer-events: none;
+  }
+  .cta::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(200, 32, 42, 0.15), transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-label {
+    font-family: var(--font-en);
+    font-size: 11px;
+    color: var(--rawi-red);
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+  .cta-label::before, .cta-label::after {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--rawi-red);
+  }
+  .cta h2 {
+    font-size: 52px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .cta h2 em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+  }
+  .cta p {
+    font-family: var(--font-serif);
+    font-size: 19px;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+  .cta-btns {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+  .cta .btn-red { border-color: var(--rawi-red); }
+  .cta .btn-outline {
+    background: transparent;
+    color: white;
+    border-color: rgba(255,255,255,0.3);
+  }
+  .cta .btn-outline:hover {
+    background: white;
+    color: var(--ink-black);
+    border-color: white;
+  }
+
+  .cta-trust {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.55);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .cta-trust span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cta-trust svg { width: 12px; height: 12px; color: var(--rawi-red); }
+
+  /* ============= FOOTER ============= */
+  footer {
+    background: var(--paper-white);
+    border-top: 1px solid var(--rule-line);
+    padding: 64px 0 32px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(3, 1fr);
+    gap: 60px;
+    margin-bottom: 48px;
+  }
+  .footer-brand h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .footer-brand p {
+    font-size: 13px;
+    color: var(--ink-slate);
+    line-height: 1.65;
+    max-width: 340px;
+  }
+  .footer-col h5 {
+    font-family: var(--font-en);
+    font-size: 11px;
+    color: var(--ink-stone);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; padding: 0; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a {
+    font-size: 13px;
+    color: var(--ink-slate);
+    transition: color 0.15s;
+  }
+  .footer-col a:hover { color: var(--rawi-red); }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule-hair);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--ink-stone);
+    letter-spacing: 0.08em;
+  }
+  .footer-bottom .right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  /* ============= RESPONSIVE ============= */
+  @media (max-width: 1100px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .intro-grid { grid-template-columns: 1fr; gap: 48px; }
+    .news-grid { grid-template-columns: repeat(2, 1fr); }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .tier-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .lead-title { font-size: 38px; }
+    .main-nav { display: none; }
+  }
+
+  @media (max-width: 720px) {
+    .container { padding: 0 20px; }
+    .dateline-inner { padding: 0 20px; flex-direction: column; gap: 6px; text-align: center; font-size: 9px; }
+    .nav-inner { padding: 0 20px; height: 68px; gap: 12px; }
+    .logo-text .en { display: none; }
+    .lang-pick { display: none; }
+    .masthead { padding: 20px 0 14px; }
+    .masthead-inner { flex-direction: column; gap: 10px; align-items: center; text-align: center; }
+    .hero { padding: 32px 0; }
+    .lead-title { font-size: 28px; }
+    .lead-dek { font-size: 15px; }
+    .intro { padding: 48px 0; }
+    .intro-h1 { font-size: 28px; }
+    .pillar-grid { grid-template-columns: 1fr; }
+    .latest, .categories, .tiers { padding: 48px 0; }
+    .section-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .section-head-left h2 { font-size: 24px; }
+    .news-grid { grid-template-columns: 1fr; }
+    .cat-grid, .tier-grid { grid-template-columns: 1fr; }
+    .cta { padding: 56px 0; }
+    .cta h2 { font-size: 32px; }
+    .cta p { font-size: 15px; }
+    .cta-btns { flex-direction: column; }
+    .cta-trust { flex-direction: column; gap: 10px; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .sec-item { grid-template-columns: 100px 1fr; gap: 12px; }
+    .sec-headline { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============= TOP DATELINE ============= -->
+<div class="dateline">
+  <div class="dateline-inner">
+    <div class="dateline-left">
+      <span class="mark">RAWI PRESS</span>
+      <span class="sep">·</span>
+      <span>الخميس 23 أبريل 2026 / 5 ذو القعدة 1447</span>
+      <span class="sep">·</span>
+      <span id="clock-top">RIYADH 00:00 GMT+3</span>
+    </div>
+    <div class="dateline-right">
+      <a href="#">الدعم</a>
+      <a href="#">الوظائف</a>
+      <a href="#">الصحفيون</a>
+      <a href="#">API</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============= NAVIGATION ============= -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">R</div>
+      <div class="logo-text">
+        <span class="ar">راوي برس</span>
+        <span class="en">Rawi Press · Est. 2026</span>
+      </div>
+    </a>
+
+    <div class="main-nav">
+      <a href="#latest">المنصة</a>
+      <a href="#categories">الأقسام</a>
+      <a href="#tiers">الاشتراكات</a>
+      <a href="#">الأسعار</a>
+      <a href="#">عن راوي</a>
+    </div>
+
+    <div class="nav-actions">
+      <div class="icon-btn" title="بحث">
+        <svg data-lucide="search"></svg>
+      </div>
+      <div class="lang-pick">
+        <button class="active">AR</button>
+        <button>EN</button>
+      </div>
+      <a href="login.html" class="btn btn-ghost">
+        <svg data-lucide="log-in"></svg>
+        تسجيل الدخول
+      </a>
+      <a href="request-access.html" class="btn btn-red">
+        طلب وصول
+        <svg data-lucide="arrow-left"></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============= MASTHEAD ============= -->
+<div class="masthead">
+  <div class="container masthead-inner">
+    <div class="masthead-label">
+      <span class="dot"></span>
+      <span>EDITION 047 · WIRE SERVICE</span>
+    </div>
+    <div class="masthead-title">
+      "الصحافة الخام في لحظتها — من قلب الحدث إلى شاشتك"
+    </div>
+    <div class="masthead-meta">
+      <span>RIYADH</span>
+      <span class="sep">·</span>
+      <span>SAUDI ARABIA</span>
+      <span class="sep">·</span>
+      <span>GMT+3</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============= HERO ============= -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+
+      <!-- LEAD STORY -->
+      <article class="lead">
+        <div class="lead-image lead-image-1">
+          <div class="lead-badge">LEAD STORY</div>
+          <div class="lead-duration">
+            <svg data-lucide="video"></svg>
+            03:45
+          </div>
+          <div class="lead-play">
+            <svg data-lucide="play" fill="currentColor"></svg>
+          </div>
+        </div>
+
+        <div class="lead-content">
+          <div class="eyebrow">
+            <span class="line"></span>
+            <span>كرة القدم · دوري روشن السعودي</span>
+          </div>
+          <h1 class="lead-title">قمة النصر والاتحاد تشعل أجواء الموسم</h1>
+          <p class="lead-dek">
+            مواجهة مثيرة بين اثنين من أكبر أندية الكرة السعودية، حيث يلتقي النصر والاتحاد في صراع كروي مليء بالنجوم والحماس — تغطية حصرية بالفيديو والنص والصور الجاهزة للبث.
+          </p>
+          <div class="byline">
+            <span><svg data-lucide="map-pin"></svg> RIYADH</span>
+            <span class="sep">·</span>
+            <span><svg data-lucide="calendar"></svg> FEB 5, 2026</span>
+            <span class="sep">·</span>
+            <span><svg data-lucide="clock"></svg> 22:36 GMT+3</span>
+            <span class="sep">·</span>
+            <span><svg data-lucide="user"></svg> RAWI CORRESPONDENT</span>
+          </div>
+          <div class="lead-cta">
+            <a href="#" class="btn btn-red btn-lg">
+              <svg data-lucide="play"></svg>
+              مشاهدة التغطية
+            </a>
+            <a href="#" class="btn btn-ghost btn-lg">
+              <svg data-lucide="bookmark"></svg>
+              حفظ القصة
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- SECONDARY STORIES -->
+      <aside class="secondary-stack">
+        <div class="sec-title-bar">
+          <h3>قصص بارزة</h3>
+          <span class="meta">TOP OF THE WIRE</span>
+        </div>
+
+        <a href="#" class="sec-item">
+          <div class="sec-thumb" style="background-image: url('https://admin.rawipress.com/media/256/DiX5LpAgLUeOBU7zfzZnuzWPcjzCzohYjkbXnNyx.jpg');">
+            <div class="mini-play"><svg data-lucide="play" fill="currentColor"></svg></div>
+            <span class="sec-dur">04:32</span>
+          </div>
+          <div class="sec-body">
+            <div class="sec-cat">سباقات السيارات</div>
+            <h3 class="sec-headline">نيوم ماكلارين في سباق الدرعية إي بري 2024</h3>
+            <span class="sec-byline">DIRIYAH · FEB 25 · RAWI WIRE</span>
+          </div>
+        </a>
+
+        <a href="#" class="sec-item">
+          <div class="sec-thumb" style="background-image: url('https://admin.rawipress.com/media/243/WXD80vUIys4sY8UJSutO6PKsMkQB7GIrvKRK5j2X.jpg');">
+            <div class="mini-play"><svg data-lucide="play" fill="currentColor"></svg></div>
+            <span class="sec-dur">05:18</span>
+          </div>
+          <div class="sec-body">
+            <div class="sec-cat">رؤية 2030</div>
+            <h3 class="sec-headline">أبرز أحداث تطوير مدينة القدية</h3>
+            <span class="sec-byline">RIYADH · FEB 1 · SPECIAL REPORT</span>
+          </div>
+        </a>
+
+        <a href="#" class="sec-item">
+          <div class="sec-thumb" style="background-image: url('https://admin.rawipress.com/media/264/kTpQ0Gw2pOffQn5nnSTm1RvSmlZPZcDdvuvD5hZp.jpg');">
+            <div class="mini-play"><svg data-lucide="play" fill="currentColor"></svg></div>
+            <span class="sec-dur">03:12</span>
+          </div>
+          <div class="sec-body">
+            <div class="sec-cat">كرة القدم</div>
+            <h3 class="sec-headline">مواجهة الوحدة والهلال في الدوري السعودي</h3>
+            <span class="sec-byline">JEDDAH · FEB 25 · LIVE COVERAGE</span>
+          </div>
+        </a>
+
+        <a href="#latest" class="btn btn-ghost" style="justify-content: center; margin-top: 8px;">
+          تصفح جميع القصص
+          <svg data-lucide="arrow-left"></svg>
+        </a>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============= INTRO / VALUE PROP ============= -->
+<section class="intro">
+  <div class="container">
+    <div class="intro-grid">
+      <div class="intro-copy">
+        <div class="intro-label">STRATEGIC NEWS INFRASTRUCTURE</div>
+        <h2 class="intro-h1">منصة أخبار <em>من قلب المملكة</em> إلى العالم.</h2>
+        <p class="intro-lead">
+          راوي برس هي الشريان الإخباري الذي يربط بين المصادر الرسمية والمؤسسات الإعلامية — تغطية احترافية بالفيديو والنص والصور، جاهزة للبث في أقل من خمس دقائق، مدعومة بأدوات ذكاء اصطناعي مبنية للسياق العربي.
+        </p>
+      </div>
+
+      <div class="pillar-grid">
+        <div class="pillar">
+          <div class="pillar-icon">
+            <svg data-lucide="zap"></svg>
+          </div>
+          <h4>من المصدر إلى الشاشة</h4>
+          <p>محتوى جاهز للبث خلال أقل من 5 دقائق من وقوع الحدث — فيديو، نص، وصور رسمية.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">
+            <svg data-lucide="sparkles"></svg>
+          </div>
+          <h4>أدوات ذكاء اصطناعي</h4>
+          <p>فويس أوفر، تشكيل عربي، تطبيق الهوية البصرية، وترجمة محسّنة للسياق الإخباري.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">
+            <svg data-lucide="shield-check"></svg>
+          </div>
+          <h4>مصادر موثقة</h4>
+          <p>كل مادة تمر على سياسة تحريرية موحدة — مع قيود استخدام واضحة لكل منطقة جغرافية.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">
+            <svg data-lucide="broadcast"></svg>
+          </div>
+          <h4>جودة بث احترافية</h4>
+          <p>صيغ HD و 4K مخصصة للتلفزيون، بالإضافة لصيغ السوشيال ميديا الجاهزة.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= LATEST NEWS ============= -->
+<section class="latest" id="latest">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-head-left">
+        <h2>أحدث الأخبار</h2>
+        <span class="sublabel">UPDATED 12 MIN AGO · 7 STORIES IN CIRCULATION</span>
+      </div>
+      <div class="section-head-right">
+        <div class="section-pills">
+          <button class="section-pill active">الكل</button>
+          <button class="section-pill">كرة القدم</button>
+          <button class="section-pill">سباقات</button>
+          <button class="section-pill">رؤية 2030</button>
+        </div>
+        <a href="#" class="btn btn-ghost">
+          عرض الأرشيف
+          <svg data-lucide="arrow-left"></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="news-grid">
+
+      <!-- Card : Al Ahli vs Abha -->
+      <a href="#" class="card">
+        <div class="card-thumb" style="background-image: url('https://admin.rawipress.com/media/261/kBo41tiM4gbAMRFIXd6zvRUsx2sD4Ri52yjzGWhM.jpg');">
+          <div class="card-play"><svg data-lucide="play" fill="currentColor"></svg></div>
+          <div class="card-duration"><svg data-lucide="video"></svg>02:55</div>
+        </div>
+        <div class="card-cat">كرة القدم</div>
+        <h3 class="card-title">مواجهة الأهلي وأبها في الدوري السعودي</h3>
+        <span class="card-byline">JEDDAH · FEB 25, 2026</span>
+      </a>
+
+      <!-- Card : Al Shabab vs Al Fateh -->
+      <a href="#" class="card">
+        <div class="card-thumb" style="background-image: url('https://admin.rawipress.com/media/260/5Kl7oX2NKdPHhTtk6ijFbcWIRFWOPPzIOSUGzVdJ.jpg');">
+          <span class="card-rushes">Rushes</span>
+          <div class="card-play"><svg data-lucide="play" fill="currentColor"></svg></div>
+          <div class="card-duration"><svg data-lucide="video"></svg>02:48</div>
+        </div>
+        <div class="card-cat">كرة القدم</div>
+        <h3 class="card-title">مواجهة الشباب والفتح — ليلة الانضباط التكتيكي</h3>
+        <span class="card-byline">RIYADH · FEB 25, 2026</span>
+      </a>
+
+      <!-- Card : Al Tai vs Al Fateh -->
+      <a href="#" class="card">
+        <div class="card-thumb" style="background-image: url('https://admin.rawipress.com/media/253/A3rzfeFmiBU9RTpij7op1pgDXCfXHXdsgzhELiGn.jpg');">
+          <div class="card-play"><svg data-lucide="play" fill="currentColor"></svg></div>
+          <div class="card-duration"><svg data-lucide="video"></svg>03:04</div>
+        </div>
+        <div class="card-cat">كرة القدم</div>
+        <h3 class="card-title">الطائي والفتح في صراع نقاط دوري روشن</h3>
+        <span class="card-byline">HAIL · FEB 25, 2026</span>
+      </a>
+
+      <!-- Card : Al Wehda vs Al Hilal -->
+      <a href="#" class="card">
+        <div class="card-thumb" style="background-image: url('https://admin.rawipress.com/media/264/kTpQ0Gw2pOffQn5nnSTm1RvSmlZPZcDdvuvD5hZp.jpg');">
+          <span class="card-rushes">Rushes</span>
+          <div class="card-play"><svg data-lucide="play" fill="currentColor"></svg></div>
+          <div class="card-duration"><svg data-lucide="video"></svg>03:12</div>
+        </div>
+        <div class="card-cat">كرة القدم</div>
+        <h3 class="card-title">الوحدة في مواجهة الهلال — الطموح يلتقي بالخبرة</h3>
+        <span class="card-byline">JEDDAH · FEB 25, 2026</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============= CATEGORIES ============= -->
+<section class="categories" id="categories">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-head-left">
+        <h2>ما نغطيه الآن</h2>
+        <span class="sublabel">EDITORIAL COVERAGE · EXPANDING MONTHLY</span>
+      </div>
+    </div>
+
+    <div class="cat-grid">
+
+      <!-- Football -->
+      <a href="#" class="cat-card">
+        <div class="cat-head">
+          <div class="cat-icon"><svg data-lucide="circle-dot"></svg></div>
+          <div class="cat-count">05</div>
+        </div>
+        <h3 class="cat-title">كرة القدم</h3>
+        <div class="cat-sub">FOOTBALL · LIVE COVERAGE</div>
+        <p class="cat-desc">تغطيات دوري روشن السعودي بالفيديو والنص، مع لقطات خام إضافية للقنوات التلفزيونية.</p>
+        <span class="cat-link">
+          تصفح القسم
+          <svg data-lucide="arrow-left"></svg>
+        </span>
+      </a>
+
+      <!-- Motorsport -->
+      <a href="#" class="cat-card">
+        <div class="cat-head">
+          <div class="cat-icon"><svg data-lucide="flag-triangle-right"></svg></div>
+          <div class="cat-count">01</div>
+        </div>
+        <h3 class="cat-title">سباقات السيارات</h3>
+        <div class="cat-sub">MOTORSPORT · FEATURED</div>
+        <p class="cat-desc">تغطيات فورمولا إي الدرعية، راليات المملكة، وأحدث السباقات العالمية من قلب السعودية.</p>
+        <span class="cat-link">
+          تصفح القسم
+          <svg data-lucide="arrow-left"></svg>
+        </span>
+      </a>
+
+      <!-- Vision 2030 -->
+      <a href="#" class="cat-card">
+        <div class="cat-head">
+          <div class="cat-icon"><svg data-lucide="building-2"></svg></div>
+          <div class="cat-count">01</div>
+        </div>
+        <h3 class="cat-title">رؤية 2030</h3>
+        <div class="cat-sub">VISION 2030 · SPECIAL</div>
+        <p class="cat-desc">مشاريع المملكة الكبرى — من القدية ونيوم والعلا — تغطيات حصرية بفيديوهات المطوّر الرسمي.</p>
+        <span class="cat-link">
+          تصفح القسم
+          <svg data-lucide="arrow-left"></svg>
+        </span>
+      </a>
+
+      <!-- Politics (coming soon) -->
+      <div class="cat-card inactive">
+        <div class="cat-head">
+          <div class="cat-icon"><svg data-lucide="landmark"></svg></div>
+          <span class="cat-soon">قريباً</span>
+        </div>
+        <h3 class="cat-title">سياسة</h3>
+        <div class="cat-sub">POLITICS · Q2 2026</div>
+        <p class="cat-desc">المؤتمرات الرسمية، القمم الإقليمية، وتصريحات المسؤولين — قريباً على المنصة.</p>
+      </div>
+
+      <!-- Economy (coming soon) -->
+      <div class="cat-card inactive">
+        <div class="cat-head">
+          <div class="cat-icon"><svg data-lucide="trending-up"></svg></div>
+          <span class="cat-soon">قريباً</span>
+        </div>
+        <h3 class="cat-title">اقتصاد</h3>
+        <div class="cat-sub">ECONOMY · Q3 2026</div>
+        <p class="cat-desc">البورصات، الاستثمار، والصفقات الاقتصادية الكبرى في المنطقة — قريباً.</p>
+      </div>
+
+      <!-- Technology (coming soon) -->
+      <div class="cat-card inactive">
+        <div class="cat-head">
+          <div class="cat-icon"><svg data-lucide="cpu"></svg></div>
+          <span class="cat-soon">قريباً</span>
+        </div>
+        <h3 class="cat-title">تكنولوجيا</h3>
+        <div class="cat-sub">TECHNOLOGY · Q4 2026</div>
+        <p class="cat-desc">LEAP، معارض الذكاء الاصطناعي، وإطلاقات شركات التقنية — قريباً.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============= TIERS ============= -->
+<section class="tiers" id="tiers">
+  <div class="container">
+    <div class="tiers-head">
+      <div class="tiers-label">SUBSCRIPTION PLANS</div>
+      <h2 class="tiers-h">مصمّمة <em>لكل فاعل</em> في المشهد الإعلامي</h2>
+      <p class="tiers-sub">
+        راوي برس تخدم أربع فئات من المشتركين — من الوزارات الحكومية إلى صنّاع المحتوى — بصلاحيات وأدوات مخصصة لكل فئة.
+      </p>
+    </div>
+
+    <div class="tier-grid">
+
+      <!-- Gov -->
+      <div class="tier-card">
+        <div class="tier-num">01</div>
+        <h3 class="tier-name">الجهات الحكومية</h3>
+        <div class="tier-en">GOVERNMENT · ENTERPRISE</div>
+        <div class="tier-usecase">
+          "هيئة الترفيه تنشر تطوير القدية مباشرة على راوي — فيصل إلى 89 قناة خلال ساعات."
+        </div>
+        <ul class="tier-features">
+          <li><svg data-lucide="check"></svg>نشر غير محدود للأخبار</li>
+          <li><svg data-lucide="check"></svg>تقارير الانتشار المفصلة</li>
+          <li><svg data-lucide="check"></svg>إدارة شبكة صحفيين</li>
+          <li><svg data-lucide="check"></svg>أدوات AI كاملة</li>
+        </ul>
+      </div>
+
+      <!-- Channels -->
+      <div class="tier-card">
+        <div class="tier-num">02</div>
+        <h3 class="tier-name">القنوات التلفزيونية</h3>
+        <div class="tier-en">TV CHANNELS · BROADCAST</div>
+        <div class="tier-usecase">
+          "SSC تختار اللقطات الخام لمباراة النصر × الاتحاد وتبثها خلال 12 دقيقة."
+        </div>
+        <ul class="tier-features">
+          <li><svg data-lucide="check"></svg>وصول للقطات الخام (Rushes)</li>
+          <li><svg data-lucide="check"></svg>صيغ بث 4K / HD</li>
+          <li><svg data-lucide="check"></svg>فريق عمل متعدد المستخدمين</li>
+          <li><svg data-lucide="check"></svg>أولوية في البث المباشر</li>
+        </ul>
+      </div>
+
+      <!-- Journalists -->
+      <div class="tier-card">
+        <div class="tier-num">03</div>
+        <h3 class="tier-name">الصحفيون المستقلون</h3>
+        <div class="tier-en">JOURNALISTS · PROFESSIONAL</div>
+        <div class="tier-usecase">
+          "محرر مستقل يأخذ تغطية فورمولا إي ويضيف فويس أوفر بصوته، وينشر خلال 20 دقيقة."
+        </div>
+        <ul class="tier-features">
+          <li><svg data-lucide="check"></svg>وصول للمحتوى الأساسي</li>
+          <li><svg data-lucide="check"></svg>3 أدوات AI شهرياً</li>
+          <li><svg data-lucide="check"></svg>صيغ السوشيال ميديا</li>
+          <li><svg data-lucide="check"></svg>هوية بصرية شخصية</li>
+        </ul>
+      </div>
+
+      <!-- Influencers -->
+      <div class="tier-card">
+        <div class="tier-num">04</div>
+        <h3 class="tier-name">صنّاع المحتوى</h3>
+        <div class="tier-en">CREATORS · SOCIAL</div>
+        <div class="tier-usecase">
+          "مؤثر رياضي يحوّل قمة الهلال × الوحدة إلى Reel عمودي بهويته خلال 3 دقائق."
+        </div>
+        <ul class="tier-features">
+          <li><svg data-lucide="check"></svg>محتوى مختار بعناية</li>
+          <li><svg data-lucide="check"></svg>تصدير عمودي (9:16)</li>
+          <li><svg data-lucide="check"></svg>مولّد الإنفوغرافيك</li>
+          <li><svg data-lucide="check"></svg>هوية بصرية مبسطة</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============= TRUSTED BY ============= -->
+<section class="trusted">
+  <div class="container">
+    <div class="trusted-label">موثوق من كبرى المؤسسات الإعلامية في المنطقة</div>
+    <div class="logo-wall">
+      <span class="logo-stamp">MBC</span>
+      <span class="logo-stamp">SSC</span>
+      <span class="logo-stamp serif">Al Arabiya</span>
+      <span class="logo-stamp ar">شاهد</span>
+      <span class="logo-stamp">SBC</span>
+      <span class="logo-stamp ar">روتانا</span>
+      <span class="logo-stamp serif">NEOM</span>
+      <span class="logo-stamp">QIDDIYA</span>
+      <span class="logo-stamp ar">هيئة الترفيه</span>
+      <span class="logo-stamp">RED SEA</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============= CTA ============= -->
+<section class="cta">
+  <div class="container cta-inner">
+    <div class="cta-label">LIMITED ACCESS · عدد الدعوات محدود</div>
+    <h2>ابدأ التغطية <em>بذكاء.</em></h2>
+    <p>
+      المنصة متاحة حالياً بنظام الدعوة فقط للمؤسسات الإعلامية والجهات الرسمية. قدّم طلب الوصول وسيتواصل معك فريق التحرير خلال 24 ساعة.
+    </p>
+    <div class="cta-btns">
+      <a href="request-access.html" class="btn btn-red btn-lg">
+        طلب وصول الآن
+        <svg data-lucide="arrow-left"></svg>
+      </a>
+      <a href="#" class="btn btn-outline btn-lg">
+        <svg data-lucide="play-circle"></svg>
+        شاهد عرض المنصة
+      </a>
+    </div>
+    <div class="cta-trust">
+      <span><svg data-lucide="check"></svg>مراجعة يدوية لكل طلب</span>
+      <span><svg data-lucide="shield"></svg>خصوصية كاملة</span>
+      <span><svg data-lucide="clock"></svg>رد خلال 24 ساعة</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============= FOOTER ============= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom: 18px;">
+          <div class="logo-mark">R</div>
+          <div class="logo-text">
+            <span class="ar">راوي برس</span>
+            <span class="en">Rawi Press · Est. 2026</span>
+          </div>
+        </div>
+        <h4>البنية الإخبارية الاستراتيجية للمنطقة.</h4>
+        <p>منصة تربط المصادر الرسمية بالقنوات والصحفيين ومنصات التواصل — مدعومة بأدوات ذكاء اصطناعي مبنية للسياق العربي، من قلب الرياض.</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>المنصة</h5>
+        <ul>
+          <li><a href="library.html">مكتبة الأخبار</a></li>
+          <li><a href="ai-studio.html">أدوات AI</a></li>
+          <li><a href="#">الأسعار</a></li>
+          <li><a href="#">الوثائق</a></li>
+          <li><a href="#">واجهة API</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>الشركة</h5>
+        <ul>
+          <li><a href="#">عن راوي</a></li>
+          <li><a href="#">الفريق التحريري</a></li>
+          <li><a href="#">الوظائف</a></li>
+          <li><a href="#">المدوّنة</a></li>
+          <li><a href="#">اتصل بنا</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>قانوني</h5>
+        <ul>
+          <li><a href="#">الشروط</a></li>
+          <li><a href="#">الخصوصية</a></li>
+          <li><a href="#">حقوق الاستخدام</a></li>
+          <li><a href="#">الامتثال</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 RAWI PRESS · STRATEGIC NEWS INFRASTRUCTURE</span>
+      <div class="right">
+        <span id="clock-bottom">RIYADH 00:00:00 GMT+3</span>
+        <span>MADE IN SAUDI ARABIA</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+
+  // Live Riyadh clock
+  function updateClock() {
+    const now = new Date();
+    const riyadh = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Riyadh' }));
+    const h = String(riyadh.getHours()).padStart(2, '0');
+    const m = String(riyadh.getMinutes()).padStart(2, '0');
+    const s = String(riyadh.getSeconds()).padStart(2, '0');
+    const top = document.getElementById('clock-top');
+    const bot = document.getElementById('clock-bottom');
+    if (top) top.textContent = `RIYADH ${h}:${m} GMT+3`;
+    if (bot) bot.textContent = `RIYADH ${h}:${m}:${s} GMT+3`;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // Section pill toggle
+  document.querySelectorAll('.section-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.section-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    });
+  });
+
+  // Language pick
+  document.querySelectorAll('.lang-pick button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.lang-pick button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
