@@ -117,8 +117,6 @@
     align-items: center;
     gap: 14px;
   }
-
-  /* Logo mark — dark background container for the white logo */
   .logo-mark {
     width: 140px;
     height: 52px;
@@ -130,14 +128,10 @@
     padding: 8px 14px;
     transition: background 0.15s;
   }
-  .logo-mark:hover {
-    background: var(--ink-graphite);
-  }
+  .logo-mark:hover { background: var(--ink-graphite); }
   .logo-mark img {
-    max-height: 100%;
-    max-width: 100%;
-    width: auto;
-    height: auto;
+    max-height: 100%; max-width: 100%;
+    width: auto; height: auto;
     object-fit: contain;
     display: block;
   }
@@ -146,9 +140,8 @@
     display: flex;
     flex-direction: column;
     line-height: 1.1;
-    padding-right: 4px;
-    border-right: 1px solid var(--rule-line);
     padding-right: 14px;
+    border-right: 1px solid var(--rule-line);
   }
   .logo-text .ar {
     font-size: 14px;
@@ -277,24 +270,13 @@
     box-shadow: 0 4px 14px rgba(200, 32, 42, 0.25);
   }
 
-  .btn-dark {
-    background: var(--ink-black);
-    color: white;
-    border-color: var(--ink-black);
-    font-weight: 600;
-  }
-  .btn-dark:hover {
-    background: var(--ink-graphite);
-    transform: translateY(-1px);
-  }
-
   .btn-lg {
     height: 48px;
     padding: 0 28px;
     font-size: 14.5px;
   }
 
-  /* ============= MASTHEAD (Editorial Header below nav) ============= */
+  /* ============= MASTHEAD ============= */
   .masthead {
     padding: 28px 0 20px;
     border-bottom: 1px solid var(--ink-black);
@@ -337,279 +319,344 @@
   }
   .masthead-meta .sep { color: var(--ink-silver); margin: 0 8px; }
 
-  /* ============= HERO ============= */
-  .hero {
-    padding: 48px 0 64px;
-    background: var(--paper-white);
+  /* ============= CINEMATIC HERO SLIDER ============= */
+  .hero-v2 {
+    position: relative;
+    background: var(--ink-black);
+    overflow: hidden;
   }
 
-  .hero-grid {
+  .hero-stage {
+    position: relative;
+    height: 620px;
+  }
+
+  .hero-slide {
+    position: absolute;
+    inset: 0;
     display: grid;
-    grid-template-columns: 1.7fr 1fr;
-    gap: 48px;
-    align-items: start;
+    grid-template-columns: 1.55fr 1fr;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease, visibility 0.7s;
+  }
+  .hero-slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 2;
   }
 
-  /* Hero — Lead Story */
-  .lead {
+  .hero-image-side {
     position: relative;
-  }
-
-  .lead-image {
-    position: relative;
-    aspect-ratio: 16/10;
     overflow: hidden;
     background: var(--ink-graphite);
-    margin-bottom: 24px;
   }
-  .lead-image::before {
-    content: '';
+
+  .hero-bg {
     position: absolute;
     inset: 0;
     background-size: cover;
     background-position: center;
-    transform: scale(1.01);
-    transition: transform 8s ease;
+    transform: scale(1.05);
   }
-  .lead-image:hover::before { transform: scale(1.05); }
-  .lead-image::after {
+  .hero-slide.active .hero-bg {
+    animation: heroKenBurns 12s ease-in-out forwards;
+  }
+  @keyframes heroKenBurns {
+    0% { transform: scale(1.05); }
+    100% { transform: scale(1.18); }
+  }
+
+  .hero-bg-1 { background-image: url('https://admin.rawipress.com/media/244/XsUz5L44o1ajslarsiEVxHkOQOw0zZPW06tC5mHY.png'); }
+  .hero-bg-2 { background-image: url('https://admin.rawipress.com/media/256/DiX5LpAgLUeOBU7zfzZnuzWPcjzCzohYjkbXnNyx.jpg'); }
+  .hero-bg-3 { background-image: url('https://admin.rawipress.com/media/243/WXD80vUIys4sY8UJSutO6PKsMkQB7GIrvKRK5j2X.jpg'); }
+
+  .hero-image-side::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.55));
+    background:
+      linear-gradient(to right, transparent 60%, rgba(0,0,0,0.35)),
+      linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 30%, transparent 65%, rgba(0,0,0,0.7));
+    z-index: 1;
   }
 
-  .lead-image-1::before {
-    background-image: url('https://admin.rawipress.com/media/244/XsUz5L44o1ajslarsiEVxHkOQOw0zZPW06tC5mHY.png');
-  }
-
-  .lead-badge {
+  .hero-chip {
     position: absolute;
-    top: 20px; right: 20px;
+    top: 32px;
+    right: 32px;
     background: var(--rawi-red);
     color: white;
-    padding: 8px 14px;
+    padding: 10px 18px;
     font-family: var(--font-en);
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    z-index: 2;
-  }
-
-  .lead-play {
-    position: absolute;
-    bottom: 20px; right: 20px;
-    width: 64px; height: 64px;
-    background: rgba(255,255,255,0.95);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    z-index: 2;
-    backdrop-filter: blur(10px);
-  }
-  .lead-play:hover { background: white; transform: scale(1.06); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
-  .lead-play svg { width: 22px; height: 22px; color: var(--rawi-red); margin-right: -2px; }
-
-  .lead-duration {
-    position: absolute;
-    bottom: 20px; left: 20px;
-    background: rgba(0,0,0,0.75);
-    color: white;
-    padding: 6px 12px;
-    font-family: var(--font-mono);
     font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    border-radius: 3px;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .lead-duration svg { width: 11px; height: 11px; }
-
-  .lead-content { max-width: 92%; }
-
-  .eyebrow {
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    z-index: 3;
     display: flex;
     align-items: center;
     gap: 10px;
+    border-radius: 2px;
+  }
+  .hero-chip .pulse-dot {
+    width: 6px; height: 6px;
+    background: white;
+    border-radius: 50%;
+    animation: heroPulse 2s ease-in-out infinite;
+  }
+  @keyframes heroPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .hero-duration-chip {
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(12px);
+    color: white;
+    padding: 9px 16px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 3;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-duration-chip svg { width: 13px; height: 13px; }
+
+  .hero-play-big {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 96px; height: 96px;
+    background: rgba(255,255,255,0.95);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 3;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-play-big::before {
+    content: '';
+    position: absolute;
+    inset: -14px;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 50%;
+    transition: all 0.3s;
+  }
+  .hero-play-big:hover {
+    transform: translate(-50%, -50%) scale(1.08);
+    background: white;
+  }
+  .hero-play-big:hover::before {
+    inset: -22px;
+    border-color: rgba(255,255,255,0.5);
+  }
+  .hero-play-big svg {
+    width: 36px; height: 36px;
+    color: var(--rawi-red);
+    margin-right: -4px;
+  }
+
+  .hero-content-side {
+    background: var(--paper-cream);
+    padding: 64px 56px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero-now-playing {
+    position: absolute;
+    top: 38px;
+    right: 56px;
+    font-family: var(--font-en);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--rawi-red);
+    font-weight: 700;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-now-playing::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--rawi-red);
+    border-radius: 50%;
+    animation: heroPulse 2s ease-in-out infinite;
+  }
+
+  .hero-eyebrow-v2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     font-family: var(--font-en);
     font-size: 11px;
     color: var(--rawi-red);
     font-weight: 600;
-    text-transform: uppercase;
     letter-spacing: 0.15em;
-    margin-bottom: 18px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
   }
-  .eyebrow .line {
-    width: 40px;
+  .hero-eyebrow-v2 .line {
+    width: 44px;
     height: 2px;
     background: var(--rawi-red);
   }
 
-  .lead-title {
-    font-size: 44px;
+  .hero-title-v2 {
+    font-size: 46px;
     font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: -0.025em;
-    margin-bottom: 20px;
+    line-height: 1.12;
+    letter-spacing: -0.028em;
+    margin-bottom: 22px;
     color: var(--ink-black);
   }
 
-  .lead-dek {
+  .hero-dek-v2 {
     font-family: var(--font-serif);
     font-size: 17px;
-    line-height: 1.65;
+    line-height: 1.7;
     color: var(--ink-slate);
     font-style: italic;
-    margin-bottom: 28px;
-    max-width: 640px;
+    margin-bottom: 26px;
     padding-right: 16px;
-    border-right: 2px solid var(--rule-line);
+    border-right: 2px solid var(--rawi-red);
   }
 
-  .byline {
+  .hero-byline-v2 {
     display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px 0;
-    border-top: 1px solid var(--rule-hair);
-    border-bottom: 1px solid var(--rule-hair);
+    flex-wrap: wrap;
+    gap: 12px;
     font-family: var(--font-mono);
     font-size: 10.5px;
     color: var(--ink-stone);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-bottom: 24px;
+    padding: 14px 0;
+    margin-bottom: 26px;
+    border-top: 1px solid var(--rule-line);
+    border-bottom: 1px solid var(--rule-line);
   }
-  .byline span { display: flex; align-items: center; gap: 6px; }
-  .byline svg { width: 11px; height: 11px; }
-  .byline .sep { color: var(--ink-silver); }
+  .hero-byline-v2 span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hero-byline-v2 svg { width: 11px; height: 11px; }
+  .hero-byline-v2 .sep { color: var(--ink-silver); }
 
-  .lead-cta {
+  .hero-actions-v2 {
     display: flex;
     gap: 10px;
     align-items: center;
   }
 
-  /* Hero — Secondary Stories */
-  .secondary-stack {
+  /* Progress pagination bar */
+  .hero-progress {
     display: flex;
-    flex-direction: column;
-    gap: 28px;
-    padding-top: 4px;
-  }
-
-  .sec-title-bar {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    padding-bottom: 14px;
-    border-bottom: 2px solid var(--ink-black);
-    margin-bottom: 4px;
-  }
-  .sec-title-bar h3 {
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-  }
-  .sec-title-bar .meta {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--ink-stone);
-    letter-spacing: 0.05em;
-  }
-
-  .sec-item {
-    display: grid;
-    grid-template-columns: 130px 1fr;
-    gap: 16px;
-    cursor: pointer;
-    transition: opacity 0.15s;
-  }
-  .sec-item:hover { opacity: 0.75; }
-
-  .sec-thumb {
+    background: var(--ink-black);
+    border-top: 1px solid var(--ink-graphite);
     position: relative;
-    aspect-ratio: 16/10;
-    overflow: hidden;
-    background: var(--ink-graphite);
-    background-size: cover;
-    background-position: center;
+    z-index: 10;
   }
-  .sec-thumb::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.5));
-  }
-  .sec-thumb .mini-play {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 30px; height: 30px;
-    background: rgba(255,255,255,0.9);
-    border-radius: 50%;
+  .hero-prog {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 18px 24px;
+    cursor: pointer;
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.15s;
-    z-index: 2;
+    gap: 14px;
+    color: rgba(255,255,255,0.4);
+    transition: color 0.2s;
+    border-left: 1px solid rgba(255,255,255,0.08);
   }
-  .sec-item:hover .mini-play { opacity: 1; }
-  .mini-play svg { width: 12px; height: 12px; color: var(--rawi-red); margin-right: -1px; }
-  .sec-dur {
-    position: absolute;
-    bottom: 6px; right: 6px;
-    background: rgba(0,0,0,0.8);
-    color: white;
-    font-family: var(--font-mono);
+  .hero-prog:first-child { border-left: none; }
+  .hero-prog:hover { color: rgba(255,255,255,0.7); }
+  .hero-prog.active { color: white; }
+
+  .hero-prog-num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 500;
+    opacity: 0.7;
+  }
+  .hero-prog.active .hero-prog-num { color: var(--rawi-red); opacity: 1; }
+
+  .hero-prog-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+    min-width: 0;
+  }
+  .hero-prog-cat {
+    font-family: var(--font-en);
     font-size: 9px;
-    padding: 2px 6px;
-    border-radius: 2px;
-    z-index: 2;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.6;
+  }
+  .hero-prog.active .hero-prog-cat {
+    color: var(--rawi-red);
+    opacity: 1;
+  }
+  .hero-prog-title {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  .sec-body {
-    padding-top: 4px;
+  .hero-prog-bar {
+    position: absolute;
+    bottom: 0;
+    right: 0; left: 0;
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
   }
-  .sec-cat {
-    font-family: var(--font-en);
-    font-size: 9.5px;
-    color: var(--rawi-red);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 6px;
+  .hero-prog-fill {
+    position: absolute;
+    top: 0; bottom: 0; right: 0;
+    width: 0%;
+    background: var(--rawi-red);
   }
-  .sec-headline {
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 1.35;
-    letter-spacing: -0.01em;
-    margin-bottom: 8px;
-    color: var(--ink-black);
+  .hero-prog.active .hero-prog-fill {
+    animation: heroProgress 7s linear forwards;
   }
-  .sec-item:hover .sec-headline { color: var(--rawi-red); }
-  .sec-byline {
-    font-family: var(--font-mono);
-    font-size: 9.5px;
-    color: var(--ink-stone);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+  @keyframes heroProgress {
+    from { width: 0%; }
+    to { width: 100%; }
   }
 
   /* ============= INTRO SECTION ============= */
   .intro {
     background: var(--paper-cream);
     padding: 80px 0;
-    border-top: 1px solid var(--rule-line);
     border-bottom: 1px solid var(--rule-line);
   }
   .intro-grid {
@@ -688,7 +735,7 @@
     line-height: 1.6;
   }
 
-  /* ============= LATEST NEWS SECTION ============= */
+  /* ============= LATEST NEWS ============= */
   .latest {
     padding: 80px 0;
     background: var(--paper-white);
@@ -896,10 +943,7 @@
   }
   .cat-card:hover::before { transform: scaleX(1); }
 
-  .cat-card.inactive {
-    opacity: 0.5;
-    cursor: default;
-  }
+  .cat-card.inactive { opacity: 0.5; cursor: default; }
   .cat-card.inactive:hover {
     transform: none;
     border-color: var(--rule-line);
@@ -930,7 +974,6 @@
     letter-spacing: -0.04em;
     line-height: 1;
   }
-  .cat-count.zero { color: var(--ink-ash); }
 
   .cat-title {
     font-size: 18px;
@@ -985,7 +1028,7 @@
   .tiers-head {
     text-align: center;
     margin-bottom: 56px;
-    max-width: 700px;
+    max-width: 720px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -1087,8 +1130,7 @@
     padding: 6px 0;
   }
   .tier-features svg {
-    width: 14px;
-    height: 14px;
+    width: 14px; height: 14px;
     color: var(--rawi-red);
     flex-shrink: 0;
     margin-top: 3px;
@@ -1270,18 +1312,12 @@
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
-  .footer-brand .logo-mark:hover {
-    background: rgba(255, 255, 255, 0.08);
-  }
+  .footer-brand .logo-mark:hover { background: rgba(255, 255, 255, 0.08); }
   .footer-brand .logo-text {
     border-right: 1px solid rgba(255, 255, 255, 0.15);
   }
-  .footer-brand .logo-text .ar {
-    color: rgba(255, 255, 255, 0.85);
-  }
-  .footer-brand .logo-text .en {
-    color: rgba(255, 255, 255, 0.4);
-  }
+  .footer-brand .logo-text .ar { color: rgba(255, 255, 255, 0.85); }
+  .footer-brand .logo-text .en { color: rgba(255, 255, 255, 0.4); }
   .footer-brand h4 {
     font-size: 16px;
     font-weight: 600;
@@ -1332,13 +1368,19 @@
 
   /* ============= RESPONSIVE ============= */
   @media (max-width: 1100px) {
-    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-stage { height: 540px; }
+    .hero-slide { grid-template-columns: 1fr; }
+    .hero-image-side { height: 300px; }
+    .hero-content-side { padding: 40px 32px; }
+    .hero-title-v2 { font-size: 32px; }
+    .hero-now-playing { top: 24px; right: 32px; }
+    .hero-prog-content { display: none; }
+    .hero-prog { justify-content: center; padding: 14px; }
     .intro-grid { grid-template-columns: 1fr; gap: 48px; }
     .news-grid { grid-template-columns: repeat(2, 1fr); }
     .cat-grid { grid-template-columns: repeat(2, 1fr); }
     .tier-grid { grid-template-columns: repeat(2, 1fr); }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-    .lead-title { font-size: 38px; }
     .main-nav { display: none; }
   }
 
@@ -1351,9 +1393,16 @@
     .lang-pick { display: none; }
     .masthead { padding: 20px 0 14px; }
     .masthead-inner { flex-direction: column; gap: 10px; align-items: center; text-align: center; }
-    .hero { padding: 32px 0; }
-    .lead-title { font-size: 28px; }
-    .lead-dek { font-size: 15px; }
+    .hero-stage { height: auto; }
+    .hero-slide { grid-template-columns: 1fr; position: relative; visibility: hidden; height: 0; overflow: hidden; }
+    .hero-slide.active { visibility: visible; height: auto; }
+    .hero-image-side { height: 260px; aspect-ratio: 16/10; }
+    .hero-content-side { padding: 32px 20px; }
+    .hero-title-v2 { font-size: 26px; }
+    .hero-dek-v2 { font-size: 15px; }
+    .hero-play-big { width: 72px; height: 72px; }
+    .hero-play-big svg { width: 26px; height: 26px; }
+    .hero-now-playing { display: none; }
     .intro { padding: 48px 0; }
     .intro-h1 { font-size: 28px; }
     .pillar-grid { grid-template-columns: 1fr; }
@@ -1369,8 +1418,6 @@
     .cta-trust { flex-direction: column; gap: 10px; }
     .footer-grid { grid-template-columns: 1fr; }
     .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-    .sec-item { grid-template-columns: 100px 1fr; gap: 12px; }
-    .sec-headline { font-size: 13px; }
   }
 </style>
 </head>
@@ -1382,7 +1429,7 @@
     <div class="dateline-left">
       <span class="mark">RAWI PRESS</span>
       <span class="sep">·</span>
-      <span>الخميس 23 أبريل 2026 / 5 ذو القعدة 1447</span>
+      <span>الخميس 5 ذو القعدة 1447هـ · 23 أبريل 2026م</span>
       <span class="sep">·</span>
       <span id="clock-top">RIYADH 00:00 GMT+3</span>
     </div>
@@ -1456,105 +1503,176 @@
   </div>
 </div>
 
-<!-- ============= HERO ============= -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-grid">
+<!-- ============= CINEMATIC HERO SLIDER ============= -->
+<section class="hero-v2">
+  <div class="hero-stage">
 
-      <!-- LEAD STORY -->
-      <article class="lead">
-        <div class="lead-image lead-image-1">
-          <div class="lead-badge">LEAD STORY</div>
-          <div class="lead-duration">
-            <svg data-lucide="video"></svg>
-            03:45
-          </div>
-          <div class="lead-play">
-            <svg data-lucide="play" fill="currentColor"></svg>
-          </div>
+    <!-- SLIDE 1 : Al Nassr vs Al Ittihad -->
+    <article class="hero-slide active" data-idx="0">
+      <div class="hero-image-side">
+        <div class="hero-bg hero-bg-1"></div>
+        <span class="hero-chip">
+          <span class="pulse-dot"></span>
+          LEAD STORY
+        </span>
+        <span class="hero-duration-chip">
+          <svg data-lucide="video"></svg>
+          03:45
+        </span>
+        <button class="hero-play-big" aria-label="شاهد التغطية">
+          <svg data-lucide="play" fill="currentColor"></svg>
+        </button>
+      </div>
+      <div class="hero-content-side">
+        <span class="hero-now-playing">NOW PLAYING</span>
+        <div class="hero-eyebrow-v2">
+          <span class="line"></span>
+          <span>كرة القدم · دوري روشن السعودي</span>
         </div>
-
-        <div class="lead-content">
-          <div class="eyebrow">
-            <span class="line"></span>
-            <span>كرة القدم · دوري روشن السعودي</span>
-          </div>
-          <h1 class="lead-title">قمة النصر والاتحاد تشعل أجواء الموسم</h1>
-          <p class="lead-dek">
-            مواجهة مثيرة بين اثنين من أكبر أندية الكرة السعودية، حيث يلتقي النصر والاتحاد في صراع كروي مليء بالنجوم والحماس — تغطية حصرية بالفيديو والنص والصور الجاهزة للبث.
-          </p>
-          <div class="byline">
-            <span><svg data-lucide="map-pin"></svg> RIYADH</span>
-            <span class="sep">·</span>
-            <span><svg data-lucide="calendar"></svg> FEB 5, 2026</span>
-            <span class="sep">·</span>
-            <span><svg data-lucide="clock"></svg> 22:36 GMT+3</span>
-            <span class="sep">·</span>
-            <span><svg data-lucide="user"></svg> RAWI CORRESPONDENT</span>
-          </div>
-          <div class="lead-cta">
-            <a href="#" class="btn btn-red btn-lg">
-              <svg data-lucide="play"></svg>
-              مشاهدة التغطية
-            </a>
-            <a href="#" class="btn btn-ghost btn-lg">
-              <svg data-lucide="bookmark"></svg>
-              حفظ القصة
-            </a>
-          </div>
+        <h1 class="hero-title-v2">قمة النصر والاتحاد تُشعل أجواء الموسم</h1>
+        <p class="hero-dek-v2">
+          مواجهة مثيرة بين أكبر أندية الكرة السعودية، يلتقي فيها النصر والاتحاد في صراع كروي مليء بالنجوم والحماس — تغطية حصرية بالفيديو والنص والصور جاهزة للبث.
+        </p>
+        <div class="hero-byline-v2">
+          <span><svg data-lucide="map-pin"></svg> الرياض</span>
+          <span class="sep">·</span>
+          <span><svg data-lucide="calendar"></svg> 5 فبراير 2026</span>
+          <span class="sep">·</span>
+          <span><svg data-lucide="clock"></svg> 22:36 GMT+3</span>
         </div>
-      </article>
-
-      <!-- SECONDARY STORIES -->
-      <aside class="secondary-stack">
-        <div class="sec-title-bar">
-          <h3>قصص بارزة</h3>
-          <span class="meta">TOP OF THE WIRE</span>
+        <div class="hero-actions-v2">
+          <a href="#" class="btn btn-red btn-lg">
+            <svg data-lucide="play"></svg>
+            شاهد التغطية
+          </a>
+          <a href="#" class="btn btn-ghost btn-lg">
+            <svg data-lucide="bookmark"></svg>
+            إضافة للمحفوظات
+          </a>
         </div>
+      </div>
+    </article>
 
-        <a href="#" class="sec-item">
-          <div class="sec-thumb" style="background-image: url('https://admin.rawipress.com/media/256/DiX5LpAgLUeOBU7zfzZnuzWPcjzCzohYjkbXnNyx.jpg');">
-            <div class="mini-play"><svg data-lucide="play" fill="currentColor"></svg></div>
-            <span class="sec-dur">04:32</span>
-          </div>
-          <div class="sec-body">
-            <div class="sec-cat">سباقات السيارات</div>
-            <h3 class="sec-headline">نيوم ماكلارين في سباق الدرعية إي بري 2024</h3>
-            <span class="sec-byline">DIRIYAH · FEB 25 · RAWI WIRE</span>
-          </div>
-        </a>
+    <!-- SLIDE 2 : Formula E -->
+    <article class="hero-slide" data-idx="1">
+      <div class="hero-image-side">
+        <div class="hero-bg hero-bg-2"></div>
+        <span class="hero-chip">
+          <span class="pulse-dot"></span>
+          FEATURED
+        </span>
+        <span class="hero-duration-chip">
+          <svg data-lucide="video"></svg>
+          04:32
+        </span>
+        <button class="hero-play-big" aria-label="شاهد التغطية">
+          <svg data-lucide="play" fill="currentColor"></svg>
+        </button>
+      </div>
+      <div class="hero-content-side">
+        <span class="hero-now-playing">NOW PLAYING</span>
+        <div class="hero-eyebrow-v2">
+          <span class="line"></span>
+          <span>سباقات السيارات · FORMULA E</span>
+        </div>
+        <h1 class="hero-title-v2">نيوم ماكلارين في سباق الدرعية إي بري 2024</h1>
+        <p class="hero-dek-v2">
+          ليلة حماسية من سباقات السرعة الكهربائية بمشاركة فريق نيوم ماكلارين فورمولا إي في أحد أبرز جولات بطولة العالم — محتوى حصري بجودة البث الاحترافي.
+        </p>
+        <div class="hero-byline-v2">
+          <span><svg data-lucide="map-pin"></svg> الدرعية</span>
+          <span class="sep">·</span>
+          <span><svg data-lucide="calendar"></svg> 25 فبراير 2026</span>
+          <span class="sep">·</span>
+          <span><svg data-lucide="clock"></svg> 14:58 GMT+3</span>
+        </div>
+        <div class="hero-actions-v2">
+          <a href="#" class="btn btn-red btn-lg">
+            <svg data-lucide="play"></svg>
+            شاهد التغطية
+          </a>
+          <a href="#" class="btn btn-ghost btn-lg">
+            <svg data-lucide="bookmark"></svg>
+            إضافة للمحفوظات
+          </a>
+        </div>
+      </div>
+    </article>
 
-        <a href="#" class="sec-item">
-          <div class="sec-thumb" style="background-image: url('https://admin.rawipress.com/media/243/WXD80vUIys4sY8UJSutO6PKsMkQB7GIrvKRK5j2X.jpg');">
-            <div class="mini-play"><svg data-lucide="play" fill="currentColor"></svg></div>
-            <span class="sec-dur">05:18</span>
-          </div>
-          <div class="sec-body">
-            <div class="sec-cat">رؤية 2030</div>
-            <h3 class="sec-headline">أبرز أحداث تطوير مدينة القدية</h3>
-            <span class="sec-byline">RIYADH · FEB 1 · SPECIAL REPORT</span>
-          </div>
-        </a>
+    <!-- SLIDE 3 : Qiddiya -->
+    <article class="hero-slide" data-idx="2">
+      <div class="hero-image-side">
+        <div class="hero-bg hero-bg-3"></div>
+        <span class="hero-chip">
+          <span class="pulse-dot"></span>
+          SPECIAL REPORT
+        </span>
+        <span class="hero-duration-chip">
+          <svg data-lucide="video"></svg>
+          05:18
+        </span>
+        <button class="hero-play-big" aria-label="شاهد التغطية">
+          <svg data-lucide="play" fill="currentColor"></svg>
+        </button>
+      </div>
+      <div class="hero-content-side">
+        <span class="hero-now-playing">NOW PLAYING</span>
+        <div class="hero-eyebrow-v2">
+          <span class="line"></span>
+          <span>رؤية 2030 · قطاع الترفيه</span>
+        </div>
+        <h1 class="hero-title-v2">أبرز مستجدات تطوير مدينة القدية</h1>
+        <p class="hero-dek-v2">
+          تقرير خاص يرصد أهم المحطات في مشروع القدية — عاصمة الترفيه والرياضة والثقافة، أحد أبرز مشاريع رؤية المملكة 2030 وبوابة المستقبل الترفيهي في المنطقة.
+        </p>
+        <div class="hero-byline-v2">
+          <span><svg data-lucide="map-pin"></svg> الرياض</span>
+          <span class="sep">·</span>
+          <span><svg data-lucide="calendar"></svg> 1 فبراير 2026</span>
+          <span class="sep">·</span>
+          <span><svg data-lucide="clock"></svg> 17:35 GMT+3</span>
+        </div>
+        <div class="hero-actions-v2">
+          <a href="#" class="btn btn-red btn-lg">
+            <svg data-lucide="play"></svg>
+            شاهد التغطية
+          </a>
+          <a href="#" class="btn btn-ghost btn-lg">
+            <svg data-lucide="bookmark"></svg>
+            إضافة للمحفوظات
+          </a>
+        </div>
+      </div>
+    </article>
 
-        <a href="#" class="sec-item">
-          <div class="sec-thumb" style="background-image: url('https://admin.rawipress.com/media/264/kTpQ0Gw2pOffQn5nnSTm1RvSmlZPZcDdvuvD5hZp.jpg');">
-            <div class="mini-play"><svg data-lucide="play" fill="currentColor"></svg></div>
-            <span class="sec-dur">03:12</span>
-          </div>
-          <div class="sec-body">
-            <div class="sec-cat">كرة القدم</div>
-            <h3 class="sec-headline">مواجهة الوحدة والهلال في الدوري السعودي</h3>
-            <span class="sec-byline">JEDDAH · FEB 25 · LIVE COVERAGE</span>
-          </div>
-        </a>
+  </div>
 
-        <a href="#latest" class="btn btn-ghost" style="justify-content: center; margin-top: 8px;">
-          تصفح جميع القصص
-          <svg data-lucide="arrow-left"></svg>
-        </a>
-      </aside>
-
-    </div>
+  <!-- Hero Progress Pagination -->
+  <div class="hero-progress">
+    <button class="hero-prog active" data-idx="0">
+      <span class="hero-prog-num">01</span>
+      <span class="hero-prog-content">
+        <span class="hero-prog-cat">كرة القدم</span>
+        <span class="hero-prog-title">قمة النصر والاتحاد</span>
+      </span>
+      <span class="hero-prog-bar"><span class="hero-prog-fill"></span></span>
+    </button>
+    <button class="hero-prog" data-idx="1">
+      <span class="hero-prog-num">02</span>
+      <span class="hero-prog-content">
+        <span class="hero-prog-cat">سباقات السيارات</span>
+        <span class="hero-prog-title">نيوم ماكلارين — الدرعية</span>
+      </span>
+      <span class="hero-prog-bar"><span class="hero-prog-fill"></span></span>
+    </button>
+    <button class="hero-prog" data-idx="2">
+      <span class="hero-prog-num">03</span>
+      <span class="hero-prog-content">
+        <span class="hero-prog-cat">رؤية 2030</span>
+        <span class="hero-prog-title">تطوير مدينة القدية</span>
+      </span>
+      <span class="hero-prog-bar"><span class="hero-prog-fill"></span></span>
+    </button>
   </div>
 </section>
 
@@ -1566,38 +1684,30 @@
         <div class="intro-label">STRATEGIC NEWS INFRASTRUCTURE</div>
         <h2 class="intro-h1">منصة أخبار <em>من قلب المملكة</em> إلى العالم.</h2>
         <p class="intro-lead">
-          راوي برس هي الشريان الإخباري الذي يربط بين المصادر الرسمية والمؤسسات الإعلامية — تغطية احترافية بالفيديو والنص والصور، جاهزة للبث في أقل من خمس دقائق، مدعومة بأدوات ذكاء اصطناعي مبنية للسياق العربي.
+          راوي برس هي البنية الإخبارية التي تربط المصادر الرسمية بالمؤسسات الإعلامية في المنطقة — تغطية احترافية بالفيديو والنص والصور جاهزة للبث في أقل من خمس دقائق، مدعومة بأدوات ذكاء اصطناعي مخصصة للسياق الإخباري العربي.
         </p>
       </div>
 
       <div class="pillar-grid">
         <div class="pillar">
-          <div class="pillar-icon">
-            <svg data-lucide="zap"></svg>
-          </div>
+          <div class="pillar-icon"><svg data-lucide="zap"></svg></div>
           <h4>من المصدر إلى الشاشة</h4>
-          <p>محتوى جاهز للبث خلال أقل من 5 دقائق من وقوع الحدث — فيديو، نص، وصور رسمية.</p>
+          <p>محتوى جاهز للبث خلال أقل من 5 دقائق من وقوع الحدث — فيديو ونص وصور رسمية.</p>
         </div>
         <div class="pillar">
-          <div class="pillar-icon">
-            <svg data-lucide="sparkles"></svg>
-          </div>
+          <div class="pillar-icon"><svg data-lucide="sparkles"></svg></div>
           <h4>أدوات ذكاء اصطناعي</h4>
-          <p>فويس أوفر، تشكيل عربي، تطبيق الهوية البصرية، وترجمة محسّنة للسياق الإخباري.</p>
+          <p>تعليق صوتي احترافي، تشكيل النصوص، تطبيق الهوية البصرية، وترجمة محسّنة للسياق الإخباري.</p>
         </div>
         <div class="pillar">
-          <div class="pillar-icon">
-            <svg data-lucide="shield-check"></svg>
-          </div>
+          <div class="pillar-icon"><svg data-lucide="shield-check"></svg></div>
           <h4>مصادر موثقة</h4>
           <p>كل مادة تمر على سياسة تحريرية موحدة — مع قيود استخدام واضحة لكل منطقة جغرافية.</p>
         </div>
         <div class="pillar">
-          <div class="pillar-icon">
-            <svg data-lucide="broadcast"></svg>
-          </div>
+          <div class="pillar-icon"><svg data-lucide="broadcast"></svg></div>
           <h4>جودة بث احترافية</h4>
-          <p>صيغ HD و 4K مخصصة للتلفزيون، بالإضافة لصيغ السوشيال ميديا الجاهزة.</p>
+          <p>صيغ HD و 4K مخصصة للتلفزيون، إلى جانب صيغ السوشيال ميديا الجاهزة للنشر.</p>
         </div>
       </div>
     </div>
@@ -1628,18 +1738,16 @@
 
     <div class="news-grid">
 
-      <!-- Card : Al Ahli vs Abha -->
       <a href="#" class="card">
         <div class="card-thumb" style="background-image: url('https://admin.rawipress.com/media/261/kBo41tiM4gbAMRFIXd6zvRUsx2sD4Ri52yjzGWhM.jpg');">
           <div class="card-play"><svg data-lucide="play" fill="currentColor"></svg></div>
           <div class="card-duration"><svg data-lucide="video"></svg>02:55</div>
         </div>
         <div class="card-cat">كرة القدم</div>
-        <h3 class="card-title">مواجهة الأهلي وأبها في الدوري السعودي</h3>
+        <h3 class="card-title">الأهلي يواجه أبها في الدوري السعودي</h3>
         <span class="card-byline">JEDDAH · FEB 25, 2026</span>
       </a>
 
-      <!-- Card : Al Shabab vs Al Fateh -->
       <a href="#" class="card">
         <div class="card-thumb" style="background-image: url('https://admin.rawipress.com/media/260/5Kl7oX2NKdPHhTtk6ijFbcWIRFWOPPzIOSUGzVdJ.jpg');">
           <span class="card-rushes">Rushes</span>
@@ -1647,11 +1755,10 @@
           <div class="card-duration"><svg data-lucide="video"></svg>02:48</div>
         </div>
         <div class="card-cat">كرة القدم</div>
-        <h3 class="card-title">مواجهة الشباب والفتح — ليلة الانضباط التكتيكي</h3>
+        <h3 class="card-title">الشباب والفتح في لقاء الانضباط التكتيكي</h3>
         <span class="card-byline">RIYADH · FEB 25, 2026</span>
       </a>
 
-      <!-- Card : Al Tai vs Al Fateh -->
       <a href="#" class="card">
         <div class="card-thumb" style="background-image: url('https://admin.rawipress.com/media/253/A3rzfeFmiBU9RTpij7op1pgDXCfXHXdsgzhELiGn.jpg');">
           <div class="card-play"><svg data-lucide="play" fill="currentColor"></svg></div>
@@ -1662,7 +1769,6 @@
         <span class="card-byline">HAIL · FEB 25, 2026</span>
       </a>
 
-      <!-- Card : Al Wehda vs Al Hilal -->
       <a href="#" class="card">
         <div class="card-thumb" style="background-image: url('https://admin.rawipress.com/media/264/kTpQ0Gw2pOffQn5nnSTm1RvSmlZPZcDdvuvD5hZp.jpg');">
           <span class="card-rushes">Rushes</span>
@@ -1670,7 +1776,7 @@
           <div class="card-duration"><svg data-lucide="video"></svg>03:12</div>
         </div>
         <div class="card-cat">كرة القدم</div>
-        <h3 class="card-title">الوحدة في مواجهة الهلال — الطموح يلتقي بالخبرة</h3>
+        <h3 class="card-title">الوحدة يواجه الهلال: الطموح أمام الخبرة</h3>
         <span class="card-byline">JEDDAH · FEB 25, 2026</span>
       </a>
 
@@ -1690,7 +1796,6 @@
 
     <div class="cat-grid">
 
-      <!-- Football -->
       <a href="#" class="cat-card">
         <div class="cat-head">
           <div class="cat-icon"><svg data-lucide="circle-dot"></svg></div>
@@ -1700,12 +1805,11 @@
         <div class="cat-sub">FOOTBALL · LIVE COVERAGE</div>
         <p class="cat-desc">تغطيات دوري روشن السعودي بالفيديو والنص، مع لقطات خام إضافية للقنوات التلفزيونية.</p>
         <span class="cat-link">
-          تصفح القسم
+          عرض القسم
           <svg data-lucide="arrow-left"></svg>
         </span>
       </a>
 
-      <!-- Motorsport -->
       <a href="#" class="cat-card">
         <div class="cat-head">
           <div class="cat-icon"><svg data-lucide="flag-triangle-right"></svg></div>
@@ -1713,14 +1817,13 @@
         </div>
         <h3 class="cat-title">سباقات السيارات</h3>
         <div class="cat-sub">MOTORSPORT · FEATURED</div>
-        <p class="cat-desc">تغطيات فورمولا إي الدرعية، راليات المملكة، وأحدث السباقات العالمية من قلب السعودية.</p>
+        <p class="cat-desc">تغطيات فورمولا إي الدرعية، راليات المملكة، وأبرز السباقات العالمية من قلب السعودية.</p>
         <span class="cat-link">
-          تصفح القسم
+          عرض القسم
           <svg data-lucide="arrow-left"></svg>
         </span>
       </a>
 
-      <!-- Vision 2030 -->
       <a href="#" class="cat-card">
         <div class="cat-head">
           <div class="cat-icon"><svg data-lucide="building-2"></svg></div>
@@ -1728,14 +1831,13 @@
         </div>
         <h3 class="cat-title">رؤية 2030</h3>
         <div class="cat-sub">VISION 2030 · SPECIAL</div>
-        <p class="cat-desc">مشاريع المملكة الكبرى — من القدية ونيوم والعلا — تغطيات حصرية بفيديوهات المطوّر الرسمي.</p>
+        <p class="cat-desc">مشاريع المملكة الكبرى — من القدية ونيوم والعُلا — تغطيات حصرية بفيديوهات المطوّر الرسمي.</p>
         <span class="cat-link">
-          تصفح القسم
+          عرض القسم
           <svg data-lucide="arrow-left"></svg>
         </span>
       </a>
 
-      <!-- Politics (coming soon) -->
       <div class="cat-card inactive">
         <div class="cat-head">
           <div class="cat-icon"><svg data-lucide="landmark"></svg></div>
@@ -1746,7 +1848,6 @@
         <p class="cat-desc">المؤتمرات الرسمية، القمم الإقليمية، وتصريحات المسؤولين — قريباً على المنصة.</p>
       </div>
 
-      <!-- Economy (coming soon) -->
       <div class="cat-card inactive">
         <div class="cat-head">
           <div class="cat-icon"><svg data-lucide="trending-up"></svg></div>
@@ -1757,7 +1858,6 @@
         <p class="cat-desc">البورصات، الاستثمار، والصفقات الاقتصادية الكبرى في المنطقة — قريباً.</p>
       </div>
 
-      <!-- Technology (coming soon) -->
       <div class="cat-card inactive">
         <div class="cat-head">
           <div class="cat-icon"><svg data-lucide="cpu"></svg></div>
@@ -1779,35 +1879,33 @@
       <div class="tiers-label">SUBSCRIPTION PLANS</div>
       <h2 class="tiers-h">مصمّمة <em>لكل فاعل</em> في المشهد الإعلامي</h2>
       <p class="tiers-sub">
-        راوي برس تخدم أربع فئات من المشتركين — من الوزارات الحكومية إلى صنّاع المحتوى — بصلاحيات وأدوات مخصصة لكل فئة.
+        راوي برس تخدم أربع فئات من المشتركين — من الجهات الحكومية إلى صنّاع المحتوى — بصلاحيات وأدوات مخصصة لكل فئة.
       </p>
     </div>
 
     <div class="tier-grid">
 
-      <!-- Gov -->
       <div class="tier-card">
         <div class="tier-num">01</div>
         <h3 class="tier-name">الجهات الحكومية</h3>
         <div class="tier-en">GOVERNMENT · ENTERPRISE</div>
         <div class="tier-usecase">
-          "هيئة الترفيه تنشر تطوير القدية مباشرة على راوي — فيصل إلى 89 قناة خلال ساعات."
+          "الهيئة العامة للترفيه تنشر مستجدات القدية على راوي — لتصل التغطية إلى 89 قناة خلال ساعات."
         </div>
         <ul class="tier-features">
           <li><svg data-lucide="check"></svg>نشر غير محدود للأخبار</li>
-          <li><svg data-lucide="check"></svg>تقارير الانتشار المفصلة</li>
-          <li><svg data-lucide="check"></svg>إدارة شبكة صحفيين</li>
-          <li><svg data-lucide="check"></svg>أدوات AI كاملة</li>
+          <li><svg data-lucide="check"></svg>تقارير الانتشار المفصّلة</li>
+          <li><svg data-lucide="check"></svg>إدارة شبكة الصحفيين</li>
+          <li><svg data-lucide="check"></svg>أدوات ذكاء اصطناعي كاملة</li>
         </ul>
       </div>
 
-      <!-- Channels -->
       <div class="tier-card">
         <div class="tier-num">02</div>
         <h3 class="tier-name">القنوات التلفزيونية</h3>
         <div class="tier-en">TV CHANNELS · BROADCAST</div>
         <div class="tier-usecase">
-          "SSC تختار اللقطات الخام لمباراة النصر × الاتحاد وتبثها خلال 12 دقيقة."
+          "قناة SSC تستلم اللقطات الخام لمباراة النصر × الاتحاد وتبثها خلال 12 دقيقة من انتهاء المباراة."
         </div>
         <ul class="tier-features">
           <li><svg data-lucide="check"></svg>وصول للقطات الخام (Rushes)</li>
@@ -1817,35 +1915,33 @@
         </ul>
       </div>
 
-      <!-- Journalists -->
       <div class="tier-card">
         <div class="tier-num">03</div>
         <h3 class="tier-name">الصحفيون المستقلون</h3>
         <div class="tier-en">JOURNALISTS · PROFESSIONAL</div>
         <div class="tier-usecase">
-          "محرر مستقل يأخذ تغطية فورمولا إي ويضيف فويس أوفر بصوته، وينشر خلال 20 دقيقة."
+          "صحفي مستقل يستخدم تغطية فورمولا إي ويضيف تعليقاً صوتياً بصوته، وينشر خلال 20 دقيقة."
         </div>
         <ul class="tier-features">
           <li><svg data-lucide="check"></svg>وصول للمحتوى الأساسي</li>
-          <li><svg data-lucide="check"></svg>3 أدوات AI شهرياً</li>
-          <li><svg data-lucide="check"></svg>صيغ السوشيال ميديا</li>
+          <li><svg data-lucide="check"></svg>3 أدوات ذكاء اصطناعي شهرياً</li>
+          <li><svg data-lucide="check"></svg>صيغ السوشيال ميديا الجاهزة</li>
           <li><svg data-lucide="check"></svg>هوية بصرية شخصية</li>
         </ul>
       </div>
 
-      <!-- Influencers -->
       <div class="tier-card">
         <div class="tier-num">04</div>
         <h3 class="tier-name">صنّاع المحتوى</h3>
         <div class="tier-en">CREATORS · SOCIAL</div>
         <div class="tier-usecase">
-          "مؤثر رياضي يحوّل قمة الهلال × الوحدة إلى Reel عمودي بهويته خلال 3 دقائق."
+          "صانع محتوى رياضي يحوّل قمة الهلال × الوحدة إلى فيديو عمودي بهويته خلال 3 دقائق."
         </div>
         <ul class="tier-features">
           <li><svg data-lucide="check"></svg>محتوى مختار بعناية</li>
           <li><svg data-lucide="check"></svg>تصدير عمودي (9:16)</li>
           <li><svg data-lucide="check"></svg>مولّد الإنفوغرافيك</li>
-          <li><svg data-lucide="check"></svg>هوية بصرية مبسطة</li>
+          <li><svg data-lucide="check"></svg>هوية بصرية مبسّطة</li>
         </ul>
       </div>
 
@@ -1875,8 +1971,8 @@
 <!-- ============= CTA ============= -->
 <section class="cta">
   <div class="container cta-inner">
-    <div class="cta-label">LIMITED ACCESS · عدد الدعوات محدود</div>
-    <h2>ابدأ التغطية <em>بذكاء.</em></h2>
+    <div class="cta-label">LIMITED ACCESS · الوصول عبر الدعوة</div>
+    <h2>انضم إلى <em>الشريان الإخباري</em> للمنطقة.</h2>
     <p>
       المنصة متاحة حالياً بنظام الدعوة فقط للمؤسسات الإعلامية والجهات الرسمية. قدّم طلب الوصول وسيتواصل معك فريق التحرير خلال 24 ساعة.
     </p>
@@ -1913,14 +2009,14 @@
           </div>
         </div>
         <h4>البنية الإخبارية الاستراتيجية للمنطقة.</h4>
-        <p>منصة تربط المصادر الرسمية بالقنوات والصحفيين ومنصات التواصل — مدعومة بأدوات ذكاء اصطناعي مبنية للسياق العربي، من قلب الرياض.</p>
+        <p>منصة تربط المصادر الرسمية بالقنوات والصحفيين ومنصات التواصل — مدعومة بأدوات ذكاء اصطناعي مخصصة للسياق العربي، من قلب الرياض.</p>
       </div>
 
       <div class="footer-col">
         <h5>المنصة</h5>
         <ul>
           <li><a href="library.html">مكتبة الأخبار</a></li>
-          <li><a href="ai-studio.html">أدوات AI</a></li>
+          <li><a href="ai-studio.html">أدوات الذكاء الاصطناعي</a></li>
           <li><a href="#">الأسعار</a></li>
           <li><a href="#">الوثائق</a></li>
           <li><a href="#">واجهة API</a></li>
@@ -1934,7 +2030,7 @@
           <li><a href="#">الفريق التحريري</a></li>
           <li><a href="#">الوظائف</a></li>
           <li><a href="#">المدوّنة</a></li>
-          <li><a href="#">اتصل بنا</a></li>
+          <li><a href="#">تواصل معنا</a></li>
         </ul>
       </div>
 
@@ -1992,6 +2088,50 @@
       btn.classList.add('active');
     });
   });
+
+  // ============ HERO SLIDER ============
+  const heroSlides = document.querySelectorAll('.hero-slide');
+  const heroProgs = document.querySelectorAll('.hero-prog');
+  let currentHero = 0;
+  let heroTimer;
+
+  function activateHeroSlide(idx) {
+    heroSlides.forEach((s, i) => s.classList.toggle('active', i === idx));
+    heroProgs.forEach((p, i) => {
+      p.classList.remove('active');
+      // Reset progress fill animation
+      const fill = p.querySelector('.hero-prog-fill');
+      if (fill) {
+        fill.style.animation = 'none';
+        fill.offsetHeight; // force reflow
+        fill.style.animation = '';
+      }
+    });
+    heroProgs[idx].classList.add('active');
+    currentHero = idx;
+  }
+
+  function nextHeroSlide() {
+    activateHeroSlide((currentHero + 1) % heroSlides.length);
+  }
+
+  function startHeroTimer() {
+    clearInterval(heroTimer);
+    heroTimer = setInterval(nextHeroSlide, 7000);
+  }
+
+  heroProgs.forEach((prog) => {
+    prog.addEventListener('click', () => {
+      activateHeroSlide(parseInt(prog.dataset.idx));
+      startHeroTimer();
+    });
+  });
+
+  // Pause on hover over slides
+  document.querySelector('.hero-stage').addEventListener('mouseenter', () => clearInterval(heroTimer));
+  document.querySelector('.hero-stage').addEventListener('mouseleave', startHeroTimer);
+
+  startHeroTimer();
 </script>
 </body>
 </html>
